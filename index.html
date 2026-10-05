@@ -19,9 +19,7 @@ body{
     min-height:100vh;
 }
 
-button,
-input,
-select{
+button,input,select{
     font:inherit;
 }
 
@@ -82,8 +80,7 @@ button{
     color:#999;
 }
 
-input,
-select{
+input,select{
     width:100%;
     padding:14px;
     margin:7px 0;
@@ -94,8 +91,7 @@ select{
     outline:none;
 }
 
-input:focus,
-select:focus{
+input:focus,select:focus{
     border-color:#b75cff;
 }
 
@@ -448,12 +444,10 @@ hr{
     </div>
 
     <div class="card center">
-
         <p class="muted">
             O RENDER conecta pessoas para conversas,
             mensagens e chamadas.
         </p>
-
     </div>
 
 </section>
@@ -560,10 +554,7 @@ hr{
 
         <div class="profile">
 
-            <div
-                class="avatar"
-                id="homeAvatar"
-            >
+            <div class="avatar" id="homeAvatar">
                 👤
             </div>
 
@@ -591,7 +582,6 @@ hr{
 
     </div>
 
-
     <div class="balance">
 
         <div class="wallet">
@@ -610,3 +600,614 @@ hr{
         <div class="wallet">
 
             🌱 Feijões
+
+            <strong
+                class="bean"
+                id="beanBalance"
+            >
+                0
+            </strong>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="card">
+
+        <h2>Bem-vindo ao RENDER 👋</h2>
+
+        <p class="muted" style="margin-top:10px;">
+            Encontre pessoas, converse por mensagens
+            e faça chamadas.
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Como funciona?</h3>
+
+        <div class="stat">
+            <span>💬 Mensagem</span>
+            <strong>100 🪙</strong>
+        </div>
+
+        <div class="stat">
+            <span>📞 Chamada</span>
+            <strong>200 🪙/min</strong>
+        </div>
+
+        <div class="stat">
+            <span>💰 Carteira</span>
+            <strong>Moedas e feijões</strong>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= DESCOBRIR ================= -->
+
+<section id="discover" class="screen">
+
+    <div class="topbar">
+
+        <h2>Descobrir</h2>
+
+        <button
+            class="secondary small"
+            onclick="show('home')"
+        >
+            Início
+        </button>
+
+    </div>
+
+    <div id="profilesList">
+
+        <div class="person-card">
+
+            <div class="person">
+
+                <div class="avatar">
+                    👩
+                </div>
+
+                <div>
+
+                    <strong>Ana</strong>
+
+                    <div class="badge">
+                        Online
+                    </div>
+
+                </div>
+
+            </div>
+
+            <p class="muted" style="margin-top:10px;">
+                Gosto de conversar e conhecer pessoas novas.
+            </p>
+
+            <button
+                class="primary"
+                onclick="abrirChat('ana')"
+            >
+                💬 Conversar
+            </button>
+
+        </div>
+
+
+        <div class="person-card">
+
+            <div class="person">
+
+                <div class="avatar">
+                    👩
+                </div>
+
+                <div>
+
+                    <strong>Julia</strong>
+
+                    <div class="badge">
+                        Online
+                    </div>
+
+                </div>
+
+            </div>
+
+            <p class="muted" style="margin-top:10px;">
+                Vamos conversar? 😊
+            </p>
+
+            <button
+                class="primary"
+                onclick="abrirChat('julia')"
+            >
+                💬 Conversar
+            </button>
+
+        </div>
+
+
+        <div class="person-card">
+
+            <div class="person">
+
+                <div class="avatar">
+                    👩
+                </div>
+
+                <div>
+
+                    <strong>Camila</strong>
+
+                    <div class="badge">
+                        Online
+                    </div>
+
+                </div>
+
+            </div>
+
+            <p class="muted" style="margin-top:10px;">
+                Adoro uma boa conversa.
+            </p>
+
+            <button
+                class="primary"
+                onclick="abrirChat('camila')"
+            >
+                💬 Conversar
+            </button>
+
+        </div>
+
+
+        <div class="person-card">
+
+            <div class="person">
+
+                <div class="avatar">
+                    👩
+                </div>
+
+                <div>
+
+                    <strong>Marina</strong>
+
+                    <div class="badge">
+                        Online
+                    </div>
+
+                </div>
+
+            </div>
+
+            <p class="muted" style="margin-top:10px;">
+                Conheça um pouco mais sobre mim.
+            </p>
+
+            <button
+                class="primary"
+                onclick="abrirChat('marina')"
+            >
+                💬 Conversar
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CHAT ================= -->
+
+<section id="chatScreen" class="screen">
+
+    <div class="topbar">
+
+        <div class="person">
+
+            <div
+                class="avatar"
+                id="chatAvatar"
+            >
+                👩
+            </div>
+
+            <div>
+
+                <strong id="chatName">
+                    Ana
+                </strong>
+
+                <div>
+                    <span class="online"></span>
+                    online
+                </div>
+
+            </div>
+
+        </div>
+
+        <button
+            class="secondary small"
+            onclick="show('discover')"
+        >
+            ← Voltar
+        </button>
+
+    </div>
+
+    <div
+        id="messages"
+        class="chat"
+    >
+
+        <div class="msg other">
+            👩 Olá! Seja bem-vindo ao RENDER.
+        </div>
+
+    </div>
+
+    <div class="notice">
+        Cada mensagem enviada custa
+        <strong>100 🪙</strong>.
+    </div>
+
+    <input
+        id="messageInput"
+        type="text"
+        placeholder="Digite sua mensagem..."
+        onkeydown="if(event.key==='Enter') sendMessage()"
+    >
+
+    <button
+        class="primary"
+        onclick="sendMessage()"
+    >
+        Enviar — 100 🪙
+    </button>
+
+    <br><br>
+
+    <button
+        class="secondary"
+        style="width:100%;"
+        onclick="startCall()"
+    >
+        📞 Iniciar chamada
+    </button>
+
+</section>
+
+
+<!-- ================= CARTEIRA ================= -->
+
+<section id="wallet" class="screen">
+
+    <div class="topbar">
+
+        <h2>Carteira</h2>
+
+        <button
+            class="secondary small"
+            onclick="show('home')"
+        >
+            Início
+        </button>
+
+    </div>
+
+    <div class="balance">
+
+        <div class="wallet">
+
+            🪙 Moedas
+
+            <strong
+                class="coin"
+                id="walletCoins"
+            >
+                0
+            </strong>
+
+        </div>
+
+        <div class="wallet">
+
+            🌱 Feijões
+
+            <strong
+                class="bean"
+                id="walletBeans"
+            >
+                0
+            </strong>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="card">
+
+        <h2>Comprar moedas</h2>
+
+        <p class="muted" style="margin:8px 0 15px;">
+            Escolha um pacote.
+        </p>
+
+
+        <div class="package">
+
+            <strong>100 moedas</strong>
+
+            <div class="price">
+                R$ 4,90
+            </div>
+
+            <button
+                class="primary"
+                onclick="comprarPacoteSeguro(100,4.90)"
+            >
+                Comprar
+            </button>
+
+        </div>
+
+
+        <div class="package">
+
+            <strong>250 moedas</strong>
+
+            <div class="price">
+                R$ 9,90
+            </div>
+
+            <button
+                class="primary"
+                onclick="comprarPacoteSeguro(250,9.90)"
+            >
+                Comprar
+            </button>
+
+        </div>
+
+
+        <div class="package recommended">
+
+            <strong>500 moedas ⭐</strong>
+
+            <div class="price">
+                R$ 17,90
+            </div>
+
+            <button
+                class="primary"
+                onclick="comprarPacoteSeguro(500,17.90)"
+            >
+                Comprar
+            </button>
+
+        </div>
+
+
+        <div class="package">
+
+            <strong>1.000 moedas</strong>
+
+            <div class="price">
+                R$ 29,00
+            </div>
+
+            <button
+                class="primary"
+                onclick="comprarPacoteSeguro(1000,29)"
+            >
+                Comprar
+            </button>
+
+        </div>
+
+
+        <div class="package">
+
+            <strong>2.500 moedas</strong>
+
+            <div class="price">
+                R$ 69,90
+            </div>
+
+            <button
+                class="primary"
+                onclick="comprarPacoteSeguro(2500,69.90)"
+            >
+                Comprar
+            </button>
+
+        </div>
+
+
+        <div class="package">
+
+            <strong>5.000 moedas</strong>
+
+            <div class="price">
+                R$ 129,90
+            </div>
+
+            <button
+                class="primary"
+                onclick="comprarPacoteSeguro(5000,129.90)"
+            >
+                Comprar
+            </button>
+
+        </div>
+
+
+        <div class="package">
+
+            <strong>10.000 moedas</strong>
+
+            <div class="price">
+                R$ 249,90
+            </div>
+
+            <button
+                class="primary"
+                onclick="comprarPacoteSeguro(10000,249.90)"
+            >
+                Comprar
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PERFIL ================= -->
+
+<section id="profileScreen" class="screen">
+
+    <div class="topbar">
+
+        <h2>Meu perfil</h2>
+
+        <button
+            class="secondary small"
+            onclick="show('home')"
+        >
+            Início
+        </button>
+
+    </div>
+
+    <div class="card center">
+
+        <div
+            class="avatar"
+            id="profileAvatar"
+            style="margin:auto;"
+        >
+            👤
+        </div>
+
+        <h2
+            id="profileName"
+            style="margin-top:12px;"
+        >
+            Usuário
+        </h2>
+
+        <p
+            id="profileEmail"
+            class="muted"
+            style="margin-top:8px;"
+        >
+            -
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <div class="stat">
+            <span>👤 Tipo</span>
+            <strong id="profileGender">
+                -
+            </strong>
+        </div>
+
+        <div class="stat">
+            <span>🎂 Idade</span>
+            <strong id="profileAge">
+                -
+            </strong>
+        </div>
+
+    </div>
+
+    <button
+        class="danger"
+        style="width:100%;"
+        onclick="logout()"
+    >
+        Sair da conta
+    </button>
+
+</section>
+
+
+<!-- ================= CHAMADA ================= -->
+
+<section id="callScreen" class="screen">
+
+    <div class="call">
+
+        <div class="avatar">
+            👩
+        </div>
+
+        <h2 id="callName">
+            Chamada
+        </h2>
+
+        <p class="muted" style="margin-top:8px;">
+            Chamada em andamento
+        </p>
+
+        <div
+            class="timer"
+            id="callTimer"
+        >
+            00:00
+        </div>
+
+        <div class="notice">
+            Custo:
+            <strong>200 🪙 por minuto</strong>
+        </div>
+
+        <button
+            class="danger"
+            style="width:100%;"
+            onclick="encerrarChamadaTela()"
+        >
+            Encerrar chamada
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= NAVEGAÇÃO ================= -->
+
+<div
+    class="tabs"
+    id="mainTabs"
+>
+
+    <button
+        id="tabHome"
+        class="active"
+        onclick="show('home')"
+    >
+        🏠<br>
+        Início
+    </button>
+
+    <
