@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090711">
+<title>RENDER — Onde a química começa</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#090711;--panel:#151121;--panel2:#1c152b;--line:#302542;
+  --pink:#ff3fbf;--purple:#8b5cf6;--gold:#ffd45a;--green:#4ade80;
+  --text:#fff;--muted:#a9a1b8;--danger:#ff5577;
+}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}
+body{min-height:100vh}
+button,input,select{font:inherit}
+button{border:0;cursor:pointer}
+.app{width:100%;max-width:520px;min-height:100vh;margin:auto;padding:18px 16px 96px}
+.screen{display:none}.screen.active{display:block}
+.logo{text-align:center;padding:42px 8px 26px}
+.logo h1{font-size:52px;font-weight:950;letter-spacing:5px;background:linear-gradient(90deg,#ff42c5,#8b5cf6);-webkit-background-clip:text;color:transparent}
+.logo p{margin-top:8px;color:var(--muted);font-size:15px}
+.card{background:linear-gradient(145deg,#171223,#11101b);border:1px solid var(--line);border-radius:26px;padding:20px;margin-bottom:16px;box-shadow:0 12px 35px #0005}
+.card h2{font-size:24px;margin-bottom:7px}.muted{color:var(--muted);line-height:1.5}
+input,select{width:100%;padding:15px 16px;margin:7px 0;border:1px solid #3a2e4b;border-radius:17px;background:#0d0a14;color:#fff;outline:none}
+input:focus,select:focus{border-color:var(--pink);box-shadow:0 0 0 3px #ff3fbf18}
+button{width:100%;padding:14px 16px;border-radius:17px;color:#fff;margin-top:9px;font-weight:750}
+.primary{background:linear-gradient(100deg,#ff3fbf,#7c4dff);box-shadow:0 8px 22px #9d3cff35}
+.secondary{background:#2a2238;border:1px solid #3c3150}.success{background:#17683f}.danger{background:#9e2948}
+.small{width:auto;padding:10px 14px;margin:0}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0 18px}
+.brand-mini{font-weight:950;letter-spacing:2px;font-size:21px;background:linear-gradient(90deg,#ff42c5,#8b5cf6);-webkit-background-clip:text;color:transparent}
+.profile{display:flex;align-items:center;gap:11px}.profile-info{min-width:0}.profile-info strong{display:block}
+.avatar{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;background:linear-gradient(135deg,#ff43c5,#704cff);font-size:26px;border:2px solid #ffffff18}
+.online{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px #4ade80}
+.balance{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.wallet{background:linear-gradient(145deg,#1b152a,#12101b);border:1px solid var(--line);border-radius:20px;padding:15px}
+.wallet small{color:var(--muted)}.wallet strong{display:block;font-size:24px;margin-top:5px}.coin{color:var(--gold)}.bean{color:#71f5a2}
+.hero{padding:22px;border-radius:28px;background:radial-gradient(circle at 90% 0,#9c43ff55,transparent 42%),linear-gradient(135deg,#24142e,#151025);border:1px solid #4a315b;margin-bottom:18px}
+.hero h2{font-size:28px;margin-bottom:7px}.hero p{color:#c9bfd7;line-height:1.5}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin:20px 2px 12px}.section-title h3{font-size:19px}
+.person{display:flex;align-items:center;gap:12px;padding:13px;background:linear-gradient(145deg,#171223,#11101a);border:1px solid var(--line);border-radius:22px;margin-bottom:11px}
+.person .avatar{width:58px;height:58px}.person-info{flex:1;min-width:0}.person-info h3{font-size:17px}.person-info p{font-size:13px;color:var(--muted);margin-top:3px}.person button{width:auto;margin:0;padding:10px 13px}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border-radius:99px;background:#ffffff0b;color:#d9d1e5;font-size:11px;margin-top:5px}
+.tabs{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);background:#0f0b18eF;backdrop-filter:blur(18px);border-top:1px solid #302542;display:flex;z-index:30;padding:7px 4px calc(7px + env(safe-area-inset-bottom))}
+.tabs button{flex:1;background:none;color:#8f879e;border-radius:15px;padding:8px 4px;margin:0;font-size:11px}.tabs button.active{color:#fff;background:#2a1b38}
+.chat-page{height:calc(100vh - 36px);min-height:650px;display:flex;flex-direction:column}
+.chat-head{display:flex;align-items:center;gap:10px;padding:4px 0 13px}
+.chat-head .avatar{width:46px;height:46px}.chat-head-info{flex:1}.chat-head-info strong{display:block}.chat-head-info small{color:#91e9ad}
+.chat-box{flex:1;overflow-y:auto;padding:10px 3px 16px;display:flex;flex-direction:column;gap:9px}
+.msg{max-width:82%;padding:11px 14px;border-radius:18px;line-height:1.4;word-break:break-word}.msg.other{align-self:flex-start;background:#262033;border-bottom-left-radius:5px}.msg.me{align-self:flex-end;background:linear-gradient(135deg,#9a45d9,#6548d8);border-bottom-right-radius:5px}.msg small{display:block;opacity:.6;font-size:10px;margin-top:4px}
+.chat-tools{display:flex;align-items:center;gap:7px;padding:9px;background:#171222;border:1px solid var(--line);border-radius:21px}
+.tool{width:43px;height:43px;padding:0;margin:0;background:#2a2238;border-radius:14px;font-size:20px;flex:none}.tool.send{background:linear-gradient(135deg,#ff3fbf,#7c4dff);font-size:18px}
+.chat-input{flex:1!important;margin:0!important;border:0!important;background:transparent!important;padding:10px 5px!important;box-shadow:none!important}
+.chat-note{text-align:center;color:#8f879e;font-size:11px;margin:7px}
+.emoji-panel,.gift-panel{display:none;background:#171222;border:1px solid var(--line);border-radius:20px;padding:12px;margin-bottom:8px}.emoji-panel.show,.gift-panel.show{display:block}
+.emoji-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:5px}.emoji-grid button{background:#241c31;padding:8px 2px;margin:0;border-radius:11px;font-size:21px}
+.gift-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-height:310px;overflow:auto}.gift{background:#21182d;border:1px solid #352746;border-radius:17px;padding:10px;text-align:center}.gift button{background:none;padding:0;margin:0}.gift-icon{font-size:29px}.gift-name{font-size:12px;margin-top:4px}.gift-price{font-size:11px;color:var(--gold);margin-top:4px}
+.modal{display:none;position:fixed;inset:0;background:#000b;z-index:50;align-items:flex-end;justify-content:center;padding:12px}.modal.show{display:flex}.modal-box{width:min(500px,100%);max-height:90vh;overflow:auto;background:linear-gradient(145deg,#1a1426,#100e18);border:1px solid #3b2d4d;border-radius:28px;padding:20px;box-shadow:0 -20px 60px #0008}.close{float:right;width:40px;height:40px;padding:0;margin:0;background:#2a2238;font-size:22px}
+.package{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #342845;background:#171222;padding:13px;border-radius:18px;margin-bottom:9px}.package .price{font-weight:850}.package button{width:auto;margin:0;padding:9px 12px}
+.notice{padding:12px 14px;border-radius:16px;background:#21182d;border:1px solid #3c2d4d;color:#cfc6da;margin-bottom:12px;font-size:13px;line-height:1.45}
+.stat{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #2d243a}.stat:last-child{border:0}
+.empty{text-align:center;padding:35px 15px;color:#8f879e}
+.call{text-align:center;padding:28px 12px}.timer{font-size:44px;font-weight:900;margin:12px 0}
+.filter-row{display:flex;gap:8px;overflow:auto;margin-bottom:15px}.filter{white-space:nowrap;width:auto;margin:0;padding:9px 13px;background:#211a2d;color:#aaa0b6;border:1px solid #342747}.filter.active{background:#7c3aed;color:#fff}
+.vip{background:linear-gradient(120deg,#3b2149,#24133a);border:1px solid #8e4dba}
+</style>
+</head>
+<body>
+<div class="app">
+
+<section id="login" class="screen active">
+  <div class="logo"><h1>RENDER</h1><p>Onde a química começa.</p></div>
+  <div class="card">
+    <h2>Bem-vindo de volta 💜</h2><p class="muted">Entre para continuar suas conexões.</p>
+    <input id="loginEmail" type="email" placeholder="Seu e-mail">
+    <input id="loginPassword" type="password" placeholder="Sua senha">
+    <button class="primary" onclick="login()">Entrar</button>
+    <button class="secondary" onclick="show('register')">Criar minha conta</button>
+  </div>
+  <div class="card center"><p class="muted">Converse, conheça pessoas e descubra novas conexões em um só lugar.</p></div>
+</section>
+
+<section id="register" class="screen">
+  <div class="topbar"><button class="secondary small" onclick="show('login')">← Voltar</button><span class="brand-mini">RENDER</span></div>
+  <div class="logo"><h1>RENDER</h1><p>Crie sua conta</p></div>
+  <div class="card">
+    <input id="regName" placeholder="Seu nome">
+    <input id="regEmail" type="email" placeholder="Seu e-mail">
+    <input id="regPassword" type="password" placeholder="Crie uma senha">
+    <label class="muted">Você é:</label>
+    <select id="regGender"><option value="male">Homem</option><option value="female">Mulher</option></select>
+    <input id="regAge" type="number" min="18" placeholder="Idade">
+    <button class="primary" onclick="register()">Criar conta</button>
+  </div>
+  <div class="notice">🔞 O RENDER é destinado exclusivamente a maiores de 18 anos.</div>
+</section>
+
+<section id="home" class="screen">
+  <div class="topbar">
+    <div class="profile"><div class="avatar" id="homeAvatar">👤</div><div class="profile-info"><strong id="homeName">Usuário</strong><span class="muted" style="font-size:12px"><span class="online"></span> online agora</span></div></div>
+    <button class="secondary small" onclick="logout()">Sair</button>
+  </div>
+  <div class="balance">
+    <div class="wallet">🪙 <small>Moedas</small><strong class="coin" id="coinBalance">0</strong></div>
+    <div class="wallet">🌱 <small>Feijões</small><strong class="bean" id="beanBalance">0</strong></div>
+  </div>
+  <div class="hero"><h2>Quem combina com você? ✨</h2><p>Descubra pessoas online e comece uma conversa sem complicação.</p><button class="primary" onclick="show('explore')">🔎 Explorar agora</button></div>
+  <div class="section-title"><h3>🔥 Online agora</h3><span class="muted">Ver todos</span></div>
+  <div id="profiles"></div>
+</section>
+
+<section id="explore" class="screen">
+  <div class="topbar"><div><span class="brand-mini">RENDER</span><h2 style="margin-top:5px">Descobrir</h2></div><button class="secondary small" onclick="openModal('rechargeModal')">🪙 <span id="exploreCoins">0</span></button></div>
+  <div class="filter-row"><button class="filter active">✨ Para você</button><button class="filter">🟢 Online</button><button class="filter">🔥 Populares</button></div>
+  <div id="profileList"></div>
+</section>
+
+<section id="chatScreen" class="screen">
+  <div class="chat-page">
+    <div class="chat-head">
+      <button class="secondary small" onclick="show('explore')">←</button>
+      <div class="avatar" id="chatAvatar">👩</div>
+      <div class="chat-head-info"><strong id="chatName">Chat</strong><small>● online agora</small></div>
+      <button class="tool" onclick="startCall()">📞</button>
+    </div>
+    <div class="chat-note">💜 1 moeda por mensagem</div>
+    <div id="messages" class="chat-box"></div>
+    <div id="emojiPanel" class="emoji-panel"><div class="emoji-grid" id="emojiGrid"></div></div>
+    <div id="giftPanel" class="gift-panel"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px"><strong>🎁 Presentes</strong><span class="muted" style="font-size:11px">20% para a host</span></div><div class="gift-grid" id="giftGrid"></div></div>
+    <div class="chat-tools">
+      <button class="tool" onclick="toggleEmoji()">😊</button>
+      <button class="tool" onclick="toggleGifts()">🎁</button>
+      <input id="messageInput" class="chat-input" placeholder="Digite uma mensagem..." onkeydown="if(event.key==='Enter')sendMessage()">
+      <button class="tool send" onclick="sendMessage()">➤</button>
+    </div>
+  </div>
+</section>
+
+<section id="walletScreen" class="screen">
+  <div class="topbar"><h2>Minha carteira</h2><button class="secondary small" onclick="openModal('rechargeModal')">+ Moedas</button></div>
+  <div class="balance"><div class="wallet">🪙 <small>Moedas</small><strong class="coin" id="walletCoins">0</strong></div><div class="wallet">🌱 <small>Feijões</small><strong class="bean" id="walletBeans">0</strong></div></div>
+  <div id="maleWallet"></div><div id="femaleWallet"></div>
+</section>
+
+<section id="profileScreen" class="screen">
+  <div class="topbar"><h2>Meu perfil</h2></div>
+  <div class="card center"><div class="avatar" id="profileAvatar" style="margin:auto">👤</div><h2 id="profileName">Usuário</h2><p class="muted" id="profileRole"></p></div>
+  <div class="card"><div class="stat"><span>Nível Host</span><strong id="hostLevel">1</strong></div><div class="stat"><span>Nível Chame</span><strong id="chameLevel">1</strong></div><div class="stat"><span>Mensagens enviadas</span><strong id="messageCount">0</strong></div><div class="stat"><span>Minutos em chamadas</span><strong id="callMinutes">0</strong></div></div>
+  <div class="card vip"><h3>👑 RENDER VIP</h3><p class="muted" style="margin-top:7px">Mais destaque, benefícios e experiências especiais.</p></div>
+</section>
+
+<nav id="nav" class="tabs" style="display:none">
+  <button id="navHome" onclick="show('home')">🏠<br>Início</button>
+  <button id="navExplore" onclick="show('explore')">✨<br>Descobrir</button>
+  <button id="navWallet" onclick="show('walletScreen')">💰<br>Carteira</button>
+  <button id="navProfile" onclick="show('profileScreen')">👤<br>Perfil</button>
+</nav>
+
+<div id="rechargeModal" class="modal"><div class="modal-box">
+  <button class="close" onclick="closeModal('rechargeModal')">×</button><h2>🪙 Comprar moedas</h2><p class="muted">Escolha seu pacote.</p><br>
+  <div id="packages"></div><div class="notice">⚠️ Protótipo: as compras são simuladas. Pagamento real será integrado depois.</div>
+</div></div>
+
+<div id="withdrawModal" class="modal"><div class="modal-box">
+  <button class="close" onclick="closeModal('withdrawModal')">×</button><h2>💸 Saque via Pix</h2><p class="muted">1.000 feijões = R$ 5,40.</p>
+  <input id="pixKey" placeholder="Sua chave Pix"><button class="success" onclick="withdraw()">Solicitar saque</button>
+</div></div>
+
+<div id="callModal" class="modal"><div class="modal-box call">
+  <div class="avatar" style="margin:auto">📞</div><h2 id="callPerson">Chamada</h2><p class="muted">Chamada em andamento</p><div class="timer" id="callTimer">00:00</div>
+  <div class="notice">💰 Custo: <strong>200 moedas por minuto</strong></div><button class="danger" onclick="endCall()">Encerrar chamada</button>
+</div></div>
+
+<script>
+const PROFILES=[
+ {id:1,name:"Ana",age:25,emoji:"👩🏻",host:3,chame:2,online:true,description:"Gosto de conversar e conhecer pessoas novas."},
+ {id:2,name:"Julia",age:28,emoji:"👩🏼",host:5,chame:4,online:true,description:"Sempre pronta para uma boa conversa."},
+ {id:3,name:"Camila",age:23,emoji:"👩🏽",host:2,chame:3,online:true,description:"Adoro uma conversa divertida."},
+ {id:4,name:"Marina",age:27,emoji:"👩🏻‍🦰",host:4,chame:5,online:true,description:"Boa conversa, risadas e muita energia."},
+ {id:5,name:"Beatriz",age:24,emoji:"👩🏾",host:3,chame:3,online:true,description:"Aqui para conhecer gente interessante."}
+];
+const PACOTES={100:4.90,250:9.90,500:17.90,1000:29.00,2500:69.90,5000:129.90,10000:249.90};
+const CUSTO_MENSAGEM=1;
+const CUSTO_CHAMADA=200;
+const FEIJOES_POR_MENSAGEM=4;
+const FEIJOES_POR_MOEDA_PRESENTE=0.8;
+const VALOR_1000_FEIJOES=5.40;
+const PRESENTES=[
+ ["❤️","Coração",10],["🌹","Rosa",25],["💋","Beijo",50],["🧸","Ursinho",100],["🍫","Chocolate",150],
+ ["💐","Buquê",250],["🥂","Champanhe",500],["💎","Diamante",1000],["👑","Coroa",2500],
+ ["💍","Anel de luxo",3000],["👜","Bolsa de luxo",4000],["⌚","Relógio de luxo",5000],
+ ["💰","Chuva de dinheiro",7500],["🏆","Troféu VIP",10000],["🦋","Borboleta de diamantes",15000],
+ ["🦁","Leão dourado",25000],["🏰","Castelo",50000],["🚀","Foguete espacial",100000]
+];
+const EMOJIS=["😀","😂","😍","🥰","😘","😉","😎","🤩","🥳","😊","😏","😮","😢","😭","😡","🤭","🙈","❤️","🧡","💛","💚","💙","💜","🖤","🔥","✨","💋","🌹","🥰","👏","🙏","🎉","💎","👑","💖"];
+let currentUser=JSON.parse(localStorage.getItem("renderUser"))||null;
+let selectedProfile=null,callInterval=null,callSeconds=0;
+
+function saveUser(){localStorage.setItem("renderUser",JSON.stringify(currentUser))}
+function syncUser(){
+ if(!currentUser)return;
+ const users=JSON.parse(localStorage.getItem("renderUsers")||"[]");
+ const i=users.findIndex(u=>u.id===currentUser.id);
+ if(i>=0){users[i]=currentUser;localStorage.setItem("renderUsers",JSON.stringify(users))}
+ saveUser();
+}
+function setText(id,v){const e=document.getElementById(id);if(e)e.textContent=v}
+function show(id){
+ document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+ const target=document.getElementById(id);if(!target)return;target.classList.add("active");
+ const noNav=["login","register","chatScreen"].includes(id);
+ const nav=document.getElementById("nav");if(nav)nav.style.display=currentUser&&!noNav?"flex":"none";
+ updateUI();renderWallet();updateNav(id);
+}
+function register(){
+ const name=document.getElementById("regName").value.trim(),email=document.getElementById("regEmail").value.trim(),password=document.getElementById("regPassword").value,gender=document.getElementById("regGender").value,age=Number(document.getElementById("regAge").value);
+ if(!name||!email||!password)return alert("Preencha todos os campos.");
+ if(password.length<4)return alert("A senha deve ter pelo menos 4 caracteres.");
+ if(!age||age<18)return alert("O RENDER é somente para maiores de 18 anos.");
+ const users=JSON.parse(localStorage.getItem("renderUsers")||"[]");
+ if(users.some(u=>u.email.toLowerCase()===email.toLowerCase()))return alert("Este e-mail já está cadastrado.");
+ currentUser={id:Date.now(),name,email,password,gender,age,coins:0,beans:0,hostLevel:1,chameLevel:1,messages:0,callMinutes:0,giftsSent:0,createdAt:new Date().toISOString()};
+ users.push(currentUser);localStorage.setItem("renderUsers",JSON.stringify(users));saveUser();alert("Conta criada com sucesso! 🎉");show("home");
+}
+function login(){
+ const email=document.getElementById("loginEmail").value.trim(),password=document.getElementById("loginPassword").value;
+ if(!email||!password)return alert("Digite seu e-mail e sua senha.");
+ const users=JSON.parse(localStorage.getItem("renderUsers")||"[]"),u=users.find(x=>x.email.toLowerCase()===email.toLowerCase()&&x.password===password);
+ if(!u)return alert("E-mail ou senha incorretos.");currentUser=u;saveUser();show("home");
+}
+function logout(){currentUser=null;localStorage.removeItem("renderUser");show("login")}
+function updateUI(){
+ if(!currentUser)return;
+ const female=currentUser.gender==="female",avatar=female?"👩":"👨";
+ setText("homeName",currentUser.name);setText("profileName",currentUser.name);setText("profileRole",female?"Mulher / Host":"Homem");
+ ["homeAvatar","profileAvatar"].forEach(id=>setText(id,avatar));
+ setText("coinBalance",currentUser.coins||0);setText("beanBalance",currentUser.beans||0);setText("walletCoins",currentUser.coins||0);setText("walletBeans",currentUser.beans||0);
+ setText("exploreCoins",currentUser.coins||0);setText("hostLevel",currentUser.hostLevel||1);setText("chameLevel",currentUser.chameLevel||1);setText("messageCount",currentUser.messages||0);setText("callMinutes",currentUser.callMinutes||0);
+}
+function renderProfiles(){
+ ["profiles","profileList"].forEach(id=>{
+  const c=document.getElementById(id);if(!c)return;c.innerHTML="";
+  PROFILES.forEach(p=>{
+   const d=document.createElement("div");d.className="person";
+   d.innerHTML=`<div class="avatar">${p.emoji}</div><div class="person-info"><h3>${p.name}, ${p.age}</h3><p><span class="online"></span> online agora</p><p>${p.description}</p><span class="badge">⭐ Host ${p.host} · 💬 Chame ${p.chame}</span></div><button class="primary" onclick="openChat(${p.id})">Conversar</button>`;
+   c.appendChild(d);
+  });
+ });
+}
+function openChat(id){
+ selectedProfile=PROFILES.find(p=>p.id===id);if(!selectedProfile)return;
+ setText("chatName",selectedProfile.name);setText("chatAvatar",selectedProfile.emoji);
+ const m=document.getElementById("messages");m.innerHTML=`<div class="msg other">Olá! Eu sou ${selectedProfile.name}. 😊<small>agora</small></div>`;
+ closePanels();show("chatScreen");m.scrollTop=m.scrollHeight;
+}
+function addMessage(text,me=true){
+ const m=document.getElementById("messages"),d=document.createElement("div");d.className="msg "+(me?"me":"other");d.innerHTML=`${escapeHtml(text)}<small>agora</small>`;m.appendChild(d);m.scrollTop=m.scrollHeight;
+}
+function escapeHtml(s){const d=document.createElement("div");d.textContent=s;return d.innerHTML}
+function sendMessage(){
+ if(!currentUser)return alert("Entre na sua conta primeiro.");
+ const input=document.getElementById("messageInput"),text=input.value.trim();if(!text)return;
+ if(currentUser.coins<CUSTO_MENSAGEM){alert("Você não possui moedas suficientes. Faça uma recarga.");openModal("rechargeModal");return}
+ currentUser.coins-=CUSTO_MENSAGEM;currentUser.messages=(currentUser.messages||0)+1;
+ addMessage(text,true);input.value="";syncUser();updateUI();
+}
+function toggleEmoji(){document.getElementById("emojiPanel").classList.toggle("show");document.getElementById("giftPanel").classList.remove("show")}
+function toggleGifts(){document.getElementById("giftPanel").classList.toggle("show");document.getElementById("emojiPanel").classList.remove("show")}
+function closePanels(){document.getElementById("emojiPanel").classList.remove("show");document.getElementById("giftPanel").classList.remove("show")}
+function addEmoji(e){const input=document.getElementById("messageInput");input.value+=e;input.focus()}
+function sendGift(index){
+ if(!currentUser)return;
+ const g=PRESENTES[index],cost=g[2];
+ if(currentUser.coins<cost){alert("Você não possui moedas suficientes para este presente.");openModal("rechargeModal");return}
+ currentUser.coins-=cost;currentUser.giftsSent=(currentUser.giftsSent||0)+1;
+ const beans=cost*FEIJOES_POR_MOEDA_PRESENTE;
+ currentUser.beans=(currentUser.beans||0)+beans;
+ addMessage(`${g[0]} Presente enviado: ${g[1]} · ${cost.toLocaleString("pt-BR")} moedas`,true);
+ syncUser();updateUI();closePanels();
+ alert(`🎁 ${g[1]} enviado! A host recebe 20% do valor econômico do presente.`);
+}
+function startCall(){
+ if(!currentUser)return;
+ if(currentUser.coins<CUSTO_CHAMADA){alert("Você precisa de pelo menos 200 moedas para iniciar a chamada.");openModal("rechargeModal");return}
+ if(!selectedProfile)return alert("Escolha uma pessoa primeiro.");
+ setText("callPerson",selectedProfile.name);callSeconds=0;updateCallTimer();openModal("callModal");clearInterval(callInterval);
+ callInterval=setInterval(()=>{callSeconds++;updateCallTimer();if(callSeconds%60===0){if(currentUser.coins>=CUSTO_CHAMADA){currentUser.coins-=CUSTO_CHAMADA;currentUser.callMinutes=(currentUser.callMinutes||0)+1;currentUser.beans=(currentUser.beans||0)+200;syncUser();updateUI()}else{alert("Suas moedas acabaram. A chamada será encerrada.");endCall()}}},1000);
+}
+function updateCallTimer(){setText("callTimer",String(Math.floor(callSeconds/60)).padStart(2,"0")+":"+String(callSeconds%60).padStart(2,"0"))}
+function endCall(){clearInterval(callInterval);callInterval=null;closeModal("callModal");syncUser();updateUI()}
+function buyCoins(amount){
+ if(!currentUser)return;const price=PACOTES[amount];if(!price)return;
+ currentUser.coins=(currentUser.coins||0)+amount;syncUser();updateUI();closeModal("rechargeModal");alert(`${amount.toLocaleString("pt-BR")} moedas adicionadas ao protótipo.`);
+}
+function withdraw(){
+ if(!currentUser)return;if(currentUser.beans<1000)return alert("Você precisa de pelo menos 1.000 feijões para solicitar saque.");
+ const pix=document.getElementById("pixKey").value.trim();if(!pix)return alert("Digite sua chave Pix.");
+ alert("Solicitação registrada no protótipo. O pagamento Pix real ainda será integrado.");closeModal("withdrawModal");
+}
+function openModal(id){document.getElementById(id)?.classList.add("show")}
+function closeModal(id){document.getElementById(id)?.classList.remove("show")}
+function renderWallet(){
+ const male=document.getElementById("maleWallet"),female=document.getElementById("femaleWallet");if(!male||!female||!currentUser)return;
+ if(currentUser.gender==="male"){
+  male.innerHTML=`<div class="card"><h2>🪙 Suas moedas</h2><p class="muted">1 moeda por mensagem. Use também para chamadas e presentes.</p><button class="primary" onclick="openModal('rechargeModal')">Comprar moedas</button></div>`;
+  female.innerHTML="";
+ }else{
+  female.innerHTML=`<div class="card"><h2>🌱 Seus ganhos</h2><p class="muted">1.000 feijões = R$ 5,40. Você recebe feijões pelas interações.</p><button class="success" onclick="openModal('withdrawModal')">💸 Solicitar saque Pix</button></div>`;
+  male.innerHTML="";
+ }
+}
+function updateNav(active){
+ const map={home:"navHome",explore:"navExplore",walletScreen:"navWallet",profileScreen:"navProfile"};
+ document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));if(map[active])document.getElementById(map[active])?.classList.add("active");
+}
+function buildPackages(){
+ const c=document.getElementById("packages");c.innerHTML="";
+ Object.entries(PACOTES).forEach(([amount,price],i=>{
+  const d=document.createElement("div");d.className="package";d.innerHTML=`<div><strong>${Number(amount).toLocaleString("pt-BR")} moedas</strong><div class="muted" style="font-size:12px">para mensagens, presentes e chamadas</div></div><div><div class="price">R$ ${price.toFixed(2).replace(".",",")}</div><button class="primary" onclick="buyCoins(${amount})">Comprar</button></div>`;c.appendChild(d);
+ }));
+}
+function buildEmojis(){const c=document.getElementById("emojiGrid");EMOJIS.forEach(e=>{const b=document.createElement("button");b.textContent=e;b.onclick=()=>addEmoji(e);c.appendChild(b)})}
+function buildGifts(){const c=document.getElementById("giftGrid");PRESENTES.forEach((g,i)=>{const d=document.createElement("div");d.className="gift";d.innerHTML=`<button onclick="sendGift(${i})"><div class="gift-icon">${g[0]}</div><div class="gift-name">${g[1]}</div><div class="gift-price">🪙 ${g[2].toLocaleString("pt-BR")}</div></button>`;c.appendChild(d)})}
+document.addEventListener("DOMContentLoaded",()=>{
+ renderProfiles();buildPackages();buildEmojis();buildGifts();
+ if(currentUser)show("home");else show("login");
+});
+</script>
+</div>
+</body>
+</html>
