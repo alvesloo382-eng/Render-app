@@ -12,19 +12,27 @@
     padding:0;
 }
 
+html,body{
+    width:100%;
+    min-height:100%;
+}
+
 body{
-    font-family:Arial,sans-serif;
+    font-family:Arial,Helvetica,sans-serif;
     background:#080b12;
     color:#fff;
     min-height:100vh;
 }
 
-button,input,select{
+button,
+input,
+select{
     font:inherit;
 }
 
 button{
     cursor:pointer;
+    border:0;
 }
 
 .app{
@@ -32,9 +40,14 @@ button{
     max-width:520px;
     min-height:100vh;
     margin:auto;
-    padding:20px 15px 90px;
+    padding:20px 15px 100px;
     background:
-        radial-gradient(circle at top,#24153b 0%,#0d1019 38%,#080b12 100%);
+        radial-gradient(
+            circle at top,
+            #24153b 0%,
+            #0d1019 38%,
+            #080b12 100%
+        );
 }
 
 .screen{
@@ -55,12 +68,14 @@ button{
     letter-spacing:5px;
     background:linear-gradient(90deg,#ff4acb,#8c5cff);
     -webkit-background-clip:text;
+    background-clip:text;
     color:transparent;
 }
 
 .logo p{
     margin-top:8px;
     color:#aaa;
+    font-size:17px;
 }
 
 .card{
@@ -80,7 +95,8 @@ button{
     color:#999;
 }
 
-input,select{
+input,
+select{
     width:100%;
     padding:14px;
     margin:7px 0;
@@ -91,12 +107,16 @@ input,select{
     outline:none;
 }
 
-input:focus,select:focus{
+input::placeholder{
+    color:#777;
+}
+
+input:focus,
+select:focus{
     border-color:#b75cff;
 }
 
 button{
-    border:0;
     border-radius:12px;
     padding:13px 16px;
     color:#fff;
@@ -106,6 +126,10 @@ button{
     width:100%;
     background:linear-gradient(90deg,#ff4acb,#8355ff);
     font-weight:bold;
+}
+
+.primary:active{
+    transform:scale(.99);
 }
 
 .secondary{
@@ -135,6 +159,7 @@ button{
     justify-content:space-between;
     align-items:center;
     padding:10px 0 20px;
+    gap:10px;
 }
 
 .profile{
@@ -146,6 +171,7 @@ button{
 .avatar{
     width:54px;
     height:54px;
+    min-width:54px;
     border-radius:50%;
     display:flex;
     align-items:center;
@@ -164,6 +190,7 @@ button{
     background:#4dff83;
     border-radius:50%;
     display:inline-block;
+    margin-right:3px;
 }
 
 .balance{
@@ -250,6 +277,7 @@ button{
     border-radius:15px;
     margin:8px 0;
     max-width:82%;
+    word-wrap:break-word;
 }
 
 .msg.other{
@@ -273,6 +301,7 @@ button{
 .stat{
     display:flex;
     justify-content:space-between;
+    gap:15px;
     padding:12px 0;
     border-bottom:1px solid #292e3b;
 }
@@ -302,8 +331,12 @@ button{
     width:min(520px,100%);
     background:#10131d;
     border-top:1px solid #303544;
-    display:flex;
+    display:none;
     z-index:20;
+}
+
+.tabs.show{
+    display:flex;
 }
 
 .tabs button{
@@ -311,47 +344,13 @@ button{
     background:none;
     color:#9298a8;
     border-radius:0;
-    padding:14px 5px;
+    padding:13px 5px;
     font-size:12px;
 }
 
 .tabs button.active{
     color:#fff;
     background:#1c2130;
-}
-
-.modal{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.75);
-    z-index:50;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-}
-
-.modal.show{
-    display:flex;
-}
-
-.modal-box{
-    width:min(480px,100%);
-    max-height:90vh;
-    overflow:auto;
-    background:#151925;
-    border:1px solid #3c4254;
-    border-radius:20px;
-    padding:20px;
-}
-
-.close{
-    float:right;
-    background:#282e3c;
-    width:38px;
-    height:38px;
-    padding:0;
-    font-size:24px;
 }
 
 .call{
@@ -383,9 +382,30 @@ hr{
     color:#888;
 }
 
+h2{
+    font-size:24px;
+}
+
+h3{
+    font-size:19px;
+}
+
 @media(max-width:360px){
+
     .logo h1{
         font-size:34px;
+    }
+
+    .balance{
+        gap:6px;
+    }
+
+    .balance .wallet{
+        padding:12px;
+    }
+
+    .wallet strong{
+        font-size:21px;
     }
 }
 </style>
@@ -395,7 +415,9 @@ hr{
 
 <div class="app">
 
-<!-- ================= LOGIN ================= -->
+<!-- ========================================================= -->
+<!-- LOGIN -->
+<!-- ========================================================= -->
 
 <section id="login" class="screen active">
 
@@ -408,7 +430,10 @@ hr{
 
         <h2>Entrar</h2>
 
-        <p class="muted" style="margin:8px 0 15px;">
+        <p
+            class="muted"
+            style="margin:8px 0 15px;"
+        >
             Entre para continuar.
         </p>
 
@@ -416,27 +441,32 @@ hr{
             id="loginEmail"
             type="email"
             placeholder="Seu e-mail"
+            autocomplete="email"
         >
 
         <input
             id="loginPassword"
             type="password"
             placeholder="Sua senha"
+            autocomplete="current-password"
         >
 
         <button
             class="primary"
+            type="button"
             onclick="login()"
         >
             Entrar
         </button>
 
-        <br><br>
+        <br>
+        <br>
 
         <button
             class="secondary"
             style="width:100%;"
-            onclick="show('register')"
+            type="button"
+            onclick="showScreen('register')"
         >
             Criar minha conta
         </button>
@@ -444,16 +474,20 @@ hr{
     </div>
 
     <div class="card center">
+
         <p class="muted">
             O RENDER conecta pessoas para conversas,
             mensagens e chamadas.
         </p>
+
     </div>
 
 </section>
 
 
-<!-- ================= CADASTRO ================= -->
+<!-- ========================================================= -->
+<!-- CADASTRO -->
+<!-- ========================================================= -->
 
 <section id="register" class="screen">
 
@@ -461,7 +495,8 @@ hr{
 
         <button
             class="secondary small"
-            onclick="show('login')"
+            type="button"
+            onclick="showScreen('login')"
         >
             ← Voltar
         </button>
@@ -486,18 +521,21 @@ hr{
             id="regName"
             type="text"
             placeholder="Seu nome"
+            autocomplete="name"
         >
 
         <input
             id="regEmail"
             type="email"
             placeholder="Seu e-mail"
+            autocomplete="email"
         >
 
         <input
             id="regPassword"
             type="password"
             placeholder="Crie uma senha"
+            autocomplete="new-password"
         >
 
         <label
@@ -529,7 +567,8 @@ hr{
 
         <button
             class="primary"
-            onclick="register()"
+            type="button"
+            onclick="registerUser()"
         >
             Criar conta
         </button>
@@ -546,7 +585,9 @@ hr{
 </section>
 
 
-<!-- ================= HOME ================= -->
+<!-- ========================================================= -->
+<!-- HOME -->
+<!-- ========================================================= -->
 
 <section id="home" class="screen">
 
@@ -554,7 +595,10 @@ hr{
 
         <div class="profile">
 
-            <div class="avatar" id="homeAvatar">
+            <div
+                class="avatar"
+                id="homeAvatar"
+            >
                 👤
             </div>
 
@@ -575,12 +619,14 @@ hr{
 
         <button
             class="secondary small"
+            type="button"
             onclick="logout()"
         >
             Sair
         </button>
 
     </div>
+
 
     <div class="balance">
 
@@ -612,36 +658,77 @@ hr{
 
     </div>
 
+
     <br>
+
 
     <div class="card">
 
-        <h2>Bem-vindo ao RENDER 👋</h2>
+        <h2>
+            Bem-vindo ao RENDER 👋
+        </h2>
 
-        <p class="muted" style="margin-top:10px;">
+        <p
+            class="muted"
+            style="margin-top:10px;"
+        >
             Encontre pessoas, converse por mensagens
             e faça chamadas.
         </p>
 
+        <br>
+
+        <button
+            class="primary"
+            type="button"
+            onclick="showScreen('discover')"
+        >
+            🔎 Encontrar pessoas
+        </button>
+
     </div>
+
 
     <div class="card">
 
-        <h3>Como funciona?</h3>
+        <h3>
+            Como funciona?
+        </h3>
 
         <div class="stat">
-            <span>💬 Mensagem</span>
-            <strong>100 🪙</strong>
+
+            <span>
+                💬 Mensagem
+            </span>
+
+            <strong>
+                100 🪙
+            </strong>
+
         </div>
 
         <div class="stat">
-            <span>📞 Chamada</span>
-            <strong>200 🪙/min</strong>
+
+            <span>
+                📞 Chamada
+            </span>
+
+            <strong>
+                200 🪙/min
+            </strong>
+
         </div>
 
         <div class="stat">
-            <span>💰 Carteira</span>
-            <strong>Moedas e feijões</strong>
+
+            <span>
+                💰 Carteira
+            </span>
+
+            <strong>
+                Moedas e feijões
+            </strong>
+
         </div>
 
     </div>
@@ -649,166 +736,194 @@ hr{
 </section>
 
 
-<!-- ================= DESCOBRIR ================= -->
+<!-- ========================================================= -->
+<!-- DESCOBRIR -->
+<!-- ========================================================= -->
 
 <section id="discover" class="screen">
 
     <div class="topbar">
 
-        <h2>Descobrir</h2>
+        <h2>
+            Descobrir
+        </h2>
 
         <button
             class="secondary small"
-            onclick="show('home')"
+            type="button"
+            onclick="showScreen('home')"
         >
             Início
         </button>
 
     </div>
 
-    <div id="profilesList">
 
-        <div class="person-card">
+    <div class="person-card">
 
-            <div class="person">
+        <div class="person">
 
-                <div class="avatar">
-                    👩
-                </div>
+            <div class="avatar">
+                👩
+            </div>
 
-                <div>
+            <div>
 
-                    <strong>Ana</strong>
+                <strong>
+                    Ana
+                </strong>
 
-                    <div class="badge">
-                        Online
-                    </div>
-
+                <div class="badge">
+                    Online
                 </div>
 
             </div>
 
-            <p class="muted" style="margin-top:10px;">
-                Gosto de conversar e conhecer pessoas novas.
-            </p>
-
-            <button
-                class="primary"
-                onclick="abrirChat('ana')"
-            >
-                💬 Conversar
-            </button>
-
         </div>
 
+        <p
+            class="muted"
+            style="margin-top:10px;"
+        >
+            Gosto de conversar e conhecer pessoas novas.
+        </p>
 
-        <div class="person-card">
+        <button
+            class="primary"
+            type="button"
+            onclick="openChat('Ana','👩')"
+        >
+            💬 Conversar
+        </button>
 
-            <div class="person">
+    </div>
 
-                <div class="avatar">
-                    👩
-                </div>
 
-                <div>
+    <div class="person-card">
 
-                    <strong>Julia</strong>
+        <div class="person">
 
-                    <div class="badge">
-                        Online
-                    </div>
+            <div class="avatar">
+                👩
+            </div>
 
+            <div>
+
+                <strong>
+                    Julia
+                </strong>
+
+                <div class="badge">
+                    Online
                 </div>
 
             </div>
 
-            <p class="muted" style="margin-top:10px;">
-                Vamos conversar? 😊
-            </p>
-
-            <button
-                class="primary"
-                onclick="abrirChat('julia')"
-            >
-                💬 Conversar
-            </button>
-
         </div>
 
+        <p
+            class="muted"
+            style="margin-top:10px;"
+        >
+            Vamos conversar? 😊
+        </p>
 
-        <div class="person-card">
+        <button
+            class="primary"
+            type="button"
+            onclick="openChat('Julia','👩')"
+        >
+            💬 Conversar
+        </button>
 
-            <div class="person">
+    </div>
 
-                <div class="avatar">
-                    👩
-                </div>
 
-                <div>
+    <div class="person-card">
 
-                    <strong>Camila</strong>
+        <div class="person">
 
-                    <div class="badge">
-                        Online
-                    </div>
+            <div class="avatar">
+                👩
+            </div>
 
+            <div>
+
+                <strong>
+                    Camila
+                </strong>
+
+                <div class="badge">
+                    Online
                 </div>
 
             </div>
 
-            <p class="muted" style="margin-top:10px;">
-                Adoro uma boa conversa.
-            </p>
-
-            <button
-                class="primary"
-                onclick="abrirChat('camila')"
-            >
-                💬 Conversar
-            </button>
-
         </div>
 
+        <p
+            class="muted"
+            style="margin-top:10px;"
+        >
+            Adoro uma boa conversa.
+        </p>
 
-        <div class="person-card">
+        <button
+            class="primary"
+            type="button"
+            onclick="openChat('Camila','👩')"
+        >
+            💬 Conversar
+        </button>
 
-            <div class="person">
+    </div>
 
-                <div class="avatar">
-                    👩
-                </div>
 
-                <div>
+    <div class="person-card">
 
-                    <strong>Marina</strong>
+        <div class="person">
 
-                    <div class="badge">
-                        Online
-                    </div>
+            <div class="avatar">
+                👩
+            </div>
 
+            <div>
+
+                <strong>
+                    Marina
+                </strong>
+
+                <div class="badge">
+                    Online
                 </div>
 
             </div>
 
-            <p class="muted" style="margin-top:10px;">
-                Conheça um pouco mais sobre mim.
-            </p>
-
-            <button
-                class="primary"
-                onclick="abrirChat('marina')"
-            >
-                💬 Conversar
-            </button>
-
         </div>
+
+        <p
+            class="muted"
+            style="margin-top:10px;"
+        >
+            Conheça um pouco mais sobre mim.
+        </p>
+
+        <button
+            class="primary"
+            type="button"
+            onclick="openChat('Marina','👩')"
+        >
+            💬 Conversar
+        </button>
 
     </div>
 
 </section>
 
 
-<!-- ================= CHAT ================= -->
+<!-- ========================================================= -->
+<!-- CHAT -->
+<!-- ========================================================= -->
 
 <section id="chatScreen" class="screen">
 
@@ -840,12 +955,14 @@ hr{
 
         <button
             class="secondary small"
-            onclick="show('discover')"
+            type="button"
+            onclick="showScreen('discover')"
         >
             ← Voltar
         </button>
 
     </div>
+
 
     <div
         id="messages"
@@ -858,30 +975,41 @@ hr{
 
     </div>
 
+
     <div class="notice">
+
         Cada mensagem enviada custa
         <strong>100 🪙</strong>.
+
     </div>
+
 
     <input
         id="messageInput"
         type="text"
         placeholder="Digite sua mensagem..."
-        onkeydown="if(event.key==='Enter') sendMessage()"
+        autocomplete="off"
+        onkeydown="handleMessageKey(event)"
     >
+
 
     <button
         class="primary"
+        type="button"
         onclick="sendMessage()"
     >
         Enviar — 100 🪙
     </button>
 
-    <br><br>
+
+    <br>
+    <br>
+
 
     <button
         class="secondary"
         style="width:100%;"
+        type="button"
         onclick="startCall()"
     >
         📞 Iniciar chamada
@@ -890,22 +1018,28 @@ hr{
 </section>
 
 
-<!-- ================= CARTEIRA ================= -->
+<!-- ========================================================= -->
+<!-- CARTEIRA -->
+<!-- ========================================================= -->
 
 <section id="wallet" class="screen">
 
     <div class="topbar">
 
-        <h2>Carteira</h2>
+        <h2>
+            Carteira
+        </h2>
 
         <button
             class="secondary small"
-            onclick="show('home')"
+            type="button"
+            onclick="showScreen('home')"
         >
             Início
         </button>
 
     </div>
+
 
     <div class="balance">
 
@@ -937,20 +1071,29 @@ hr{
 
     </div>
 
+
     <br>
+
 
     <div class="card">
 
-        <h2>Comprar moedas</h2>
+        <h2>
+            Comprar moedas
+        </h2>
 
-        <p class="muted" style="margin:8px 0 15px;">
+        <p
+            class="muted"
+            style="margin:8px 0 15px;"
+        >
             Escolha um pacote.
         </p>
 
 
         <div class="package">
 
-            <strong>100 moedas</strong>
+            <strong>
+                100 moedas
+            </strong>
 
             <div class="price">
                 R$ 4,90
@@ -958,7 +1101,8 @@ hr{
 
             <button
                 class="primary"
-                onclick="comprarPacoteSeguro(100,4.90)"
+                type="button"
+                onclick="buyCoins(100,4.90)"
             >
                 Comprar
             </button>
@@ -968,7 +1112,9 @@ hr{
 
         <div class="package">
 
-            <strong>250 moedas</strong>
+            <strong>
+                250 moedas
+            </strong>
 
             <div class="price">
                 R$ 9,90
@@ -976,7 +1122,8 @@ hr{
 
             <button
                 class="primary"
-                onclick="comprarPacoteSeguro(250,9.90)"
+                type="button"
+                onclick="buyCoins(250,9.90)"
             >
                 Comprar
             </button>
@@ -986,7 +1133,9 @@ hr{
 
         <div class="package recommended">
 
-            <strong>500 moedas ⭐</strong>
+            <strong>
+                500 moedas ⭐
+            </strong>
 
             <div class="price">
                 R$ 17,90
@@ -994,7 +1143,8 @@ hr{
 
             <button
                 class="primary"
-                onclick="comprarPacoteSeguro(500,17.90)"
+                type="button"
+                onclick="buyCoins(500,17.90)"
             >
                 Comprar
             </button>
@@ -1004,7 +1154,9 @@ hr{
 
         <div class="package">
 
-            <strong>1.000 moedas</strong>
+            <strong>
+                1.000 moedas
+            </strong>
 
             <div class="price">
                 R$ 29,00
@@ -1012,7 +1164,8 @@ hr{
 
             <button
                 class="primary"
-                onclick="comprarPacoteSeguro(1000,29)"
+                type="button"
+                onclick="buyCoins(1000,29)"
             >
                 Comprar
             </button>
@@ -1022,7 +1175,9 @@ hr{
 
         <div class="package">
 
-            <strong>2.500 moedas</strong>
+            <strong>
+                2.500 moedas
+            </strong>
 
             <div class="price">
                 R$ 69,90
@@ -1030,7 +1185,8 @@ hr{
 
             <button
                 class="primary"
-                onclick="comprarPacoteSeguro(2500,69.90)"
+                type="button"
+                onclick="buyCoins(2500,69.90)"
             >
                 Comprar
             </button>
@@ -1040,7 +1196,9 @@ hr{
 
         <div class="package">
 
-            <strong>5.000 moedas</strong>
+            <strong>
+                5.000 moedas
+            </strong>
 
             <div class="price">
                 R$ 129,90
@@ -1048,7 +1206,8 @@ hr{
 
             <button
                 class="primary"
-                onclick="comprarPacoteSeguro(5000,129.90)"
+                type="button"
+                onclick="buyCoins(5000,129.90)"
             >
                 Comprar
             </button>
@@ -1058,7 +1217,9 @@ hr{
 
         <div class="package">
 
-            <strong>10.000 moedas</strong>
+            <strong>
+                10.000 moedas
+            </strong>
 
             <div class="price">
                 R$ 249,90
@@ -1066,7 +1227,8 @@ hr{
 
             <button
                 class="primary"
-                onclick="comprarPacoteSeguro(10000,249.90)"
+                type="button"
+                onclick="buyCoins(10000,249.90)"
             >
                 Comprar
             </button>
@@ -1078,136 +1240,6 @@ hr{
 </section>
 
 
-<!-- ================= PERFIL ================= -->
-
-<section id="profileScreen" class="screen">
-
-    <div class="topbar">
-
-        <h2>Meu perfil</h2>
-
-        <button
-            class="secondary small"
-            onclick="show('home')"
-        >
-            Início
-        </button>
-
-    </div>
-
-    <div class="card center">
-
-        <div
-            class="avatar"
-            id="profileAvatar"
-            style="margin:auto;"
-        >
-            👤
-        </div>
-
-        <h2
-            id="profileName"
-            style="margin-top:12px;"
-        >
-            Usuário
-        </h2>
-
-        <p
-            id="profileEmail"
-            class="muted"
-            style="margin-top:8px;"
-        >
-            -
-        </p>
-
-    </div>
-
-    <div class="card">
-
-        <div class="stat">
-            <span>👤 Tipo</span>
-            <strong id="profileGender">
-                -
-            </strong>
-        </div>
-
-        <div class="stat">
-            <span>🎂 Idade</span>
-            <strong id="profileAge">
-                -
-            </strong>
-        </div>
-
-    </div>
-
-    <button
-        class="danger"
-        style="width:100%;"
-        onclick="logout()"
-    >
-        Sair da conta
-    </button>
-
-</section>
-
-
-<!-- ================= CHAMADA ================= -->
-
-<section id="callScreen" class="screen">
-
-    <div class="call">
-
-        <div class="avatar">
-            👩
-        </div>
-
-        <h2 id="callName">
-            Chamada
-        </h2>
-
-        <p class="muted" style="margin-top:8px;">
-            Chamada em andamento
-        </p>
-
-        <div
-            class="timer"
-            id="callTimer"
-        >
-            00:00
-        </div>
-
-        <div class="notice">
-            Custo:
-            <strong>200 🪙 por minuto</strong>
-        </div>
-
-        <button
-            class="danger"
-            style="width:100%;"
-            onclick="encerrarChamadaTela()"
-        >
-            Encerrar chamada
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- ================= NAVEGAÇÃO ================= -->
-
-<div
-    class="tabs"
-    id="mainTabs"
->
-
-    <button
-        id="tabHome"
-        class="active"
-        onclick="show('home')"
-    >
-        🏠<br>
-        Início
-    </button>
-
-    <
+<!-- ========================================================= -->
+<!-- PERFIL -->
+<!-- =
