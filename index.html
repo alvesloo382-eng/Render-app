@@ -15,12 +15,12 @@
 html,body{
     width:100%;
     min-height:100%;
-}
-
-body{
     font-family:Arial,Helvetica,sans-serif;
     background:#080b12;
     color:#fff;
+}
+
+body{
     min-height:100vh;
 }
 
@@ -31,8 +31,8 @@ select{
 }
 
 button{
-    cursor:pointer;
     border:0;
+    cursor:pointer;
 }
 
 .app{
@@ -40,14 +40,7 @@ button{
     max-width:520px;
     min-height:100vh;
     margin:auto;
-    padding:20px 15px 100px;
-    background:
-        radial-gradient(
-            circle at top,
-            #24153b 0%,
-            #0d1019 38%,
-            #080b12 100%
-        );
+    padding:20px 16px 90px;
 }
 
 .screen{
@@ -60,98 +53,100 @@ button{
 
 .logo{
     text-align:center;
-    padding:35px 10px 25px;
+    padding:45px 10px 35px;
 }
 
 .logo h1{
-    font-size:42px;
-    letter-spacing:5px;
-    background:linear-gradient(90deg,#ff4acb,#8c5cff);
+    font-size:52px;
+    font-weight:900;
+    letter-spacing:4px;
+    background:linear-gradient(90deg,#ff36c8,#8b4dff);
     -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
+    -webkit-text-fill-color:transparent;
 }
 
 .logo p{
-    margin-top:8px;
-    color:#aaa;
-    font-size:17px;
+    margin-top:12px;
+    color:#bfc3ce;
+    font-size:20px;
 }
 
 .card{
     background:#151925;
-    border:1px solid #303749;
-    border-radius:18px;
-    padding:20px;
-    margin-bottom:15px;
-    box-shadow:0 12px 30px rgba(0,0,0,.25);
+    border:1px solid #292f3d;
+    border-radius:24px;
+    padding:24px;
+    margin-bottom:18px;
+}
+
+.card h2{
+    font-size:30px;
+    margin-bottom:10px;
+}
+
+.muted{
+    color:#969cab;
 }
 
 .center{
     text-align:center;
 }
 
-.muted{
-    color:#999;
-}
-
 input,
 select{
     width:100%;
-    padding:14px;
-    margin:7px 0;
-    border-radius:12px;
-    border:1px solid #3a4050;
-    background:#0d111a;
+    padding:17px;
+    margin:8px 0;
+    border-radius:16px;
+    border:1px solid #343b4b;
+    background:#0c1018;
     color:#fff;
     outline:none;
 }
 
-input::placeholder{
-    color:#777;
-}
-
 input:focus,
 select:focus{
-    border-color:#b75cff;
+    border-color:#c04fff;
 }
 
 button{
-    border-radius:12px;
-    padding:13px 16px;
+    width:100%;
+    padding:16px;
+    border-radius:16px;
+    margin-top:10px;
     color:#fff;
 }
 
 .primary{
-    width:100%;
-    background:linear-gradient(90deg,#ff4acb,#8355ff);
+    background:linear-gradient(90deg,#ff35c7,#814fff);
     font-weight:bold;
 }
 
-.primary:active{
-    transform:scale(.99);
-}
-
 .secondary{
-    background:#282e3c;
-    border:1px solid #3c4354;
-}
-
-.secondary:hover{
-    background:#343b4d;
-}
-
-.small{
-    padding:9px 12px;
-    font-size:13px;
+    background:#353d50;
 }
 
 .success{
-    background:#19a85b;
+    background:#16894e;
 }
 
 .danger{
-    background:#c83b52;
+    background:#a92f45;
+}
+
+.small{
+    width:auto;
+    padding:10px 16px;
+    margin:0;
+}
+
+.notice{
+    padding:14px;
+    background:#211d2d;
+    border:1px solid #403653;
+    border-radius:14px;
+    color:#ddd;
+    margin-bottom:16px;
 }
 
 .topbar{
@@ -159,7 +154,6 @@ button{
     justify-content:space-between;
     align-items:center;
     padding:10px 0 20px;
-    gap:10px;
 }
 
 .profile{
@@ -168,29 +162,27 @@ button{
     gap:12px;
 }
 
+.profile-info{
+    flex:1;
+}
+
 .avatar{
-    width:54px;
-    height:54px;
-    min-width:54px;
+    width:55px;
+    height:55px;
     border-radius:50%;
     display:flex;
     align-items:center;
     justify-content:center;
     background:linear-gradient(135deg,#ff4bcf,#6e50ff);
-    font-size:26px;
-}
-
-.profile-info{
-    flex:1;
+    font-size:27px;
 }
 
 .online{
+    display:inline-block;
     width:9px;
     height:9px;
-    background:#4dff83;
     border-radius:50%;
-    display:inline-block;
-    margin-right:3px;
+    background:#4dff83;
 }
 
 .balance{
@@ -198,18 +190,18 @@ button{
     gap:10px;
 }
 
-.balance .wallet{
+.wallet{
     flex:1;
     background:#171c29;
-    border-radius:16px;
-    padding:15px;
     border:1px solid #303749;
+    border-radius:16px;
+    padding:16px;
 }
 
 .wallet strong{
     display:block;
+    margin-top:7px;
     font-size:25px;
-    margin-top:6px;
 }
 
 .coin{
@@ -222,50 +214,69 @@ button{
 
 .person{
     display:flex;
-    gap:13px;
     align-items:center;
+    gap:14px;
+    padding:16px;
+    background:#151925;
+    border:1px solid #292f3d;
+    border-radius:20px;
+    margin-bottom:12px;
 }
 
 .person .avatar{
     flex-shrink:0;
 }
 
-.badge{
-    display:inline-block;
-    padding:4px 8px;
-    border-radius:20px;
-    background:#35244c;
-    color:#d99cff;
-    font-size:11px;
-    margin-top:5px;
+.person-info{
+    flex:1;
 }
 
-.price{
-    font-size:20px;
-    font-weight:bold;
-    margin:9px 0;
+.person-info h3{
+    margin-bottom:5px;
 }
 
-.package{
-    border:1px solid #343b4d;
-    background:#151a27;
-    padding:16px;
-    border-radius:16px;
-    margin-bottom:10px;
+.person-info p{
+    color:#999fad;
+    font-size:14px;
+    line-height:1.4;
 }
 
-.package.recommended{
-    border-color:#bc59ff;
+.person button{
+    width:auto;
+    padding:11px 14px;
+    margin:0;
 }
 
-.package button{
-    margin-top:10px;
-    width:100%;
+.tabs{
+    position:fixed;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(520px,100%);
+    background:#10131d;
+    border-top:1px solid #303544;
+    display:flex;
+    z-index:20;
+}
+
+.tabs button{
+    flex:1;
+    background:none;
+    color:#9298a8;
+    border-radius:0;
+    padding:14px 5px;
+    font-size:12px;
+    margin:0;
+}
+
+.tabs button.active{
+    color:#fff;
+    background:#1c2130;
 }
 
 .chat{
     background:#0d111a;
-    border-radius:15px;
+    border-radius:16px;
     padding:15px;
     height:340px;
     overflow-y:auto;
@@ -273,11 +284,10 @@ button{
 }
 
 .msg{
-    padding:10px 13px;
-    border-radius:15px;
+    padding:11px 14px;
+    border-radius:16px;
     margin:8px 0;
     max-width:82%;
-    word-wrap:break-word;
 }
 
 .msg.other{
@@ -289,20 +299,10 @@ button{
     margin-left:auto;
 }
 
-.notice{
-    padding:12px;
-    background:#211d2c;
-    border:1px solid #403653;
-    border-radius:12px;
-    margin-bottom:14px;
-    color:#ddd;
-}
-
 .stat{
     display:flex;
     justify-content:space-between;
-    gap:15px;
-    padding:12px 0;
+    padding:14px 0;
     border-bottom:1px solid #292e3b;
 }
 
@@ -310,47 +310,56 @@ button{
     border-bottom:0;
 }
 
-.person-card{
-    background:#151925;
-    border:1px solid #303749;
-    border-radius:18px;
-    padding:16px;
+.package{
+    border:1px solid #343b4d;
+    background:#151a27;
+    padding:17px;
+    border-radius:16px;
     margin-bottom:12px;
 }
 
-.person-card button{
-    margin-top:10px;
-    width:100%;
+.package.recommended{
+    border-color:#bc59ff;
 }
 
-.tabs{
-    position:fixed;
-    bottom:0;
-    left:50%;
-    transform:translateX(-50%);
-    width:min(520px,100%);
-    background:#10131d;
-    border-top:1px solid #303544;
+.price{
+    font-size:21px;
+    font-weight:bold;
+    margin:9px 0;
+}
+
+.modal{
     display:none;
-    z-index:20;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.78);
+    z-index:50;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
 }
 
-.tabs.show{
+.modal.show{
     display:flex;
 }
 
-.tabs button{
-    flex:1;
-    background:none;
-    color:#9298a8;
-    border-radius:0;
-    padding:13px 5px;
-    font-size:12px;
+.modal-box{
+    width:min(480px,100%);
+    max-height:90vh;
+    overflow:auto;
+    background:#151925;
+    border:1px solid #3c4254;
+    border-radius:20px;
+    padding:20px;
 }
 
-.tabs button.active{
-    color:#fff;
-    background:#1c2130;
+.close{
+    float:right;
+    width:40px;
+    height:40px;
+    padding:0;
+    background:#282e3c;
+    margin:0;
 }
 
 .call{
@@ -358,55 +367,15 @@ button{
     padding:35px 15px;
 }
 
-.call .avatar{
-    width:100px;
-    height:100px;
-    margin:0 auto 20px;
-    font-size:45px;
-}
-
 .timer{
     font-size:40px;
     margin:15px 0;
 }
 
-hr{
-    border:0;
-    border-top:1px solid #303544;
-    margin:18px 0;
-}
-
 .empty{
     text-align:center;
-    padding:45px 15px;
+    padding:40px 15px;
     color:#888;
-}
-
-h2{
-    font-size:24px;
-}
-
-h3{
-    font-size:19px;
-}
-
-@media(max-width:360px){
-
-    .logo h1{
-        font-size:34px;
-    }
-
-    .balance{
-        gap:6px;
-    }
-
-    .balance .wallet{
-        padding:12px;
-    }
-
-    .wallet strong{
-        font-size:21px;
-    }
 }
 </style>
 </head>
@@ -415,10 +384,7 @@ h3{
 
 <div class="app">
 
-<!-- ========================================================= -->
 <!-- LOGIN -->
-<!-- ========================================================= -->
-
 <section id="login" class="screen active">
 
     <div class="logo">
@@ -427,812 +393,276 @@ h3{
     </div>
 
     <div class="card">
-
         <h2>Entrar</h2>
+        <p class="muted">Entre para continuar.</p>
 
-        <p
-            class="muted"
-            style="margin:8px 0 15px;"
-        >
-            Entre para continuar.
-        </p>
+        <input id="loginEmail" type="email" placeholder="Seu e-mail">
+        <input id="loginPassword" type="password" placeholder="Sua senha">
 
-        <input
-            id="loginEmail"
-            type="email"
-            placeholder="Seu e-mail"
-            autocomplete="email"
-        >
-
-        <input
-            id="loginPassword"
-            type="password"
-            placeholder="Sua senha"
-            autocomplete="current-password"
-        >
-
-        <button
-            class="primary"
-            type="button"
-            onclick="login()"
-        >
+        <button class="primary" onclick="login()">
             Entrar
         </button>
 
-        <br>
-        <br>
-
-        <button
-            class="secondary"
-            style="width:100%;"
-            type="button"
-            onclick="showScreen('register')"
-        >
+        <button class="secondary" onclick="show('register')">
             Criar minha conta
         </button>
-
     </div>
 
     <div class="card center">
-
         <p class="muted">
             O RENDER conecta pessoas para conversas,
             mensagens e chamadas.
         </p>
-
     </div>
 
 </section>
 
 
-<!-- ========================================================= -->
 <!-- CADASTRO -->
-<!-- ========================================================= -->
-
 <section id="register" class="screen">
 
     <div class="topbar">
-
-        <button
-            class="secondary small"
-            type="button"
-            onclick="showScreen('login')"
-        >
+        <button class="secondary small" onclick="show('login')">
             ← Voltar
         </button>
-
     </div>
 
     <div class="logo">
-
         <h1>RENDER</h1>
-
         <p>Crie sua conta</p>
-
     </div>
 
     <div class="card">
 
-        <h2 style="margin-bottom:15px;">
-            Criar conta
-        </h2>
+        <input id="regName" placeholder="Seu nome">
 
-        <input
-            id="regName"
-            type="text"
-            placeholder="Seu nome"
-            autocomplete="name"
-        >
+        <input id="regEmail"
+               type="email"
+               placeholder="Seu e-mail">
 
-        <input
-            id="regEmail"
-            type="email"
-            placeholder="Seu e-mail"
-            autocomplete="email"
-        >
+        <input id="regPassword"
+               type="password"
+               placeholder="Crie uma senha">
 
-        <input
-            id="regPassword"
-            type="password"
-            placeholder="Crie uma senha"
-            autocomplete="new-password"
-        >
-
-        <label
-            class="muted"
-            style="display:block;margin:10px 0 5px;"
-        >
-            Você é:
-        </label>
+        <label class="muted">Você é:</label>
 
         <select id="regGender">
-
-            <option value="male">
-                Homem
-            </option>
-
-            <option value="female">
-                Mulher
-            </option>
-
+            <option value="male">Homem</option>
+            <option value="female">Mulher</option>
         </select>
 
-        <input
-            id="regAge"
-            type="number"
-            placeholder="Idade"
-            min="18"
-            max="120"
-        >
+        <input id="regAge"
+               type="number"
+               min="18"
+               placeholder="Idade">
 
-        <button
-            class="primary"
-            type="button"
-            onclick="registerUser()"
-        >
+        <button class="primary" onclick="register()">
             Criar conta
         </button>
 
     </div>
 
     <div class="notice">
-
-        🔞 O RENDER é destinado exclusivamente
-        a maiores de 18 anos.
-
+        🔞 O RENDER é destinado exclusivamente a maiores de 18 anos.
     </div>
 
 </section>
 
 
-<!-- ========================================================= -->
 <!-- HOME -->
-<!-- ========================================================= -->
-
 <section id="home" class="screen">
 
     <div class="topbar">
 
         <div class="profile">
 
-            <div
-                class="avatar"
-                id="homeAvatar"
-            >
+            <div class="avatar" id="homeAvatar">
                 👤
             </div>
 
             <div class="profile-info">
-
-                <strong id="homeName">
-                    Usuário
-                </strong>
+                <strong id="homeName">Usuário</strong>
 
                 <div>
                     <span class="online"></span>
                     online
                 </div>
-
             </div>
 
         </div>
 
-        <button
-            class="secondary small"
-            type="button"
-            onclick="logout()"
-        >
+        <button class="secondary small" onclick="logout()">
             Sair
         </button>
 
     </div>
 
-
     <div class="balance">
 
         <div class="wallet">
-
             🪙 Moedas
-
-            <strong
-                class="coin"
-                id="coinBalance"
-            >
-                0
-            </strong>
-
+            <strong class="coin" id="coinBalance">0</strong>
         </div>
 
         <div class="wallet">
-
             🌱 Feijões
-
-            <strong
-                class="bean"
-                id="beanBalance"
-            >
-                0
-            </strong>
-
+            <strong class="bean" id="beanBalance">0</strong>
         </div>
 
     </div>
-
 
     <br>
 
-
     <div class="card">
+        <h2>Encontre alguém</h2>
 
-        <h2>
-            Bem-vindo ao RENDER 👋
-        </h2>
-
-        <p
-            class="muted"
-            style="margin-top:10px;"
-        >
-            Encontre pessoas, converse por mensagens
-            e faça chamadas.
+        <p class="muted">
+            Converse, conheça pessoas e descubra novas conexões.
         </p>
-
-        <br>
-
-        <button
-            class="primary"
-            type="button"
-            onclick="showScreen('discover')"
-        >
-            🔎 Encontrar pessoas
-        </button>
-
     </div>
 
-
-    <div class="card">
-
-        <h3>
-            Como funciona?
-        </h3>
-
-        <div class="stat">
-
-            <span>
-                💬 Mensagem
-            </span>
-
-            <strong>
-                100 🪙
-            </strong>
-
-        </div>
-
-        <div class="stat">
-
-            <span>
-                📞 Chamada
-            </span>
-
-            <strong>
-                200 🪙/min
-            </strong>
-
-        </div>
-
-        <div class="stat">
-
-            <span>
-                💰 Carteira
-            </span>
-
-            <strong>
-                Moedas e feijões
-            </strong>
-
-        </div>
-
-    </div>
+    <div id="profiles"></div>
 
 </section>
 
 
-<!-- ========================================================= -->
 <!-- DESCOBRIR -->
-<!-- ========================================================= -->
-
-<section id="discover" class="screen">
+<section id="explore" class="screen">
 
     <div class="topbar">
-
-        <h2>
-            Descobrir
-        </h2>
-
-        <button
-            class="secondary small"
-            type="button"
-            onclick="showScreen('home')"
-        >
-            Início
-        </button>
-
+        <h2>Descobrir</h2>
     </div>
 
-
-    <div class="person-card">
-
-        <div class="person">
-
-            <div class="avatar">
-                👩
-            </div>
-
-            <div>
-
-                <strong>
-                    Ana
-                </strong>
-
-                <div class="badge">
-                    Online
-                </div>
-
-            </div>
-
-        </div>
-
-        <p
-            class="muted"
-            style="margin-top:10px;"
-        >
-            Gosto de conversar e conhecer pessoas novas.
-        </p>
-
-        <button
-            class="primary"
-            type="button"
-            onclick="openChat('Ana','👩')"
-        >
-            💬 Conversar
-        </button>
-
-    </div>
-
-
-    <div class="person-card">
-
-        <div class="person">
-
-            <div class="avatar">
-                👩
-            </div>
-
-            <div>
-
-                <strong>
-                    Julia
-                </strong>
-
-                <div class="badge">
-                    Online
-                </div>
-
-            </div>
-
-        </div>
-
-        <p
-            class="muted"
-            style="margin-top:10px;"
-        >
-            Vamos conversar? 😊
-        </p>
-
-        <button
-            class="primary"
-            type="button"
-            onclick="openChat('Julia','👩')"
-        >
-            💬 Conversar
-        </button>
-
-    </div>
-
-
-    <div class="person-card">
-
-        <div class="person">
-
-            <div class="avatar">
-                👩
-            </div>
-
-            <div>
-
-                <strong>
-                    Camila
-                </strong>
-
-                <div class="badge">
-                    Online
-                </div>
-
-            </div>
-
-        </div>
-
-        <p
-            class="muted"
-            style="margin-top:10px;"
-        >
-            Adoro uma boa conversa.
-        </p>
-
-        <button
-            class="primary"
-            type="button"
-            onclick="openChat('Camila','👩')"
-        >
-            💬 Conversar
-        </button>
-
-    </div>
-
-
-    <div class="person-card">
-
-        <div class="person">
-
-            <div class="avatar">
-                👩
-            </div>
-
-            <div>
-
-                <strong>
-                    Marina
-                </strong>
-
-                <div class="badge">
-                    Online
-                </div>
-
-            </div>
-
-        </div>
-
-        <p
-            class="muted"
-            style="margin-top:10px;"
-        >
-            Conheça um pouco mais sobre mim.
-        </p>
-
-        <button
-            class="primary"
-            type="button"
-            onclick="openChat('Marina','👩')"
-        >
-            💬 Conversar
-        </button>
-
-    </div>
+    <div id="profileList"></div>
 
 </section>
 
 
-<!-- ========================================================= -->
 <!-- CHAT -->
-<!-- ========================================================= -->
-
 <section id="chatScreen" class="screen">
 
     <div class="topbar">
 
-        <div class="person">
-
-            <div
-                class="avatar"
-                id="chatAvatar"
-            >
-                👩
-            </div>
-
-            <div>
-
-                <strong id="chatName">
-                    Ana
-                </strong>
-
-                <div>
-                    <span class="online"></span>
-                    online
-                </div>
-
-            </div>
-
-        </div>
-
-        <button
-            class="secondary small"
-            type="button"
-            onclick="showScreen('discover')"
-        >
+        <button class="secondary small"
+                onclick="show('explore')">
             ← Voltar
         </button>
 
+        <strong id="chatName">
+            Chat
+        </strong>
+
     </div>
 
+    <div class="notice">
+        💰 Cada mensagem custa
+        <strong>100 moedas</strong>.
+    </div>
 
-    <div
-        id="messages"
-        class="chat"
-    >
+    <div id="messages" class="chat">
 
         <div class="msg other">
-            👩 Olá! Seja bem-vindo ao RENDER.
+            Olá! Seja bem-vindo ao RENDER. 😊
         </div>
 
     </div>
 
+    <input id="messageInput"
+           placeholder="Digite sua mensagem...">
 
-    <div class="notice">
-
-        Cada mensagem enviada custa
-        <strong>100 🪙</strong>.
-
-    </div>
-
-
-    <input
-        id="messageInput"
-        type="text"
-        placeholder="Digite sua mensagem..."
-        autocomplete="off"
-        onkeydown="handleMessageKey(event)"
-    >
-
-
-    <button
-        class="primary"
-        type="button"
-        onclick="sendMessage()"
-    >
+    <button class="primary"
+            onclick="sendMessage()">
         Enviar — 100 🪙
     </button>
 
-
-    <br>
-    <br>
-
-
-    <button
-        class="secondary"
-        style="width:100%;"
-        type="button"
-        onclick="startCall()"
-    >
+    <button class="secondary"
+            onclick="startCall()">
         📞 Iniciar chamada
     </button>
 
 </section>
 
 
-<!-- ========================================================= -->
 <!-- CARTEIRA -->
-<!-- ========================================================= -->
-
-<section id="wallet" class="screen">
+<section id="walletScreen" class="screen">
 
     <div class="topbar">
-
-        <h2>
-            Carteira
-        </h2>
-
-        <button
-            class="secondary small"
-            type="button"
-            onclick="showScreen('home')"
-        >
-            Início
-        </button>
-
+        <h2>Minha carteira</h2>
     </div>
-
 
     <div class="balance">
 
         <div class="wallet">
-
             🪙 Moedas
-
-            <strong
-                class="coin"
-                id="walletCoins"
-            >
+            <strong class="coin"
+                    id="walletCoins">
                 0
             </strong>
-
         </div>
 
         <div class="wallet">
-
             🌱 Feijões
-
-            <strong
-                class="bean"
-                id="walletBeans"
-            >
+            <strong class="bean"
+                    id="walletBeans">
                 0
             </strong>
-
         </div>
 
     </div>
 
-
     <br>
 
+    <div id="maleWallet"></div>
+    <div id="femaleWallet"></div>
+
+</section>
+
+
+<!-- PERFIL -->
+<section id="profileScreen" class="screen">
+
+    <div class="topbar">
+        <h2>Meu perfil</h2>
+    </div>
+
+    <div class="card center">
+
+        <div class="avatar"
+             id="profileAvatar"
+             style="margin:auto">
+            👤
+        </div>
+
+        <h2 id="profileName">
+            Usuário
+        </h2>
+
+        <p class="muted"
+           id="profileRole">
+        </p>
+
+    </div>
 
     <div class="card">
 
-        <h2>
-            Comprar moedas
-        </h2>
-
-        <p
-            class="muted"
-            style="margin:8px 0 15px;"
-        >
-            Escolha um pacote.
-        </p>
-
-
-        <div class="package">
-
-            <strong>
-                100 moedas
-            </strong>
-
-            <div class="price">
-                R$ 4,90
-            </div>
-
-            <button
-                class="primary"
-                type="button"
-                onclick="buyCoins(100,4.90)"
-            >
-                Comprar
-            </button>
-
+        <div class="stat">
+            <span>Nível Host</span>
+            <strong id="hostLevel">1</strong>
         </div>
 
-
-        <div class="package">
-
-            <strong>
-                250 moedas
-            </strong>
-
-            <div class="price">
-                R$ 9,90
-            </div>
-
-            <button
-                class="primary"
-                type="button"
-                onclick="buyCoins(250,9.90)"
-            >
-                Comprar
-            </button>
-
+        <div class="stat">
+            <span>Nível Chame</span>
+            <strong id="chameLevel">1</strong>
         </div>
 
-
-        <div class="package recommended">
-
-            <strong>
-                500 moedas ⭐
-            </strong>
-
-            <div class="price">
-                R$ 17,90
-            </div>
-
-            <button
-                class="primary"
-                type="button"
-                onclick="buyCoins(500,17.90)"
-            >
-                Comprar
-            </button>
-
+        <div class="stat">
+            <span>Mensagens</span>
+            <strong id="messageCount">0</strong>
         </div>
 
-
-        <div class="package">
-
-            <strong>
-                1.000 moedas
-            </strong>
-
-            <div class="price">
-                R$ 29,00
-            </div>
-
-            <button
-                class="primary"
-                type="button"
-                onclick="buyCoins(1000,29)"
-            >
-                Comprar
-            </button>
-
-        </div>
-
-
-        <div class="package">
-
-            <strong>
-                2.500 moedas
-            </strong>
-
-            <div class="price">
-                R$ 69,90
-            </div>
-
-            <button
-                class="primary"
-                type="button"
-                onclick="buyCoins(2500,69.90)"
-            >
-                Comprar
-            </button>
-
-        </div>
-
-
-        <div class="package">
-
-            <strong>
-                5.000 moedas
-            </strong>
-
-            <div class="price">
-                R$ 129,90
-            </div>
-
-            <button
-                class="primary"
-                type="button"
-                onclick="buyCoins(5000,129.90)"
-            >
-                Comprar
-            </button>
-
-        </div>
-
-
-        <div class="package">
-
-            <strong>
-                10.000 moedas
-            </strong>
-
-            <div class="price">
-                R$ 249,90
-            </div>
-
-            <button
-                class="primary"
-                type="button"
-                onclick="buyCoins(10000,249.90)"
-            >
-                Comprar
-            </button>
-
+        <div class="stat">
+            <span>Minutos em chamadas</span>
+            <strong id="callMinutes">0</strong>
         </div>
 
     </div>
@@ -1240,6 +670,1242 @@ h3{
 </section>
 
 
-<!-- ========================================================= -->
-<!-- PERFIL -->
-<!-- =
+<!-- NAVEGAÇÃO -->
+<nav id="nav" class="tabs" style="display:none">
+
+    <button id="navHome"
+            onclick="show('home')">
+        🏠<br>
+        Início
+    </button>
+
+    <button id="navExplore"
+            onclick="show('explore')">
+        🔎<br>
+        Descobrir
+    </button>
+
+    <button id="navWallet"
+            onclick="show('walletScreen')">
+        💰<br>
+        Carteira
+    </button>
+
+    <button id="navProfile"
+            onclick="show('profileScreen')">
+        👤<br>
+        Perfil
+    </button>
+
+</nav>
+
+
+<!-- MODAL RECARGA -->
+<div id="rechargeModal" class="modal">
+
+    <div class="modal-box">
+
+        <button class="close"
+                onclick="closeModal('rechargeModal')">
+            ×
+        </button>
+
+        <h2>Comprar moedas</h2>
+
+        <p class="muted">
+            Escolha um pacote.
+        </p>
+
+        <br>
+
+        <div class="package">
+            <strong>100 moedas</strong>
+            <div class="price">R$ 4,90</div>
+
+            <button class="primary"
+                    onclick="buyCoins(100)">
+                Comprar
+            </button>
+        </div>
+
+        <div class="package">
+            <strong>250 moedas</strong>
+            <div class="price">R$ 9,90</div>
+
+            <button class="primary"
+                    onclick="buyCoins(250)">
+                Comprar
+            </button>
+        </div>
+
+        <div class="package">
+            <strong>500 moedas</strong>
+            <div class="price">R$ 17,90</div>
+
+            <button class="primary"
+                    onclick="buyCoins(500)">
+                Comprar
+            </button>
+        </div>
+
+        <div class="package recommended">
+            ⭐ <strong>1.000 moedas</strong>
+            <div class="price">R$ 29,00</div>
+
+            <button class="primary"
+                    onclick="buyCoins(1000)">
+                Comprar
+            </button>
+        </div>
+
+        <div class="package">
+            <strong>2.500 moedas</strong>
+            <div class="price">R$ 69,90</div>
+
+            <button class="primary"
+                    onclick="buyCoins(2500)">
+                Comprar
+            </button>
+        </div>
+
+        <div class="package">
+            <strong>5.000 moedas</strong>
+            <div class="price">R$ 129,90</div>
+
+            <button class="primary"
+                    onclick="buyCoins(5000)">
+                Comprar
+            </button>
+        </div>
+
+        <div class="package">
+            <strong>10.000 moedas</strong>
+            <div class="price">R$ 249,90</div>
+
+            <button class="primary"
+                    onclick="buyCoins(10000)">
+                Comprar
+            </button>
+        </div>
+
+        <div class="notice">
+            ⚠️ Esta versão é apenas um protótipo.
+            O pagamento real será integrado depois.
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- MODAL SAQUE -->
+<div id="withdrawModal" class="modal">
+
+    <div class="modal-box">
+
+        <button class="close"
+                onclick="closeModal('withdrawModal')">
+            ×
+        </button>
+
+        <h2>Saque via Pix</h2>
+
+        <p>
+            1.000 feijões = R$ 5,00
+        </p>
+
+        <input id="pixKey"
+               placeholder="Sua chave Pix">
+
+        <button class="success"
+                onclick="withdraw()">
+            Solicitar saque
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- MODAL CHAMADA -->
+<div id="callModal" class="modal">
+
+    <div class="modal-box call">
+
+        <div class="avatar"
+             style="margin:auto">
+            👩
+        </div>
+
+        <h2 id="callPerson">
+            Chamada
+        </h2>
+
+        <p class="muted">
+            Chamada em andamento
+        </p>
+
+        <div class="timer"
+             id="callTimer">
+            00:00
+        </div>
+
+        <div class="notice">
+            💰 Custo:
+            <strong>200 moedas por minuto</strong>
+        </div>
+
+        <button class="danger"
+                onclick="endCall()">
+            Encerrar chamada
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const PROFILES = [
+    {
+        id:1,
+        name:"Ana",
+        age:25,
+        emoji:"👩🏻",
+        host:3,
+        chame:2,
+        online:true,
+        description:"Gosto de conversar e conhecer pessoas novas."
+    },
+    {
+        id:2,
+        name:"Julia",
+        age:28,
+        emoji:"👩🏼",
+        host:5,
+        chame:4,
+        online:true,
+        description:"Sempre pronta para uma boa conversa."
+    },
+    {
+        id:3,
+        name:"Camila",
+        age:23,
+        emoji:"👩🏽",
+        host:2,
+        chame:3,
+        online:true,
+        description:"Adoro uma conversa divertida."
+    }
+];
+
+const PACOTES = {
+    100:4.90,
+    250:9.90,
+    500:17.90,
+    1000:29.00,
+    2500:69.90,
+    5000:129.90,
+    10000:249.90
+};
+
+const CUSTO_MENSAGEM = 100;
+const CUSTO_CHAMADA = 200;
+
+let currentUser =
+    JSON.parse(localStorage.getItem("renderUser")) || null;
+
+let selectedProfile = null;
+
+let callInterval = null;
+let callSeconds = 0;
+
+
+/* ---------------------------
+   SALVAR USUÁRIO
+--------------------------- */
+
+function saveUser(){
+
+    localStorage.setItem(
+        "renderUser",
+        JSON.stringify(currentUser)
+    );
+}
+
+
+/* ---------------------------
+   TROCAR TELA
+--------------------------- */
+
+function show(screenId){
+
+    const screens =
+        document.querySelectorAll(".screen");
+
+    screens.forEach(function(screen){
+
+        screen.classList.remove("active");
+
+    });
+
+    const target =
+        document.getElementById(screenId);
+
+    if(!target){
+        return;
+    }
+
+    target.classList.add("active");
+
+    const nav =
+        document.getElementById("nav");
+
+    const noNav =
+        ["login","register","chatScreen"].includes(screenId);
+
+    if(nav){
+
+        nav.style.display =
+            currentUser && !noNav
+            ? "flex"
+            : "none";
+
+    }
+
+    if(currentUser){
+
+        updateUI();
+
+    }
+
+}
+
+
+/* ---------------------------
+   CADASTRO
+--------------------------- */
+
+function register(){
+
+    const name =
+        document.getElementById("regName").value.trim();
+
+    const email =
+        document.getElementById("regEmail").value.trim();
+
+    const password =
+        document.getElementById("regPassword").value;
+
+    const gender =
+        document.getElementById("regGender").value;
+
+    const age =
+        Number(document.getElementById("regAge").value);
+
+    if(!name || !email || !password){
+
+        alert("Preencha todos os campos.");
+
+        return;
+    }
+
+    if(password.length < 4){
+
+        alert("A senha deve ter pelo menos 4 caracteres.");
+
+        return;
+    }
+
+    if(!age || age < 18){
+
+        alert("O RENDER é somente para maiores de 18 anos.");
+
+        return;
+    }
+
+    const users =
+        JSON.parse(
+            localStorage.getItem("renderUsers") || "[]"
+        );
+
+    const exists =
+        users.some(function(user){
+
+            return user.email.toLowerCase() ===
+                   email.toLowerCase();
+
+        });
+
+    if(exists){
+
+        alert("Este e-mail já está cadastrado.");
+
+        return;
+    }
+
+    const user = {
+
+        id:Date.now(),
+
+        name:name,
+
+        email:email,
+
+        password:password,
+
+        gender:gender,
+
+        age:age,
+
+        coins: gender === "male" ? 0 : 0,
+
+        beans:0,
+
+        hostLevel:1,
+
+        chameLevel:1,
+
+        messages:0,
+
+        callMinutes:0,
+
+        createdAt:new Date().toISOString()
+
+    };
+
+    users.push(user);
+
+    localStorage.setItem(
+        "renderUsers",
+        JSON.stringify(users)
+    );
+
+    currentUser = user;
+
+    saveUser();
+
+    alert("Conta criada com sucesso! 🎉");
+
+    show("home");
+
+}
+
+
+/* ---------------------------
+   LOGIN
+--------------------------- */
+
+function login(){
+
+    const email =
+        document.getElementById("loginEmail").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+    if(!email || !password){
+
+        alert("Digite seu e-mail e sua senha.");
+
+        return;
+    }
+
+    const users =
+        JSON.parse(
+            localStorage.getItem("renderUsers") || "[]"
+        );
+
+    const user =
+        users.find(function(item){
+
+            return item.email.toLowerCase() ===
+                   email.toLowerCase()
+                   &&
+                   item.password === password;
+
+        });
+
+    if(!user){
+
+        alert("E-mail ou senha incorretos.");
+
+        return;
+    }
+
+    currentUser = user;
+
+    saveUser();
+
+    show("home");
+
+}
+
+
+/* ---------------------------
+   LOGOUT
+--------------------------- */
+
+function logout(){
+
+    currentUser = null;
+
+    localStorage.removeItem("renderUser");
+
+    show("login");
+
+}
+
+
+/* ---------------------------
+   ATUALIZAR USUÁRIO
+--------------------------- */
+
+function syncUser(){
+
+    if(!currentUser){
+        return;
+    }
+
+    const users =
+        JSON.parse(
+            localStorage.getItem("renderUsers") || "[]"
+        );
+
+    const index =
+        users.findIndex(function(user){
+
+            return user.id === currentUser.id;
+
+        });
+
+    if(index >= 0){
+
+        users[index] = currentUser;
+
+        localStorage.setItem(
+            "renderUsers",
+            JSON.stringify(users)
+        );
+
+    }
+
+    saveUser();
+
+}
+
+
+/* ---------------------------
+   ATUALIZAR INTERFACE
+--------------------------- */
+
+function updateUI(){
+
+    if(!currentUser){
+        return;
+    }
+
+    const name =
+        document.getElementById("homeName");
+
+    const homeAvatar =
+        document.getElementById("homeAvatar");
+
+    const profileName =
+        document.getElementById("profileName");
+
+    const profileRole =
+        document.getElementById("profileRole");
+
+    const profileAvatar =
+        document.getElementById("profileAvatar");
+
+    if(name){
+        name.textContent = currentUser.name;
+    }
+
+    if(homeAvatar){
+        homeAvatar.textContent =
+            currentUser.gender === "female"
+            ? "👩"
+            : "👨";
+    }
+
+    if(profileName){
+        profileName.textContent =
+            currentUser.name;
+    }
+
+    if(profileRole){
+
+        profileRole.textContent =
+            currentUser.gender === "female"
+            ? "Mulher / Host"
+            : "Homem";
+
+    }
+
+    if(profileAvatar){
+
+        profileAvatar.textContent =
+            currentUser.gender === "female"
+            ? "👩"
+            : "👨";
+
+    }
+
+    setText(
+        "coinBalance",
+        currentUser.coins || 0
+    );
+
+    setText(
+        "beanBalance",
+        currentUser.beans || 0
+    );
+
+    setText(
+        "walletCoins",
+        currentUser.coins || 0
+    );
+
+    setText(
+        "walletBeans",
+        currentUser.beans || 0
+    );
+
+    setText(
+        "hostLevel",
+        currentUser.hostLevel || 1
+    );
+
+    setText(
+        "chameLevel",
+        currentUser.chameLevel || 1
+    );
+
+    setText(
+        "messageCount",
+        currentUser.messages || 0
+    );
+
+    setText(
+        "callMinutes",
+        currentUser.callMinutes || 0
+    );
+
+}
+
+
+/* ---------------------------
+   TEXTO
+--------------------------- */
+
+function setText(id,value){
+
+    const element =
+        document.getElementById(id);
+
+    if(element){
+        element.textContent = value;
+    }
+
+}
+
+
+/* ---------------------------
+   PERFIS
+--------------------------- */
+
+function renderProfiles(){
+
+    const containers = [
+
+        document.getElementById("profiles"),
+
+        document.getElementById("profileList")
+
+    ];
+
+    containers.forEach(function(container){
+
+        if(!container){
+            return;
+        }
+
+        container.innerHTML = "";
+
+        PROFILES.forEach(function(profile){
+
+            const div =
+                document.createElement("div");
+
+            div.className = "person";
+
+            div.innerHTML = `
+
+                <div class="avatar">
+                    ${profile.emoji}
+                </div>
+
+                <div class="person-info">
+
+                    <h3>
+                        ${profile.name},
+                        ${profile.age}
+                    </h3>
+
+                    <p>
+                        <span class="online"></span>
+                        online
+                    </p>
+
+                    <p>
+                        ${profile.description}
+                    </p>
+
+                </div>
+
+                <button class="primary"
+                        onclick="openChat(${profile.id})">
+                    Conversar
+                </button>
+
+            `;
+
+            container.appendChild(div);
+
+        });
+
+    });
+
+}
+
+
+/* ---------------------------
+   CHAT
+--------------------------- */
+
+function openChat(id){
+
+    selectedProfile =
+        PROFILES.find(function(profile){
+
+            return profile.id === id;
+
+        });
+
+    if(!selectedProfile){
+        return;
+    }
+
+    setText(
+        "chatName",
+        selectedProfile.name
+    );
+
+    const messages =
+        document.getElementById("messages");
+
+    messages.innerHTML = `
+
+        <div class="msg other">
+            Olá! Eu sou ${selectedProfile.name}. 😊
+        </div>
+
+    `;
+
+    show("chatScreen");
+
+}
+
+
+/* ---------------------------
+   ENVIAR MENSAGEM
+--------------------------- */
+
+function sendMessage(){
+
+    if(!currentUser){
+
+        alert("Entre na sua conta primeiro.");
+
+        return;
+    }
+
+    if(currentUser.coins < CUSTO_MENSAGEM){
+
+        alert(
+            "Você não possui moedas suficientes. Faça uma recarga."
+        );
+
+        openModal("rechargeModal");
+
+        return;
+    }
+
+    const input =
+        document.getElementById("messageInput");
+
+    const text =
+        input.value.trim();
+
+    if(!text){
+
+        alert("Digite uma mensagem.");
+
+        return;
+    }
+
+    currentUser.coins -= CUSTO_MENSAGEM;
+
+    currentUser.messages =
+        (currentUser.messages || 0) + 1;
+
+    /*
+       Protótipo:
+       a mulher recebe 200 feijões
+       por mensagem.
+    */
+
+    if(selectedProfile){
+
+        currentUser.beans =
+            (currentUser.beans || 0) + 200;
+
+    }
+
+    const messages =
+        document.getElementById("messages");
+
+    const msg =
+        document.createElement("div");
+
+    msg.className = "msg me";
+
+    msg.textContent = text;
+
+    messages.appendChild(msg);
+
+    input.value = "";
+
+    syncUser();
+
+    updateUI();
+
+}
+
+
+/* ---------------------------
+   CHAMADA
+--------------------------- */
+
+function startCall(){
+
+    if(!currentUser){
+
+        alert("Entre na sua conta primeiro.");
+
+        return;
+    }
+
+    if(currentUser.coins < CUSTO_CHAMADA){
+
+        alert(
+            "Você precisa de pelo menos 200 moedas para iniciar a chamada."
+        );
+
+        openModal("rechargeModal");
+
+        return;
+    }
+
+    if(!selectedProfile){
+
+        alert("Escolha uma pessoa primeiro.");
+
+        return;
+    }
+
+    document.getElementById(
+        "callPerson"
+    ).textContent =
+        selectedProfile.name;
+
+    callSeconds = 0;
+
+    updateCallTimer();
+
+    openModal("callModal");
+
+    clearInterval(callInterval);
+
+    callInterval =
+        setInterval(function(){
+
+            callSeconds++;
+
+            updateCallTimer();
+
+            if(callSeconds % 60 === 0){
+
+                if(currentUser.coins >= CUSTO_CHAMADA){
+
+                    currentUser.coins -=
+                        CUSTO_CHAMADA;
+
+                    currentUser.callMinutes =
+                        (currentUser.callMinutes || 0) + 1;
+
+                    currentUser.beans =
+                        (currentUser.beans || 0) + 200;
+
+                    syncUser();
+
+                    updateUI();
+
+                }else{
+
+                    alert(
+                        "Suas moedas acabaram. A chamada será encerrada."
+                    );
+
+                    endCall();
+
+                }
+
+            }
+
+        },1000);
+
+}
+
+
+/* ---------------------------
+   TIMER
+--------------------------- */
+
+function updateCallTimer(){
+
+    const minutes =
+        Math.floor(callSeconds / 60);
+
+    const seconds =
+        callSeconds % 60;
+
+    const text =
+        String(minutes).padStart(2,"0")
+        +
+        ":"
+        +
+        String(seconds).padStart(2,"0");
+
+    setText("callTimer",text);
+
+}
+
+
+/* ---------------------------
+   ENCERRAR CHAMADA
+--------------------------- */
+
+function endCall(){
+
+    clearInterval(callInterval);
+
+    callInterval = null;
+
+    closeModal("callModal");
+
+    syncUser();
+
+    updateUI();
+
+}
+
+
+/* ---------------------------
+   MOEDAS
+--------------------------- */
+
+function buyCoins(amount){
+
+    if(!currentUser){
+
+        alert("Entre na sua conta primeiro.");
+
+        return;
+    }
+
+    const price =
+        PACOTES[amount];
+
+    if(!price){
+
+        return;
+    }
+
+    /*
+       IMPORTANTE:
+       isto é somente uma simulação local.
+       Não existe cobrança real.
+    */
+
+    currentUser.coins =
+        (currentUser.coins || 0) + amount;
+
+    syncUser();
+
+    updateUI();
+
+    closeModal("rechargeModal");
+
+    alert(
+        amount.toLocaleString("pt-BR")
+        +
+        " moedas adicionadas ao protótipo."
+    );
+
+}
+
+
+/* ---------------------------
+   SAQUE
+--------------------------- */
+
+function withdraw(){
+
+    if(!currentUser){
+
+        return;
+    }
+
+    if(currentUser.beans < 1000){
+
+        alert(
+            "Você precisa de pelo menos 1.000 feijões para solicitar saque."
+        );
+
+        return;
+    }
+
+    const pix =
+        document.getElementById("pixKey").value.trim();
+
+    if(!pix){
+
+        alert("Digite sua chave Pix.");
+
+        return;
+    }
+
+    alert(
+        "Solicitação registrada no protótipo. O pagamento Pix real ainda será integrado."
+    );
+
+    closeModal("withdrawModal");
+
+}
+
+
+/* ---------------------------
+   MODAIS
+--------------------------- */
+
+function openModal(id){
+
+    const modal =
+        document.getElementById(id);
+
+    if(modal){
+        modal.classList.add("show");
+    }
+
+}
+
+function closeModal(id){
+
+    const modal =
+        document.getElementById(id);
+
+    if(modal){
+        modal.classList.remove("show");
+    }
+
+}
+
+
+/* ---------------------------
+   CARTEIRA
+--------------------------- */
+
+function renderWallet(){
+
+    const male =
+        document.getElementById("maleWallet");
+
+    const female =
+        document.getElementById("femaleWallet");
+
+    if(!male || !female){
+        return;
+    }
+
+    if(currentUser.gender === "male"){
+
+        male.innerHTML = `
+
+            <div class="card">
+
+                <h2>Comprar moedas</h2>
+
+                <p class="muted">
+                    Use moedas para conversar e fazer chamadas.
+                </p>
+
+                <button class="primary"
+                        onclick="openModal('rechargeModal')">
+                    🪙 Recarregar moedas
+                </button>
+
+            </div>
+
+        `;
+
+        female.innerHTML = "";
+
+    }else{
+
+        female.innerHTML = `
+
+            <div class="card">
+
+                <h2>Seus ganhos</h2>
+
+                <p class="muted">
+                    Você recebe feijões pelas interações.
+                </p>
+
+                <button class="success"
+                        onclick="openModal('withdrawModal')">
+                    💸 Solicitar saque Pix
+                </button>
+
+            </div>
+
+        `;
+
+        male.innerHTML = "";
+
+    }
+
+}
+
+
+/* ---------------------------
+   NAVEGAÇÃO
+--------------------------- */
+
+function updateNav(active){
+
+    const buttons = [
+        "navHome",
+        "navExplore",
+        "navWallet",
+        "navProfile"
+    ];
+
+    buttons.forEach(function(id){
+
+        const button =
+            document.getElementById(id);
+
+        if(button){
+
+            button.classList.remove("active");
+
+        }
+
+    });
+
+    const map = {
+
+        home:"navHome",
+
+        explore:"navExplore",
+
+        walletScreen:"navWallet",
+
+        profileScreen:"navProfile"
+
+    };
+
+    if(map[active]){
+
+        const button =
+            document.getElementById(
+                map[active]
+            );
+
+        if(button){
+            button.classList.add("active");
+        }
+
+    }
+
+}
+
+
+/* ---------------------------
+   INICIALIZAÇÃO
+--------------------------- */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        renderProfiles();
+
+        if(currentUser){
+
+            updateUI();
+
+            renderWallet();
+
+            show("home");
+
+        }else{
+
+            show("login");
+
+        }
+
+    }
+);
+
+
+/*
+   Atualiza carteira sempre que uma tela
+   for aberta.
+*/
+
+const originalShow = show;
+
+show = function(screenId){
+
+    originalShow(screenId);
+
+    renderWallet();
+
+    updateNav(screenId);
+
+};
+
+
+</script>
+
+</div>
+
+</body>
+</html>
