@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RENDER — Onde a química começa.</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at 50% 25%, #5c0928 0%, #210510 35%, #050505 75%);
+      color: white;
+      display: flex;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      padding: 55px 25px 35px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .glow {
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      background: #ff155f;
+      filter: blur(130px);
+      opacity: 0.18;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    .logo-symbol {
+      width: 92px;
+      height: 92px;
+      border: 4px solid #ff1760;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 45px;
+      color: #ff1760;
+      box-shadow: 0 0 35px rgba(255, 23, 96, 0.45);
+      margin-bottom: 20px;
+      z-index: 1;
+    }
+
+    .logo {
+      font-size: 52px;
+      font-weight: 800;
+      letter-spacing: 9px;
+      margin-left: 9px;
+      background: linear-gradient(90deg, #ffffff, #ff1760);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      z-index: 1;
+    }
+
+    .tagline {
+      margin-top: 16px;
+      font-size: 21px;
+      text-align: center;
+      color: #f5dce5;
+      line-height: 1.4;
+      z-index: 1;
+    }
+
+    .divider {
+      width: 80px;
+      height: 2px;
+      background: #ff1760;
+      margin: 28px 0;
+      box-shadow: 0 0 12px #ff1760;
+    }
+
+    .buttons {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 1;
+    }
+
+    button {
+      width: 100%;
+      height: 58px;
+      border-radius: 30px;
+      font-size: 17px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .enter {
+      border: none;
+      color: white;
+      background: linear-gradient(90deg, #ff145c, #d90849);
+      box-shadow: 0 8px 25px rgba(255, 20, 92, 0.28);
+    }
+
+    .signup {
+      background: transparent;
+      color: white;
+      border: 2px solid #ff1760;
+    }
+
+    button:active {
+      transform: scale(0.97);
+    }
+
+    .footer {
+      margin-top: 30px;
+      color: #bdaab1;
+      font-size: 15px;
+      text-align: center;
+      z-index: 1;
+    }
+
+    .footer span {
+      color: #ff3b78;
+      font-weight: bold;
+    }
+
+    .bottom-glow {
+      position: absolute;
+      bottom: -100px;
+      width: 100%;
+      height: 180px;
+      background: #ff0f58;
+      filter: blur(100px);
+      opacity: 0.12;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="app">
+
+    <div class="glow"></div>
+
+    <div class="logo-symbol">♡</div>
+
+    <h1 class="logo">RENDER</h1>
+
+    <p class="tagline">
+      Onde a química começa.
+    </p>
+
+    <div class="divider"></div>
+
+    <div class="buttons">
+
+      <button class="enter" onclick="entrar()">
+        ENTRAR
+      </button>
+
+      <button class="signup" onclick="criarConta()">
+        CRIAR CONTA
+      </button>
+
+    </div>
+
+    <p class="footer">
+      Conecte-se. Descubra. <span>RENDER.</span>
+    </p>
+
+    <div class="bottom-glow"></div>
+
+  </main>
+
+  <script>
+    function entrar() {
+      alert("A tela de login será criada na próxima etapa.");
+    }
+
+    function criarConta() {
+      alert("A tela de cadastro será criada na próxima etapa.");
+    }
+  </script>
+
+</body>
+  </html>
