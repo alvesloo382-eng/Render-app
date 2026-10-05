@@ -7,398 +7,390 @@
 
 <style>
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 body{
-  font-family:Arial,sans-serif;
-  background:#080b12;
-  color:#fff;
-  min-height:100vh;
+    font-family:Arial,sans-serif;
+    background:#080b12;
+    color:#fff;
+    min-height:100vh;
 }
 
-button,input,select{
-  font:inherit;
+button,
+input,
+select{
+    font:inherit;
 }
 
 button{
-  cursor:pointer;
+    cursor:pointer;
 }
 
 .app{
-  max-width:520px;
-  margin:auto;
-  min-height:100vh;
-  background:
-    radial-gradient(circle at 50% 0%,#35105f 0%,#100b20 35%,#080b12 70%);
+    width:100%;
+    max-width:520px;
+    min-height:100vh;
+    margin:auto;
+    padding:20px 15px 90px;
+    background:
+        radial-gradient(circle at top,#24153b 0%,#0d1019 38%,#080b12 100%);
 }
 
 .screen{
-  display:none;
-  min-height:100vh;
-  padding:22px 18px 90px;
+    display:none;
 }
 
 .screen.active{
-  display:block;
+    display:block;
 }
 
 .logo{
-  text-align:center;
-  padding:35px 0 25px;
+    text-align:center;
+    padding:35px 10px 25px;
 }
 
 .logo h1{
-  font-size:42px;
-  letter-spacing:5px;
-  background:linear-gradient(90deg,#ff4fd8,#9d6cff);
-  -webkit-background-clip:text;
-  color:transparent;
+    font-size:42px;
+    letter-spacing:5px;
+    background:linear-gradient(90deg,#ff4acb,#8c5cff);
+    -webkit-background-clip:text;
+    color:transparent;
 }
 
 .logo p{
-  color:#aaa;
-  margin-top:8px;
+    margin-top:8px;
+    color:#aaa;
 }
 
 .card{
-  background:rgba(25,29,43,.94);
-  border:1px solid #33384b;
-  border-radius:20px;
-  padding:20px;
-  margin-bottom:16px;
-  box-shadow:0 12px 35px rgba(0,0,0,.25);
-}
-
-h2{
-  margin-bottom:8px;
-}
-
-h3{
-  margin-bottom:8px;
-}
-
-.muted{
-  color:#999;
-}
-
-input,select{
-  width:100%;
-  padding:14px;
-  margin:7px 0;
-  background:#101521;
-  border:1px solid #3a4050;
-  border-radius:12px;
-  color:#fff;
-  outline:none;
-}
-
-input:focus{
-  border-color:#b75cff;
-}
-
-button{
-  border:0;
-  border-radius:12px;
-  padding:13px 16px;
-  color:#fff;
-  font-weight:bold;
-}
-
-.primary{
-  width:100%;
-  background:linear-gradient(90deg,#ff3fc8,#914cff);
-}
-
-.secondary{
-  width:100%;
-  background:#252b3a;
-}
-
-.danger{
-  background:#a92745;
-}
-
-.success{
-  background:#16875b;
-}
-
-.small{
-  padding:8px 11px;
-  font-size:13px;
-}
-
-.row{
-  display:flex;
-  gap:10px;
-}
-
-.row>*{
-  flex:1;
+    background:#151925;
+    border:1px solid #303749;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:15px;
+    box-shadow:0 12px 30px rgba(0,0,0,.25);
 }
 
 .center{
-  text-align:center;
+    text-align:center;
 }
 
-.balance{
-  display:flex;
-  gap:10px;
+.muted{
+    color:#999;
 }
 
-.balance .wallet{
-  flex:1;
-  background:#171c29;
-  border-radius:16px;
-  padding:15px;
-  border:1px solid #303749;
+input,
+select{
+    width:100%;
+    padding:14px;
+    margin:7px 0;
+    border-radius:12px;
+    border:1px solid #3a4050;
+    background:#0d111a;
+    color:#fff;
+    outline:none;
 }
 
-.wallet strong{
-  display:block;
-  font-size:25px;
-  margin-top:6px;
+input:focus,
+select:focus{
+    border-color:#b75cff;
 }
 
-.coin{
-  color:#ffd34d;
+button{
+    border:0;
+    border-radius:12px;
+    padding:13px 16px;
+    color:#fff;
 }
 
-.bean{
-  color:#6dff9c;
+.primary{
+    width:100%;
+    background:linear-gradient(90deg,#ff4acb,#8355ff);
+    font-weight:bold;
+}
+
+.secondary{
+    background:#282e3c;
+    border:1px solid #3c4354;
+}
+
+.secondary:hover{
+    background:#343b4d;
+}
+
+.small{
+    padding:9px 12px;
+    font-size:13px;
+}
+
+.success{
+    background:#19a85b;
+}
+
+.danger{
+    background:#c83b52;
 }
 
 .topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 0 20px;
-}
-
-.avatar{
-  width:54px;
-  height:54px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(135deg,#ff4bcf,#6e50ff);
-  font-size:26px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 0 20px;
 }
 
 .profile{
-  display:flex;
-  align-items:center;
-  gap:12px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.avatar{
+    width:54px;
+    height:54px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#ff4bcf,#6e50ff);
+    font-size:26px;
 }
 
 .profile-info{
-  flex:1;
-}
-
-.badge{
-  display:inline-block;
-  padding:4px 8px;
-  border-radius:20px;
-  background:#35244c;
-  color:#d99cff;
-  font-size:11px;
-  margin-top:5px;
-}
-
-.tabs{
-  position:fixed;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(520px,100%);
-  background:#10131d;
-  border-top:1px solid #303544;
-  display:flex;
-  z-index:20;
-}
-
-.tabs button{
-  flex:1;
-  background:none;
-  color:#9298a8;
-  border-radius:0;
-  padding:14px 5px;
-  font-size:12px;
-}
-
-.tabs button.active{
-  color:#fff;
-  background:#1c2130;
-}
-
-.person{
-  display:flex;
-  gap:13px;
-  align-items:center;
-}
-
-.person .avatar{
-  flex-shrink:0;
+    flex:1;
 }
 
 .online{
-  width:9px;
-  height:9px;
-  background:#4dff83;
-  border-radius:50%;
-  display:inline-block;
+    width:9px;
+    height:9px;
+    background:#4dff83;
+    border-radius:50%;
+    display:inline-block;
+}
+
+.balance{
+    display:flex;
+    gap:10px;
+}
+
+.balance .wallet{
+    flex:1;
+    background:#171c29;
+    border-radius:16px;
+    padding:15px;
+    border:1px solid #303749;
+}
+
+.wallet strong{
+    display:block;
+    font-size:25px;
+    margin-top:6px;
+}
+
+.coin{
+    color:#ffd34d;
+}
+
+.bean{
+    color:#6dff9c;
+}
+
+.person{
+    display:flex;
+    gap:13px;
+    align-items:center;
+}
+
+.person .avatar{
+    flex-shrink:0;
+}
+
+.badge{
+    display:inline-block;
+    padding:4px 8px;
+    border-radius:20px;
+    background:#35244c;
+    color:#d99cff;
+    font-size:11px;
+    margin-top:5px;
 }
 
 .price{
-  font-size:20px;
-  font-weight:bold;
-  margin:9px 0;
+    font-size:20px;
+    font-weight:bold;
+    margin:9px 0;
 }
 
 .package{
-  border:1px solid #343b4d;
-  background:#151a27;
-  padding:16px;
-  border-radius:16px;
-  margin-bottom:10px;
+    border:1px solid #343b4d;
+    background:#151a27;
+    padding:16px;
+    border-radius:16px;
+    margin-bottom:10px;
 }
 
 .package.recommended{
-  border-color:#bc59ff;
+    border-color:#bc59ff;
 }
 
 .package button{
-  margin-top:10px;
-  width:100%;
+    margin-top:10px;
+    width:100%;
 }
 
 .chat{
-  background:#0d111a;
-  border-radius:15px;
-  padding:15px;
-  height:340px;
-  overflow-y:auto;
-  margin:15px 0;
+    background:#0d111a;
+    border-radius:15px;
+    padding:15px;
+    height:340px;
+    overflow-y:auto;
+    margin:15px 0;
 }
 
 .msg{
-  padding:10px 13px;
-  border-radius:15px;
-  margin:8px 0;
-  max-width:82%;
+    padding:10px 13px;
+    border-radius:15px;
+    margin:8px 0;
+    max-width:82%;
 }
 
 .msg.other{
-  background:#222837;
+    background:#222837;
 }
 
 .msg.me{
-  background:#7139a5;
-  margin-left:auto;
+    background:#7139a5;
+    margin-left:auto;
 }
 
 .notice{
-  padding:12px;
-  background:#211d2c;
-  border:1px solid #403653;
-  border-radius:12px;
-  margin-bottom:14px;
-  color:#ddd;
+    padding:12px;
+    background:#211d2c;
+    border:1px solid #403653;
+    border-radius:12px;
+    margin-bottom:14px;
+    color:#ddd;
 }
 
 .stat{
-  display:flex;
-  justify-content:space-between;
-  padding:12px 0;
-  border-bottom:1px solid #292e3b;
+    display:flex;
+    justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px solid #292e3b;
 }
 
 .stat:last-child{
-  border-bottom:0;
+    border-bottom:0;
 }
 
-.progress{
-  height:9px;
-  background:#292e3b;
-  border-radius:20px;
-  overflow:hidden;
-  margin-top:8px;
+.person-card{
+    background:#151925;
+    border:1px solid #303749;
+    border-radius:18px;
+    padding:16px;
+    margin-bottom:12px;
 }
 
-.progress div{
-  height:100%;
-  background:linear-gradient(90deg,#ff4acb,#8355ff);
+.person-card button{
+    margin-top:10px;
+    width:100%;
 }
 
-.empty{
-  text-align:center;
-  padding:45px 15px;
-  color:#888;
+.tabs{
+    position:fixed;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(520px,100%);
+    background:#10131d;
+    border-top:1px solid #303544;
+    display:flex;
+    z-index:20;
+}
+
+.tabs button{
+    flex:1;
+    background:none;
+    color:#9298a8;
+    border-radius:0;
+    padding:14px 5px;
+    font-size:12px;
+}
+
+.tabs button.active{
+    color:#fff;
+    background:#1c2130;
 }
 
 .modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.75);
-  z-index:50;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    z-index:50;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
 }
 
 .modal.show{
-  display:flex;
+    display:flex;
 }
 
 .modal-box{
-  width:min(480px,100%);
-  max-height:90vh;
-  overflow:auto;
-  background:#151925;
-  border:1px solid #3c4254;
-  border-radius:20px;
-  padding:20px;
+    width:min(480px,100%);
+    max-height:90vh;
+    overflow:auto;
+    background:#151925;
+    border:1px solid #3c4254;
+    border-radius:20px;
+    padding:20px;
 }
 
 .close{
-  float:right;
-  background:#282e3c;
-  width:38px;
-  height:38px;
-  padding:0;
+    float:right;
+    background:#282e3c;
+    width:38px;
+    height:38px;
+    padding:0;
+    font-size:24px;
 }
 
 .call{
-  text-align:center;
-  padding:35px 15px;
+    text-align:center;
+    padding:35px 15px;
 }
 
 .call .avatar{
-  width:100px;
-  height:100px;
-  margin:0 auto 20px;
-  font-size:45px;
+    width:100px;
+    height:100px;
+    margin:0 auto 20px;
+    font-size:45px;
 }
 
 .timer{
-  font-size:40px;
-  margin:15px 0;
+    font-size:40px;
+    margin:15px 0;
 }
 
 hr{
-  border:0;
-  border-top:1px solid #303544;
-  margin:18px 0;
+    border:0;
+    border-top:1px solid #303544;
+    margin:18px 0;
+}
+
+.empty{
+    text-align:center;
+    padding:45px 15px;
+    color:#888;
 }
 
 @media(max-width:360px){
-  .logo h1{
-    font-size:34px;
-  }
+    .logo h1{
+        font-size:34px;
+    }
 }
 </style>
 </head>
@@ -407,447 +399,214 @@ hr{
 
 <div class="app">
 
-<!-- LOGIN -->
+<!-- ================= LOGIN ================= -->
+
 <section id="login" class="screen active">
 
-  <div class="logo">
-    <h1>RENDER</h1>
-    <p>Onde a química começa.</p>
-  </div>
+    <div class="logo">
+        <h1>RENDER</h1>
+        <p>Onde a química começa.</p>
+    </div>
 
-  <div class="card">
-    <h2>Entrar</h2>
-    <p class="muted">Entre para continuar.</p>
+    <div class="card">
 
-    <input id="loginEmail" type="email" placeholder="Seu e-mail">
+        <h2>Entrar</h2>
 
-    <input id="loginPassword" type="password" placeholder="Sua senha">
+        <p class="muted" style="margin:8px 0 15px;">
+            Entre para continuar.
+        </p>
 
-    <button class="primary" onclick="login()">Entrar</button>
+        <input
+            id="loginEmail"
+            type="email"
+            placeholder="Seu e-mail"
+        >
 
-    <br><br>
+        <input
+            id="loginPassword"
+            type="password"
+            placeholder="Sua senha"
+        >
 
-    <button class="secondary" onclick="show('register')">
-      Criar minha conta
-    </button>
-  </div>
+        <button
+            class="primary"
+            onclick="login()"
+        >
+            Entrar
+        </button>
 
-  <div class="card center">
-    <p class="muted">
-      O RENDER conecta pessoas para conversas,
-      mensagens e chamadas.
-    </p>
-  </div>
+        <br><br>
+
+        <button
+            class="secondary"
+            style="width:100%;"
+            onclick="show('register')"
+        >
+            Criar minha conta
+        </button>
+
+    </div>
+
+    <div class="card center">
+
+        <p class="muted">
+            O RENDER conecta pessoas para conversas,
+            mensagens e chamadas.
+        </p>
+
+    </div>
 
 </section>
 
 
-<!-- CADASTRO -->
+<!-- ================= CADASTRO ================= -->
+
 <section id="register" class="screen">
 
-  <div class="topbar">
-    <button class="secondary small" onclick="show('login')">← Voltar</button>
-  </div>
+    <div class="topbar">
 
-  <div class="logo">
-    <h1>RENDER</h1>
-    <p>Crie sua conta</p>
-  </div>
+        <button
+            class="secondary small"
+            onclick="show('login')"
+        >
+            ← Voltar
+        </button>
 
-  <div class="card">
+    </div>
 
-    <input id="regName" placeholder="Seu nome">
+    <div class="logo">
 
-    <input id="regEmail" type="email" placeholder="Seu e-mail">
+        <h1>RENDER</h1>
 
-    <input id="regPassword" type="password" placeholder="Crie uma senha">
+        <p>Crie sua conta</p>
 
-    <label class="muted">Você é:</label>
+    </div>
 
-    <select id="regGender">
-      <option value="male">Homem</option>
-      <option value="female">Mulher</option>
-    </select>
+    <div class="card">
 
-    <input id="regAge" type="number" placeholder="Idade" min="18">
+        <h2 style="margin-bottom:15px;">
+            Criar conta
+        </h2>
 
-    <button class="primary" onclick="register()">
-      Criar conta
-    </button>
+        <input
+            id="regName"
+            type="text"
+            placeholder="Seu nome"
+        >
 
-  </div>
+        <input
+            id="regEmail"
+            type="email"
+            placeholder="Seu e-mail"
+        >
 
-  <div class="notice">
-    🔞 O RENDER é destinado exclusivamente a maiores de 18 anos.
-  </div>
+        <input
+            id="regPassword"
+            type="password"
+            placeholder="Crie uma senha"
+        >
+
+        <label
+            class="muted"
+            style="display:block;margin:10px 0 5px;"
+        >
+            Você é:
+        </label>
+
+        <select id="regGender">
+
+            <option value="male">
+                Homem
+            </option>
+
+            <option value="female">
+                Mulher
+            </option>
+
+        </select>
+
+        <input
+            id="regAge"
+            type="number"
+            placeholder="Idade"
+            min="18"
+            max="120"
+        >
+
+        <button
+            class="primary"
+            onclick="register()"
+        >
+            Criar conta
+        </button>
+
+    </div>
+
+    <div class="notice">
+
+        🔞 O RENDER é destinado exclusivamente
+        a maiores de 18 anos.
+
+    </div>
 
 </section>
 
 
-<!-- HOME -->
+<!-- ================= HOME ================= -->
+
 <section id="home" class="screen">
 
-  <div class="topbar">
+    <div class="topbar">
 
-    <div class="profile">
-      <div class="avatar" id="homeAvatar">👤</div>
+        <div class="profile">
 
-      <div class="profile-info">
-        <strong id="homeName">Usuário</strong>
-        <div>
-          <span class="online"></span> online
+            <div
+                class="avatar"
+                id="homeAvatar"
+            >
+                👤
+            </div>
+
+            <div class="profile-info">
+
+                <strong id="homeName">
+                    Usuário
+                </strong>
+
+                <div>
+                    <span class="online"></span>
+                    online
+                </div>
+
+            </div>
+
         </div>
-      </div>
+
+        <button
+            class="secondary small"
+            onclick="logout()"
+        >
+            Sair
+        </button>
+
     </div>
 
-    <button class="secondary small" onclick="logout()">Sair</button>
 
-  </div>
+    <div class="balance">
 
-  <div class="balance">
+        <div class="wallet">
 
-    <div class="wallet">
-      🪙 Moedas
-      <strong class="coin" id="coinBalance">0</strong>
-    </div>
+            🪙 Moedas
 
-    <div class="wallet">
-      🌱 Feijões
-      <strong class="bean" id="beanBalance">0</strong>
-    </div>
+            <strong
+                class="coin"
+                id="coinBalance"
+            >
+                0
+            </strong>
 
-  </div>
+        </div>
 
-  <br>
+        <div class="wallet">
 
-  <div class="card">
-    <h2 id="homeTitle">Encontre alguém</h2>
-    <p class="muted">
-      Converse, conheça pessoas e descubra novas conexões.
-    </p>
-  </div>
-
-  <div id="profiles"></div>
-
-</section>
-
-
-<!-- EXPLORAR -->
-<section id="explore" class="screen">
-
-  <div class="topbar">
-    <h2>Descobrir</h2>
-  </div>
-
-  <div id="profileList"></div>
-
-</section>
-
-
-<!-- CHAT -->
-<section id="chatScreen" class="screen">
-
-  <div class="topbar">
-
-    <button class="secondary small" onclick="show('explore')">
-      ← Voltar
-    </button>
-
-    <strong id="chatName">Chat</strong>
-
-  </div>
-
-  <div class="notice">
-    💰 Cada mensagem custa <strong>100 moedas</strong>.
-    A mulher recebe feijões conforme os níveis dela.
-  </div>
-
-  <div id="messages" class="chat">
-
-    <div class="msg other">
-      Olá! Seja bem-vindo ao RENDER. 😊
-    </div>
-
-  </div>
-
-  <input id="messageInput" placeholder="Digite sua mensagem...">
-
-  <button class="primary" onclick="sendMessage()">
-    Enviar — 100 🪙
-  </button>
-
-  <br><br>
-
-  <button class="secondary" onclick="startCall()">
-    📞 Iniciar chamada
-  </button>
-
-</section>
-
-
-<!-- CARTEIRA -->
-<section id="walletScreen" class="screen">
-
-  <div class="topbar">
-    <h2>Minha carteira</h2>
-  </div>
-
-  <div class="balance">
-
-    <div class="wallet">
-      🪙 Moedas
-      <strong class="coin" id="walletCoins">0</strong>
-    </div>
-
-    <div class="wallet">
-      🌱 Feijões
-      <strong class="bean" id="walletBeans">0</strong>
-    </div>
-
-  </div>
-
-  <br>
-
-  <div id="maleWallet"></div>
-  <div id="femaleWallet"></div>
-
-</section>
-
-
-<!-- PERFIL -->
-<section id="profileScreen" class="screen">
-
-  <div class="topbar">
-    <h2>Meu perfil</h2>
-  </div>
-
-  <div class="card center">
-
-    <div class="avatar" style="margin:auto;font-size:40px" id="profileAvatar">
-      👤
-    </div>
-
-    <h2 id="profileName">Usuário</h2>
-
-    <p class="muted" id="profileRole"></p>
-
-  </div>
-
-  <div class="card">
-
-    <div class="stat">
-      <span>Nível Host</span>
-      <strong id="hostLevel">1</strong>
-    </div>
-
-    <div class="stat">
-      <span>Nível Chame</span>
-      <strong id="chameLevel">1</strong>
-    </div>
-
-    <div class="stat">
-      <span>Mensagens</span>
-      <strong id="messageCount">0</strong>
-    </div>
-
-    <div class="stat">
-      <span>Minutos em chamadas</span>
-      <strong id="callMinutes">0</strong>
-    </div>
-
-  </div>
-
-  <div id="levelInfo"></div>
-
-</section>
-
-
-<!-- NAVEGAÇÃO -->
-<nav id="nav" class="tabs" style="display:none">
-
-  <button id="navHome" onclick="show('home')">
-    🏠<br>Início
-  </button>
-
-  <button id="navExplore" onclick="show('explore')">
-    🔎<br>Descobrir
-  </button>
-
-  <button id="navWallet" onclick="show('walletScreen')">
-    💰<br>Carteira
-  </button>
-
-  <button id="navProfile" onclick="show('profileScreen')">
-    👤<br>Perfil
-  </button>
-
-</nav>
-
-
-<!-- MODAL RECARGA -->
-<div id="rechargeModal" class="modal">
-
-  <div class="modal-box">
-
-    <button class="close" onclick="closeModal('rechargeModal')">×</button>
-
-    <h2>Comprar moedas</h2>
-
-    <p class="muted">
-      Escolha um pacote.
-    </p>
-
-    <br>
-
-    <div class="package">
-      <strong>250 moedas</strong>
-      <div class="price">R$ 7,90</div>
-      <button class="primary" onclick="buyCoins(250,7.90)">
-        Comprar
-      </button>
-    </div>
-
-    <div class="package">
-      <strong>500 moedas</strong>
-      <div class="price">R$ 14,90</div>
-      <button class="primary" onclick="buyCoins(500,14.90)">
-        Comprar
-      </button>
-    </div>
-
-    <div class="package recommended">
-      ⭐ <strong>1.000 moedas</strong>
-      <div class="price">R$ 29,00</div>
-      <button class="primary" onclick="buyCoins(1000,29)">
-        Comprar
-      </button>
-    </div>
-
-    <div class="package">
-      <strong>2.500 moedas</strong>
-      <div class="price">R$ 69,00</div>
-      <button class="primary" onclick="buyCoins(2500,69)">
-        Comprar
-      </button>
-    </div>
-
-    <div class="package">
-      <strong>5.000 moedas</strong>
-      <div class="price">R$ 129,00</div>
-      <button class="primary" onclick="buyCoins(5000,129)">
-        Comprar
-      </button>
-    </div>
-
-    <div class="notice">
-      🔒 No aplicativo real, o pagamento deverá ser processado
-      por um provedor de pagamentos seguro.
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- MODAL SAQUE -->
-<div id="withdrawModal" class="modal">
-
-  <div class="modal-box">
-
-    <button class="close" onclick="closeModal('withdrawModal')">×</button>
-
-    <h2>Saque via Pix</h2>
-
-    <p>
-      Mínimo: <strong>1.000 feijões = R$ 5,00</strong>
-    </p>
-
-    <br>
-
-    <input id="pixKey" placeholder="Sua chave Pix">
-
-    <button class="success" style="width:100%" onclick="withdraw()">
-      Solicitar saque
-    </button>
-
-    <br><br>
-
-    <div class="notice">
-      Os saques podem ser solicitados uma vez por dia.
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- MODAL CHAMADA -->
-<div id="callModal" class="modal">
-
-  <div class="modal-box call">
-
-    <div class="avatar">👩</div>
-
-    <h2 id="callPerson">Chamada</h2>
-
-    <p class="muted">
-      Chamada em andamento
-    </p>
-
-    <div class="timer" id="callTimer">00:00</div>
-
-    <div class="notice">
-      💰 Custo: <strong>10 moedas por minuto</strong>
-    </div>
-
-    <button class="danger" style="width:100%" onclick="endCall()">
-      Encerrar chamada
-    </button>
-
-  </div>
-
-</div>
-
-
-<script>
-
-let currentUser =
-JSON.parse(localStorage.getItem("renderUser")) || null;
-
-let selectedProfile = null;
-
-let callInterval = null;
-
-let callSeconds = 0;
-
-
-/* PERFIS DE EXEMPLO */
-
-const profiles = [
-
- {
-   id:1,
-   name:"Ana",
-   age:25,
-   emoji:"👩🏻",
-   host:3,
-   chame:2,
-   online:true,
-   description:"Gosto de conversar e conhecer pessoas novas."
- },
-
- {
-   id:2,
-   name:"Julia",
-   age:28,
-   emoji:"👩🏼",
-   host:5,
-   chame:4,
-   online:true,
-   description:"Sempre pronta para uma boa conversa."
- },
-
- {
-   id:3,
-   name:"Camila",
-   age:23
+            🌱 Feijões
