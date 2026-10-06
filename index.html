@@ -310,25 +310,33 @@ function openPartyRoom(name,host){document.getElementById('v6Title').textContent
   };
 
   window.renderSignup=async function(){
-    const email=document.getElementById('renderEmail').value.trim();
-    const password=document.getElementById('renderPassword').value;
+  const status=document.getElementById('renderAuthStatus');
+  const email=document.getElementById('renderEmail').value.trim();
+  const password=document.getElementById('renderPassword').value;
 
-    if(!email||password.length<6){
-      toast('Use um e-mail e uma senha com pelo menos 6 caracteres.');
-      return;
-    }
+  status.textContent='Criando sua conta...';
 
-    const {error}=await supabase.auth.signUp({
-      email,password
-    });
+  if(!email || password.length<6){
+    status.textContent='Digite um e-mail válido e uma senha com pelo menos 6 caracteres.';
+    return;
+  }
 
-    if(error){
-      toast(error.message);
-      return;
-    }
+  const {data,error}=await window.supabase.auth.signUp({
+    email:email,
+    password:password
+  });
 
-    toast('Conta criada! Confira seu e-mail para confirmar.');
-  };
+  if(error){
+    status.textContent='Erro: '+error.message;
+    return;
+  }
+
+  if(data.session){
+    status.textContent='Conta criada e conectada!';
+  }else{
+    status.textContent='Conta criada! Confira seu e-mail para confirmar.';
+  }
+};
 
   window.renderLogout=async function(){
     await supabase.auth.signOut();
