@@ -1,333 +1,222 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#090711">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07050c">
 <title>RENDER — Onde a química começa</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#090711;--panel:#151121;--panel2:#1c152b;--line:#302542;
-  --pink:#ff3fbf;--purple:#8b5cf6;--gold:#ffd45a;--green:#4ade80;
-  --text:#fff;--muted:#a9a1b8;--danger:#ff5577;
-}
-html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}
-body{min-height:100vh}
-button,input,select{font:inherit}
-button{border:0;cursor:pointer}
-.app{width:100%;max-width:520px;min-height:100vh;margin:auto;padding:18px 16px 96px}
-.screen{display:none}.screen.active{display:block}
-.logo{text-align:center;padding:42px 8px 26px}
-.logo h1{font-size:52px;font-weight:950;letter-spacing:5px;background:linear-gradient(90deg,#ff42c5,#8b5cf6);-webkit-background-clip:text;color:transparent}
-.logo p{margin-top:8px;color:var(--muted);font-size:15px}
-.card{background:linear-gradient(145deg,#171223,#11101b);border:1px solid var(--line);border-radius:26px;padding:20px;margin-bottom:16px;box-shadow:0 12px 35px #0005}
-.card h2{font-size:24px;margin-bottom:7px}.muted{color:var(--muted);line-height:1.5}
-input,select{width:100%;padding:15px 16px;margin:7px 0;border:1px solid #3a2e4b;border-radius:17px;background:#0d0a14;color:#fff;outline:none}
-input:focus,select:focus{border-color:var(--pink);box-shadow:0 0 0 3px #ff3fbf18}
-button{width:100%;padding:14px 16px;border-radius:17px;color:#fff;margin-top:9px;font-weight:750}
-.primary{background:linear-gradient(100deg,#ff3fbf,#7c4dff);box-shadow:0 8px 22px #9d3cff35}
-.secondary{background:#2a2238;border:1px solid #3c3150}.success{background:#17683f}.danger{background:#9e2948}
-.small{width:auto;padding:10px 14px;margin:0}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0 18px}
-.brand-mini{font-weight:950;letter-spacing:2px;font-size:21px;background:linear-gradient(90deg,#ff42c5,#8b5cf6);-webkit-background-clip:text;color:transparent}
-.profile{display:flex;align-items:center;gap:11px}.profile-info{min-width:0}.profile-info strong{display:block}
-.avatar{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;background:linear-gradient(135deg,#ff43c5,#704cff);font-size:26px;border:2px solid #ffffff18}
-.online{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px #4ade80}
-.balance{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
-.wallet{background:linear-gradient(145deg,#1b152a,#12101b);border:1px solid var(--line);border-radius:20px;padding:15px}
-.wallet small{color:var(--muted)}.wallet strong{display:block;font-size:24px;margin-top:5px}.coin{color:var(--gold)}.bean{color:#71f5a2}
-.hero{padding:22px;border-radius:28px;background:radial-gradient(circle at 90% 0,#9c43ff55,transparent 42%),linear-gradient(135deg,#24142e,#151025);border:1px solid #4a315b;margin-bottom:18px}
-.hero h2{font-size:28px;margin-bottom:7px}.hero p{color:#c9bfd7;line-height:1.5}
-.section-title{display:flex;justify-content:space-between;align-items:center;margin:20px 2px 12px}.section-title h3{font-size:19px}
-.person{display:flex;align-items:center;gap:12px;padding:13px;background:linear-gradient(145deg,#171223,#11101a);border:1px solid var(--line);border-radius:22px;margin-bottom:11px}
-.person .avatar{width:58px;height:58px}.person-info{flex:1;min-width:0}.person-info h3{font-size:17px}.person-info p{font-size:13px;color:var(--muted);margin-top:3px}.person button{width:auto;margin:0;padding:10px 13px}
-.badge{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border-radius:99px;background:#ffffff0b;color:#d9d1e5;font-size:11px;margin-top:5px}
-.tabs{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);background:#0f0b18eF;backdrop-filter:blur(18px);border-top:1px solid #302542;display:flex;z-index:30;padding:7px 4px calc(7px + env(safe-area-inset-bottom))}
-.tabs button{flex:1;background:none;color:#8f879e;border-radius:15px;padding:8px 4px;margin:0;font-size:11px}.tabs button.active{color:#fff;background:#2a1b38}
-.chat-page{height:calc(100vh - 36px);min-height:650px;display:flex;flex-direction:column}
-.chat-head{display:flex;align-items:center;gap:10px;padding:4px 0 13px}
-.chat-head .avatar{width:46px;height:46px}.chat-head-info{flex:1}.chat-head-info strong{display:block}.chat-head-info small{color:#91e9ad}
-.chat-box{flex:1;overflow-y:auto;padding:10px 3px 16px;display:flex;flex-direction:column;gap:9px}
-.msg{max-width:82%;padding:11px 14px;border-radius:18px;line-height:1.4;word-break:break-word}.msg.other{align-self:flex-start;background:#262033;border-bottom-left-radius:5px}.msg.me{align-self:flex-end;background:linear-gradient(135deg,#9a45d9,#6548d8);border-bottom-right-radius:5px}.msg small{display:block;opacity:.6;font-size:10px;margin-top:4px}
-.chat-tools{display:flex;align-items:center;gap:7px;padding:9px;background:#171222;border:1px solid var(--line);border-radius:21px}
-.tool{width:43px;height:43px;padding:0;margin:0;background:#2a2238;border-radius:14px;font-size:20px;flex:none}.tool.send{background:linear-gradient(135deg,#ff3fbf,#7c4dff);font-size:18px}
-.chat-input{flex:1!important;margin:0!important;border:0!important;background:transparent!important;padding:10px 5px!important;box-shadow:none!important}
-.chat-note{text-align:center;color:#8f879e;font-size:11px;margin:7px}
-.emoji-panel,.gift-panel{display:none;background:#171222;border:1px solid var(--line);border-radius:20px;padding:12px;margin-bottom:8px}.emoji-panel.show,.gift-panel.show{display:block}
-.emoji-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:5px}.emoji-grid button{background:#241c31;padding:8px 2px;margin:0;border-radius:11px;font-size:21px}
-.gift-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-height:310px;overflow:auto}.gift{background:#21182d;border:1px solid #352746;border-radius:17px;padding:10px;text-align:center}.gift button{background:none;padding:0;margin:0}.gift-icon{font-size:29px}.gift-name{font-size:12px;margin-top:4px}.gift-price{font-size:11px;color:var(--gold);margin-top:4px}
-.modal{display:none;position:fixed;inset:0;background:#000b;z-index:50;align-items:flex-end;justify-content:center;padding:12px}.modal.show{display:flex}.modal-box{width:min(500px,100%);max-height:90vh;overflow:auto;background:linear-gradient(145deg,#1a1426,#100e18);border:1px solid #3b2d4d;border-radius:28px;padding:20px;box-shadow:0 -20px 60px #0008}.close{float:right;width:40px;height:40px;padding:0;margin:0;background:#2a2238;font-size:22px}
-.package{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #342845;background:#171222;padding:13px;border-radius:18px;margin-bottom:9px}.package .price{font-weight:850}.package button{width:auto;margin:0;padding:9px 12px}
-.notice{padding:12px 14px;border-radius:16px;background:#21182d;border:1px solid #3c2d4d;color:#cfc6da;margin-bottom:12px;font-size:13px;line-height:1.45}
-.stat{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #2d243a}.stat:last-child{border:0}
-.empty{text-align:center;padding:35px 15px;color:#8f879e}
-.call{text-align:center;padding:28px 12px}.timer{font-size:44px;font-weight:900;margin:12px 0}
-.filter-row{display:flex;gap:8px;overflow:auto;margin-bottom:15px}.filter{white-space:nowrap;width:auto;margin:0;padding:9px 13px;background:#211a2d;color:#aaa0b6;border:1px solid #342747}.filter.active{background:#7c3aed;color:#fff}
-.vip{background:linear-gradient(120deg,#3b2149,#24133a);border:1px solid #8e4dba}
+:root{--bg:#07050c;--panel:#110d18;--panel2:#17111f;--pink:#ff3f9f;--violet:#925cff;--cyan:#4de9ff;--gold:#ffd166;--green:#6dffb0;--muted:#aaa2b1;--line:#ffffff12}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#05040a;color:#fff;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}body{background:radial-gradient(circle at 50% -10%,#3a0e43 0,#10081a 28%,#07050c 67%)}button,input{font:inherit}button{border:0;color:inherit;cursor:pointer}.app{max-width:540px;margin:auto;min-height:100vh;padding-bottom:96px;position:relative}.top{position:sticky;top:0;z-index:30;padding:13px 16px 11px;background:linear-gradient(#08060eee,#08060bd9,transparent);backdrop-filter:blur(18px)}.toprow{display:flex;align-items:center;justify-content:space-between}.brand{font-size:25px;font-weight:1000;letter-spacing:5px;background:linear-gradient(90deg,#fff,#ff62b3,#9a74ff);color:transparent;background-clip:text;-webkit-background-clip:text}.balance{background:#17111f;border:1px solid #ffffff14;border-radius:999px;padding:8px 12px;display:flex;gap:7px;align-items:center;font-size:12px;font-weight:900;box-shadow:0 8px 25px #0006}.coin{width:19px;height:19px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#ffe18a,#ff9b35);color:#4d2600;font-size:10px}.rolebar{padding:0 15px 7px}.rolebar div{display:flex;gap:5px;padding:4px;background:#0d0912;border:1px solid var(--line);border-radius:15px}.role{flex:1;padding:8px;border-radius:11px;background:transparent;color:#817a89;font-size:10px;font-weight:950}.role.active{background:linear-gradient(100deg,#ff3f9f,#8359ff);color:#fff}.screen{display:none;padding:0 15px}.screen.active{display:block}.hero{margin:7px 0 16px;padding:23px;border-radius:29px;position:relative;overflow:hidden;background:linear-gradient(135deg,#3b123e,#17112d 50%,#09222d);border:1px solid #ffffff17;box-shadow:0 22px 70px #0008}.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;filter:blur(2px)}.hero:before{width:220px;height:220px;right:-95px;top:-90px;background:#ff3f9f55}.hero:after{width:160px;height:160px;left:-100px;bottom:-90px;background:#4de9ff28}.kicker{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#ff8ac6;font-weight:950}.hero h1{position:relative;font-size:34px;line-height:1.02;margin:9px 0}.hero p{position:relative;color:#c7bfcc;line-height:1.45;font-size:13px;max-width:330px}.cta{position:relative;background:linear-gradient(100deg,#ff3f9f,#895aff);padding:12px 18px;border-radius:15px;font-weight:950;box-shadow:0 12px 30px #ff3f9f35}.sectionhead{display:flex;align-items:center;justify-content:space-between;margin:18px 2px 10px}.sectionhead h2{margin:0;font-size:17px}.see{font-size:10px;color:#ff72b8;font-weight:950}.stories{display:flex;gap:13px;overflow:auto;padding:2px 2px 5px}.stories::-webkit-scrollbar{display:none}.story{min-width:66px;text-align:center}.story img{width:61px;height:61px;border-radius:50%;object-fit:cover;padding:2px;border:2px solid #ff49a8;background:#0b0710}.story small{display:block;color:#aaa2b1;font-size:10px;margin-top:5px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}.profile{height:242px;border-radius:23px;overflow:hidden;position:relative;background:#12101a;border:1px solid var(--line);box-shadow:0 12px 35px #0005}.profile img{width:100%;height:100%;object-fit:cover}.profile:after{content:"";position:absolute;inset:42% 0 0;background:linear-gradient(transparent,#000d)}.pinfo{position:absolute;z-index:2;bottom:12px;left:12px;right:10px}.name{font-size:14px;font-weight:950}.meta{font-size:10px;color:#b9b1c0;margin-top:3px}.online{display:flex;align-items:center;gap:5px;color:#8effb8;font-size:9px;font-weight:800}.dot{width:7px;height:7px;background:#4dff91;border-radius:50%;box-shadow:0 0 10px #4dff91}.feature,.room,.row,.stat,.pack,.search,.walletbox{background:#111019;border:1px solid var(--line);box-shadow:0 10px 30px #0003}.feature{margin-top:13px;padding:13px;border-radius:23px;display:flex;align-items:center;gap:11px;background:linear-gradient(135deg,#1a1021,#111827)}.feature img{width:78px;height:78px;border-radius:19px;object-fit:cover}.grow{flex:1}.tag{display:inline-block;padding:5px 7px;border-radius:8px;background:#35153a;color:#ff94ce;font-size:8px;font-weight:950}.feature strong{display:block;font-size:12px;margin-top:4px}.nav{position:fixed;z-index:60;bottom:0;left:50%;transform:translateX(-50%);width:min(540px,100%);display:grid;grid-template-columns:repeat(6,1fr);padding:8px 6px calc(8px + env(safe-area-inset-bottom));background:#0b0811ee;border-top:1px solid var(--line);backdrop-filter:blur(22px)}.nav button{background:none;color:#817a89;font-size:8px;font-weight:900;display:flex;flex-direction:column;gap:4px;align-items:center}.nav button b{font-size:18px;line-height:18px}.nav button.active{color:#ff61b0}.tabs{display:flex;gap:7px;overflow:auto;margin:6px 0 14px}.tab{white-space:nowrap;padding:9px 13px;border-radius:999px;background:#111019;color:#918b99;border:1px solid var(--line);font-size:10px;font-weight:900}.tab.active{color:#fff;border-color:#ff3f9f66;background:#ff3f9f18}.search{display:flex;align-items:center;gap:8px;padding:11px 13px;border-radius:15px;margin-bottom:13px;color:#aaa}.search input{flex:1;background:none;border:0;outline:0;color:#fff;font-size:12px}.party{padding:19px;border-radius:26px;background:linear-gradient(145deg,#35113b,#17122d 55%,#08242b);border:1px solid #ffffff18;box-shadow:0 20px 55px #0007;position:relative;overflow:hidden}.party:after{content:"";position:absolute;width:190px;height:190px;right:-70px;top:-80px;border-radius:50%;background:#ff3f9f35;filter:blur(4px)}.partytitle{display:flex;justify-content:space-between}.live{background:#ff3151;border-radius:8px;padding:5px 8px;font-size:8px;font-weight:1000}.party h2{font-size:27px;margin:10px 0 3px}.party p{color:#c0b8c8;font-size:11px;line-height:1.45}.avatars{display:flex}.avatars img{width:39px;height:39px;border-radius:50%;object-fit:cover;border:2px solid #1a1125;margin-right:-8px}.enter{margin-left:auto;background:#fff;color:#150b17;border-radius:12px;padding:10px 13px;font-size:10px;font-weight:1000}.roomcards{display:grid;grid-template-columns:1fr 1fr;gap:10px}.room{padding:15px;border-radius:18px}.room strong{display:block;font-size:12px}.room span{font-size:9px;color:#8f8898}.walletbox{padding:20px;border-radius:25px;background:linear-gradient(140deg,#2b1531,#14112a)}.walletbox small{color:#aaa2b1}.big{font-size:38px;font-weight:1000;margin:5px 0 14px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:11px 0}.stat{padding:14px;border-radius:17px}.stat b{display:block;font-size:18px}.stat small{font-size:9px;color:#918a99}.packages{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.pack{padding:14px;border-radius:17px}.pack b{font-size:14px}.pack small{display:block;color:#918a99;margin:5px 0 10px;font-size:10px}.buy{width:100%;background:#ff3f9f;border-radius:10px;padding:9px;font-size:10px;font-weight:950}.profilehero{text-align:center;padding:18px;border-radius:26px;background:linear-gradient(145deg,#27132f,#111522);border:1px solid var(--line)}.profilehero img{width:125px;height:125px;border-radius:34px;object-fit:cover;border:3px solid #ff4ca8}.profilehero h2{margin:9px 0 3px}.actions{display:flex;gap:8px;margin-top:13px}.actions button{flex:1;padding:11px;border-radius:13px;background:#211a29;font-weight:900;font-size:11px}.actions .primary{background:linear-gradient(100deg,#ff3f9f,#895aff)}.row{display:flex;align-items:center;gap:11px;padding:12px;border-radius:17px;margin-bottom:8px}.row img{flex:none}.ico{width:37px;height:37px;border-radius:12px;background:#241a2d;display:grid;place-items:center}.row b{font-size:12px}.row small{display:block;color:#918a99;font-size:9px;margin-top:3px}.chathead{display:flex;align-items:center;gap:10px;padding:6px 0 13px;border-bottom:1px solid var(--line)}.chathead img{width:45px;height:45px;border-radius:14px;object-fit:cover}.bubble{max-width:80%;padding:11px 13px;border-radius:17px;margin:9px 0;font-size:12px;line-height:1.4}.left{background:#17131d;border-bottom-left-radius:5px}.right{margin-left:auto;background:linear-gradient(120deg,#c52b83,#6843c8);border-bottom-right-radius:5px}.reward{margin-top:5px;color:#83ffb3;font-weight:1000;font-size:9px}.chattools{position:fixed;z-index:55;bottom:73px;left:50%;transform:translateX(-50%);width:min(540px,100%);display:flex;gap:7px;padding:8px 12px;background:#08060cee}.chattools input{flex:1;background:#15111d;border:1px solid var(--line);border-radius:14px;color:#fff;padding:10px;outline:0}.round{width:41px;border-radius:13px;background:#211a29}.send{background:#ff3f9f}.modal{position:fixed;inset:0;z-index:100;background:#000b;display:none;align-items:flex-end}.modal.show{display:flex}.sheet{width:min(540px,100%);max-height:83vh;overflow:auto;background:#100c15;border-radius:27px 27px 0 0;border:1px solid var(--line);padding:18px}.sheethead{display:flex;justify-content:space-between;align-items:center}.close{width:34px;height:34px;border-radius:50%;background:#211a28}.giftgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:13px}.gift{background:#17131e;border:1px solid var(--line);border-radius:17px;padding:11px 5px;text-align:center}.gift .emoji{font-size:27px}.gift b{display:block;font-size:9px;margin:4px 0}.gift small{color:#ffcc6d;font-weight:950;font-size:9px}.toast{position:fixed;z-index:200;left:50%;bottom:91px;transform:translateX(-50%) translateY(12px);opacity:0;transition:.25s;background:#fff;color:#170b17;border-radius:13px;padding:10px 14px;font-size:11px;font-weight:950;pointer-events:none;white-space:nowrap;box-shadow:0 15px 35px #0008}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.note{padding:11px 12px;border-radius:14px;background:#121019;border:1px solid var(--line);font-size:9px;color:#9b94a2;line-height:1.5}
+.gift-fly-layer{position:fixed;inset:0;z-index:180;pointer-events:none;overflow:hidden}
+.gift-fly{position:absolute;left:50%;bottom:86px;transform:translate(-50%,0) scale(.45);font-size:76px;filter:drop-shadow(0 0 18px #ff4ca8);animation:giftFly 1050ms cubic-bezier(.18,.78,.25,1) forwards}
+.gift-fly::after{content:"";position:absolute;inset:-18px;border-radius:50%;background:radial-gradient(circle,#fff8 0,#ff4ca833 35%,transparent 70%);z-index:-1;animation:giftGlow 1050ms ease-out forwards}
+.gift-spark{position:absolute;left:50%;bottom:38%;font-size:22px;opacity:0;animation:spark 850ms ease-out forwards}
+@keyframes giftFly{0%{opacity:0;transform:translate(-50%,20px) scale(.35) rotate(-12deg)}15%{opacity:1}55%{transform:translate(-50%,-42vh) scale(1.12) rotate(8deg)}78%{transform:translate(-50%,-49vh) scale(1.2) rotate(-3deg)}100%{opacity:0;transform:translate(-50%,-54vh) scale(.85) rotate(0)}}
+@keyframes giftGlow{0%{transform:scale(.3);opacity:0}35%{opacity:1}100%{transform:scale(1.7);opacity:0}}
+@keyframes spark{0%{opacity:0;transform:translate(-50%,20px) scale(.3)}20%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--sx)),calc(-50vh + var(--sy))) scale(1.2) rotate(90deg)}}
+.gift-message{position:relative;max-width:84%;margin:12px 0 12px auto;padding:13px 14px 12px;border-radius:20px 20px 5px 20px;background:linear-gradient(135deg,#35103a,#632c9b);border:1px solid #ff69b744;box-shadow:0 12px 35px #0005;overflow:hidden;animation:giftMessageIn .45s ease-out both}
+.gift-message::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,#ffffff16,transparent);transform:translateX(-120%);animation:giftShine 1.1s .15s ease-out forwards}
+.gift-message .gift-icon{font-size:48px;line-height:1;display:block;text-align:center;margin-bottom:6px;filter:drop-shadow(0 0 12px #ff4ca8)}
+.gift-message .gift-title{font-size:12px;font-weight:1000;text-align:center}
+.gift-message .gift-cost{text-align:center;color:#ffda78;font-size:9px;font-weight:900;margin-top:4px}
+@keyframes giftMessageIn{0%{opacity:0;transform:translateY(18px) scale(.82)}100%{opacity:1;transform:none}}
+@keyframes giftShine{100%{transform:translateX(120%)}}
+.gift-label{display:inline-flex;align-items:center;gap:5px;margin-top:6px;padding:5px 8px;border-radius:999px;background:#120c18aa;color:#ffd86d;font-size:8px;font-weight:1000}
+
+.chat{padding-bottom:105px}.chat .bubble,.chat .gift-message{scroll-margin-bottom:105px}.room-list{display:grid;gap:10px}.room-card{position:relative;overflow:hidden;padding:14px;border-radius:20px;background:linear-gradient(135deg,#17111f,#101724);border:1px solid var(--line);box-shadow:0 10px 30px #0004}.room-card:after{content:"";position:absolute;width:130px;height:130px;right:-45px;top:-55px;border-radius:50%;background:#925cff22;filter:blur(2px)}.room-top{display:flex;gap:11px;align-items:center}.room-cover{width:64px;height:64px;border-radius:18px;object-fit:cover}.room-info{flex:1}.room-info strong{display:block;font-size:13px}.room-info small{display:block;color:#9991a0;font-size:9px;margin-top:4px}.room-badges{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap}.room-badge{font-size:8px;font-weight:900;padding:5px 7px;border-radius:999px;background:#ffffff0c;color:#d5ced9}.room-badge.live{background:#ff315122;color:#ff6f89}.room-enter{position:relative;z-index:2;background:linear-gradient(100deg,#ff3f9f,#895aff);border-radius:11px;padding:9px 11px;font-size:9px;font-weight:1000}.create-room{width:100%;margin:12px 0;padding:13px;border-radius:15px;background:#15111e;border:1px dashed #ff4ca888;color:#ff78ba;font-size:11px;font-weight:950}.tribe-card{padding:15px;border-radius:20px;background:linear-gradient(135deg,#20142b,#101724);border:1px solid var(--line)}.tribe-head{display:flex;align-items:center;gap:10px}.tribe-icon{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,#ff3f9f,#7d55ff);font-size:24px}.tribe-card strong{font-size:13px}.tribe-card small{display:block;color:#9991a0;font-size:9px;margin-top:3px}.task-row{display:flex;align-items:center;gap:9px;padding:10px 0;border-top:1px solid #ffffff0b}.task-row:first-child{border-top:0}.task-check{width:27px;height:27px;border-radius:9px;background:#21182b;display:grid;place-items:center;color:#6dffb0}.party-room{padding:0 0 110px}.party-room-head{position:sticky;top:0;z-index:20;padding:10px 0 12px;background:linear-gradient(#07050cf5,#07050ce8,transparent);display:flex;align-items:center;gap:9px}.back-btn{width:38px;height:38px;border-radius:13px;background:#17111f}.room-cover-lg{width:46px;height:46px;border-radius:14px;object-fit:cover}.room-stage{position:relative;min-height:300px;border-radius:26px;overflow:hidden;background:radial-gradient(circle at 50% 35%,#5e1d6e 0,#19102a 45%,#08070e 100%);border:1px solid #ffffff16;box-shadow:0 20px 60px #0008}.room-stage:before,.room-stage:after{content:"";position:absolute;border-radius:50%;filter:blur(25px)}.room-stage:before{width:180px;height:180px;left:-50px;top:45px;background:#ff3f9f35}.room-stage:after{width:190px;height:190px;right:-50px;bottom:20px;background:#4de9ff25}.stage-title{position:absolute;left:15px;right:15px;top:15px;display:flex;justify-content:space-between;z-index:2}.mic-grid{position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,1fr);gap:18px 8px;padding:72px 18px 18px}.seat{text-align:center}.seat-avatar{width:61px;height:61px;border-radius:50%;object-fit:cover;border:2px solid #ff53ad;box-shadow:0 0 20px #ff3f9f30}.seat-avatar.host{border-color:#ffd166;box-shadow:0 0 20px #ffd16645}.seat-name{font-size:9px;font-weight:900;margin-top:5px}.mic-pill{display:inline-flex;align-items:center;gap:4px;margin-top:3px;padding:4px 7px;border-radius:999px;background:#09070dbb;color:#a9a2b0;font-size:8px}.mic-pill.on{color:#6dffb0}.room-chat{margin-top:10px;display:grid;gap:7px}.room-msg{max-width:88%;padding:9px 11px;border-radius:14px;background:#14101b;border:1px solid #ffffff0a;font-size:10px;line-height:1.35}.room-msg b{color:#ff77bb}.room-msg.mine{margin-left:auto;background:#311a4b}.room-controls{position:fixed;z-index:56;bottom:73px;left:50%;transform:translateX(-50%);width:min(540px,100%);display:flex;justify-content:center;gap:9px;padding:9px 12px;background:#08060cee;backdrop-filter:blur(18px);border-top:1px solid var(--line)}.room-control{min-width:48px;height:43px;padding:0 12px;border-radius:14px;background:#1c1723;font-size:17px}.room-control.primary{background:linear-gradient(100deg,#ff3f9f,#895aff)}.room-control.gift{background:#3b2035;color:#ffd166}.member-strip{display:flex;gap:7px;overflow:auto;padding:8px 1px}.member-mini{min-width:48px;text-align:center}.member-mini img{width:40px;height:40px;border-radius:50%;object-fit:cover}.member-mini small{display:block;font-size:7px;color:#aaa2b1;margin-top:3px}.room-tabs{display:flex;gap:7px;margin:10px 0}.room-tab{flex:1;padding:9px;border-radius:11px;background:#111019;border:1px solid var(--line);font-size:9px;font-weight:900;text-align:center}.room-tab.active{background:#ff3f9f18;border-color:#ff3f9f66;color:#ff7cbe}.modal-form{display:grid;gap:9px}.modal-form input{width:100%;background:#17131e;border:1px solid var(--line);border-radius:13px;color:#fff;padding:12px;outline:0}.create-options{display:flex;gap:7px;flex-wrap:wrap}.create-options button{padding:8px 10px;border-radius:999px;background:#17131e;border:1px solid var(--line);font-size:9px}.create-options button.active{border-color:#ff3f9f;background:#ff3f9f18}
+@media(min-width:600px){body{padding:0 20px}.app{box-shadow:0 0 90px #0009}}
+
+.room-stage.wall-1{background:radial-gradient(circle at 50% 35%,#7b1fa2 0,#24113f 45%,#090713 100%),linear-gradient(135deg,#ff3f9f,#925cff)}
+.room-stage.wall-2{background:radial-gradient(circle at 30% 20%,#124e66 0,#101c38 45%,#05070f 100%)}
+.room-stage.wall-3{background:radial-gradient(circle at 70% 25%,#7b4b12 0,#302015 38%,#090806 100%)}
+.room-stage.wall-4{background:radial-gradient(circle at 50% 15%,#173b2d 0,#10251f 42%,#050908 100%)}
+.room-stage.wall-5{background:linear-gradient(135deg,#24103e 0%,#55134b 35%,#111a3c 70%,#06111d 100%)}
+.room-stage.wall-6{background:radial-gradient(circle at 50% 40%,#40231a 0,#211319 40%,#070609 100%)}
+.room-settings{position:absolute;right:12px;top:12px;z-index:5;width:38px;height:38px;border-radius:13px;background:#0b0710cc;border:1px solid #ffffff1a;font-size:17px}
+.wall-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:12px}.wall-choice{height:82px;border-radius:15px;border:2px solid transparent;overflow:hidden;position:relative}.wall-choice.active{border-color:#ff55ad}.wall-choice span{position:absolute;left:8px;bottom:7px;font-size:9px;font-weight:900;text-shadow:0 2px 8px #000}.wall-1-bg{background:radial-gradient(circle at 50% 35%,#7b1fa2,#24113f 55%,#090713)}.wall-2-bg{background:radial-gradient(circle at 30% 20%,#124e66,#101c38 55%,#05070f)}.wall-3-bg{background:radial-gradient(circle at 70% 25%,#7b4b12,#302015 55%,#090806)}.wall-4-bg{background:radial-gradient(circle at 50% 15%,#173b2d,#10251f 55%,#050908)}.wall-5-bg{background:linear-gradient(135deg,#24103e,#55134b 45%,#111a3c 75%,#06111d)}.wall-6-bg{background:radial-gradient(circle at 50% 40%,#40231a,#211319 55%,#070609)}
+
+/* ===== RENDER V6 — Sala de Festa / referência de experiência ===== */
+.party-room-v6{position:fixed;inset:0;z-index:45;background:#05050a;color:#fff;overflow:hidden;padding-bottom:0}
+.party-room-v6 .v6-bg{position:absolute;inset:0;background:radial-gradient(circle at 50% 20%,#321b45 0,#111020 35%,#05060b 72%);}
+.party-room-v6 .v6-bg:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 0 35%,#ff3f9f08 55%,transparent 75%),radial-gradient(circle at 12% 35%,#925cff1b,transparent 27%),radial-gradient(circle at 88% 45%,#4de9ff12,transparent 25%)}
+.v6-top{position:absolute;z-index:20;left:0;right:0;top:0;height:68px;padding:10px 12px;display:flex;align-items:center;gap:9px;background:linear-gradient(#05050bee,#05050b88,transparent);backdrop-filter:blur(10px)}
+.v6-room-cover{width:44px;height:44px;border-radius:13px;object-fit:cover;border:1px solid #ffffff20}
+.v6-room-meta{min-width:0;flex:1}.v6-room-meta b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.v6-room-meta small{display:block;color:#aaa4b2;font-size:8px;margin-top:3px}
+.v6-top-actions{display:flex;gap:6px}.v6-icon{width:37px;height:37px;border-radius:12px;background:#0b0a11c9;border:1px solid #ffffff16;color:#fff;display:grid;place-items:center;font-size:16px}
+.v6-live{background:#ff3151;border-radius:8px;padding:5px 7px;font-size:8px;font-weight:1000}
+.v6-rankbar{position:absolute;z-index:18;top:73px;left:10px;right:10px;display:flex;align-items:center;gap:8px;overflow:hidden}
+.v6-rank-pill{height:34px;padding:0 10px;border-radius:999px;background:#0a0910c7;border:1px solid #ffffff14;display:flex;align-items:center;gap:6px;white-space:nowrap;font-size:9px;font-weight:950}.v6-rank-pill.gold{color:#ffd166}.v6-progress{width:95px;height:7px;border-radius:99px;background:#ffffff12;overflow:hidden}.v6-progress i{display:block;height:100%;width:71%;background:linear-gradient(90deg,#ff3f9f,#ffd166);border-radius:99px}
+.v6-stage{position:absolute;z-index:5;left:8px;right:8px;top:112px;bottom:132px;overflow:auto;scrollbar-width:none}.v6-stage::-webkit-scrollbar{display:none}
+.v6-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px 5px;padding:8px 4px 100px}
+.v6-seat{text-align:center;min-width:0;position:relative}.v6-avatar-wrap{width:57px;height:57px;margin:auto;position:relative}.v6-avatar{width:57px;height:57px;border-radius:50%;object-fit:cover;border:2px solid #ff49a8;box-shadow:0 0 14px #ff3f9f24}.v6-seat.host .v6-avatar{border-color:#ffd166;box-shadow:0 0 17px #ffd16638}.v6-seat.vip .v6-avatar{border-color:#925cff}.v6-crown{position:absolute;left:50%;top:-12px;transform:translateX(-50%);font-size:18px;filter:drop-shadow(0 2px 4px #000)}
+.v6-mic{position:absolute;right:-2px;bottom:-1px;width:21px;height:21px;border-radius:50%;display:grid;place-items:center;background:#17121e;border:2px solid #08070c;font-size:10px}.v6-mic.on{background:#19d987}.v6-mic.speaking{animation:v6Pulse .9s infinite alternate}.v6-name{margin-top:5px;font-size:8px;font-weight:950;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.v6-score{font-size:7px;color:#aaa2b1;margin-top:2px}.v6-gift-mini{font-size:7px;color:#ffd166;margin-top:2px}
+@keyframes v6Pulse{from{box-shadow:0 0 0 #6dffb000}to{box-shadow:0 0 13px #6dffb0}}
+.v6-float{position:absolute;z-index:25;right:9px;top:154px;display:flex;flex-direction:column;gap:7px}.v6-float button{width:40px;height:40px;border-radius:13px;background:#0a0910b8;border:1px solid #ffffff12;font-size:17px}.v6-float .hot{background:linear-gradient(145deg,#ff3f9f,#7d55ff)}
+.v6-chat{position:absolute;z-index:30;left:10px;bottom:150px;width:min(78%,340px);max-height:145px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;gap:5px;pointer-events:none}.v6-msg{width:max-content;max-width:100%;padding:7px 10px;border-radius:12px;background:#08070dcc;color:#eee;font-size:9px;line-height:1.3;border:1px solid #ffffff0b;text-shadow:0 1px 2px #000}.v6-msg b{color:#ff72b8}.v6-msg.gift{background:linear-gradient(100deg,#36133e,#24143b);color:#ffd76d}.v6-announcement{position:absolute;z-index:24;left:12px;right:12px;bottom:115px;padding:8px 10px;border-radius:13px;background:#05040ac4;border:1px solid #ffffff0b;color:#e2dce5;font-size:8px;line-height:1.4}
+.v6-bottom{position:absolute;z-index:40;left:0;right:0;bottom:0;padding:9px 10px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(transparent,#05050bf2 28%,#05050b 100%);backdrop-filter:blur(13px)}
+.v6-actions{display:grid;grid-template-columns:repeat(7,1fr);gap:7px;align-items:end}.v6-action{height:43px;border-radius:14px;background:#15111ccc;border:1px solid #ffffff12;display:grid;place-items:center;font-size:18px}.v6-action small{display:block;font-size:6px;color:#aaa2b1;margin-top:-5px}.v6-action.gift{background:linear-gradient(145deg,#ff3f9f,#8c54ff)}.v6-action.mic-on{background:#17bd7c}.v6-say{display:flex;gap:7px;margin-top:8px}.v6-say input{flex:1;background:#0e0c14;border:1px solid #ffffff12;border-radius:13px;padding:10px;color:#fff;outline:none;font-size:10px}.v6-say button{width:44px;border-radius:13px;background:#ff3f9f;font-size:17px}
+.v6-present-overlay{position:absolute;z-index:60;left:50%;top:45%;transform:translate(-50%,-50%) scale(.4);opacity:0;font-size:88px;filter:drop-shadow(0 0 22px #ff4ca8);pointer-events:none}.v6-present-overlay.show{animation:v6Gift 1.25s ease-out forwards}@keyframes v6Gift{0%{opacity:0;transform:translate(-50%,-50%) scale(.35)}18%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}60%{opacity:1;transform:translate(-50%,-58%) scale(1.25)}100%{opacity:0;transform:translate(-50%,-78%) scale(.8)}}
+.v6-side-sheet{width:min(540px,100%);max-height:72vh;overflow:auto;background:#100c15;border-radius:27px 27px 0 0;border:1px solid #ffffff16;padding:18px}.v6-gift-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}.v6-gift-item{background:#17131e;border:1px solid #ffffff10;border-radius:15px;padding:9px 4px;text-align:center}.v6-gift-item span{font-size:28px}.v6-gift-item b{display:block;font-size:8px;margin:3px 0}.v6-gift-item small{color:#ffd166;font-size:7px;font-weight:900}
+@media(max-width:380px){.v6-grid{gap:9px 3px}.v6-avatar-wrap,.v6-avatar{width:50px;height:50px}.v6-grid{grid-template-columns:repeat(5,1fr)}.v6-action{height:40px}.v6-chat{width:82%}}
+
 </style>
 </head>
 <body>
 <div class="app">
+<header class="top"><div class="toprow"><div class="brand">RENDER</div><button class="balance" onclick="go('wallet')"><span class="coin">M</span><span id="topMoney">1.250</span> moedas</button></div></header>
 
-<section id="login" class="screen active">
-  <div class="logo"><h1>RENDER</h1><p>Onde a química começa.</p></div>
-  <div class="card">
-    <h2>Bem-vindo de volta 💜</h2><p class="muted">Entre para continuar suas conexões.</p>
-    <input id="loginEmail" type="email" placeholder="Seu e-mail">
-    <input id="loginPassword" type="password" placeholder="Sua senha">
-    <button class="primary" onclick="login()">Entrar</button>
-    <button class="secondary" onclick="show('register')">Criar minha conta</button>
-  </div>
-  <div class="card center"><p class="muted">Converse, conheça pessoas e descubra novas conexões em um só lugar.</p></div>
+
+
+<main>
+<section id="home" class="screen active">
+<div class="hero"><div class="kicker">RENDER · onde a química começa</div><h1>Conexões que<br>dão vontade de ficar.</h1><p>Conheça pessoas online, converse em privado, mande presentes e entre nas festas ao vivo.</p><button class="cta" onclick="go('discover')">Explorar agora →</button></div>
+<div class="sectionhead"><h2>Online agora</h2><span class="see">ao vivo</span></div>
+<div class="stories">
+<div class="story"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150"><small>Camila</small></div>
+<div class="story"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150"><small>Larissa</small></div>
+<div class="story"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150"><small>Júlia</small></div>
+<div class="story"><img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=150"><small>Marina</small></div>
+<div class="story"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150"><small>Bianca</small></div>
+</div>
+<div class="sectionhead"><h2>Talvez combine com você</h2><span class="see" onclick="go('discover')">ver mais</span></div>
+<div class="grid">
+<div class="profile" onclick="openProfile('Camila')"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=700"><div class="pinfo"><div class="online"><i class="dot"></i> online</div><div class="name">Camila, 26</div><div class="meta">Rio · 2 km</div></div></div>
+<div class="profile" onclick="openProfile('Larissa')"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=700"><div class="pinfo"><div class="online"><i class="dot"></i> online</div><div class="name">Larissa, 24</div><div class="meta">Rio · 4 km</div></div></div>
+<div class="profile" onclick="openProfile('Júlia')"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=700"><div class="pinfo"><div class="online"><i class="dot"></i> online</div><div class="name">Júlia, 29</div><div class="meta">Niterói · 9 km</div></div></div>
+<div class="profile" onclick="openProfile('Marina')"><img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=700"><div class="pinfo"><div class="online"><i class="dot"></i> online</div><div class="name">Marina, 27</div><div class="meta">Rio · 6 km</div></div></div>
+</div>
+<div class="feature"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300"><div class="grow"><span class="tag">🔥 DESTAQUE</span><strong>Bianca está na Festa Neon</strong><div class="meta">18 pessoas ao vivo</div></div><button class="cta" onclick="go('party')" style="padding:9px 12px;font-size:10px">Entrar</button></div>
 </section>
 
-<section id="register" class="screen">
-  <div class="topbar"><button class="secondary small" onclick="show('login')">← Voltar</button><span class="brand-mini">RENDER</span></div>
-  <div class="logo"><h1>RENDER</h1><p>Crie sua conta</p></div>
-  <div class="card">
-    <input id="regName" placeholder="Seu nome">
-    <input id="regEmail" type="email" placeholder="Seu e-mail">
-    <input id="regPassword" type="password" placeholder="Crie uma senha">
-    <label class="muted">Você é:</label>
-    <select id="regGender"><option value="male">Homem</option><option value="female">Mulher</option></select>
-    <input id="regAge" type="number" min="18" placeholder="Idade">
-    <button class="primary" onclick="register()">Criar conta</button>
-  </div>
-  <div class="notice">🔞 O RENDER é destinado exclusivamente a maiores de 18 anos.</div>
+<section id="discover" class="screen"><div class="sectionhead"><h2>Descobrir</h2></div><div class="search">⌕ <input placeholder="Nome, cidade ou interesse"></div><div class="tabs"><button class="tab active">Todos</button><button class="tab">Online</button><button class="tab">Perto</button><button class="tab">Novas</button></div><div class="grid">
+<div class="profile" onclick="openProfile('Camila')"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=700"><div class="pinfo"><div class="name">Camila, 26</div><div class="meta">Conversa & diversão</div></div></div>
+<div class="profile" onclick="openProfile('Larissa')"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=700"><div class="pinfo"><div class="name">Larissa, 24</div><div class="meta">Música & viagens</div></div></div>
+<div class="profile" onclick="openProfile('Júlia')"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=700"><div class="pinfo"><div class="name">Júlia, 29</div><div class="meta">Romântica</div></div></div>
+<div class="profile" onclick="openProfile('Marina')"><img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=700"><div class="pinfo"><div class="name">Marina, 27</div><div class="meta">Praia & dança</div></div></div>
+</div></section>
+
+<section id="party" class="screen"><div class="sectionhead"><h2>Salas de festa</h2><span class="see">● AO VIVO</span></div><button class="create-room" onclick="openCreateRoom()">＋ Criar minha sala de festa</button><div class="room-tabs"><button class="room-tab active">🔥 Ao vivo</button><button class="room-tab">👥 Minhas salas</button><button class="room-tab">👑 Tribos</button></div><div class="room-list"><div class="room-card"><div class="room-top"><img class="room-cover" src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=300"><div class="room-info"><strong>💋 Papo sem filtro</strong><small>criada por Lara · 32 pessoas</small><div class="room-badges"><span class="room-badge live">● AO VIVO</span><span class="room-badge">🎙️ 6 microfones</span></div></div><button class="room-enter" onclick="openPartyRoom('Papo sem filtro','Lara')">Entrar</button></div></div><div class="room-card"><div class="room-top"><img class="room-cover" src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=300"><div class="room-info"><strong>🎵 Música & conversa</strong><small>criada por Diego · 19 pessoas</small><div class="room-badges"><span class="room-badge live">● AO VIVO</span><span class="room-badge">🎙️ 4 microfones</span></div></div><button class="room-enter" onclick="openPartyRoom('Música & conversa','Diego')">Entrar</button></div></div><div class="room-card"><div class="room-top"><img class="room-cover" src="https://images.unsplash.com/photo-1506157786151-b8491531f063?w=300"><div class="room-info"><strong>🌹 Românticos</strong><small>criada por Júlia · 14 pessoas</small><div class="room-badges"><span class="room-badge live">● AO VIVO</span><span class="room-badge">🎁 presentes</span></div></div><button class="room-enter" onclick="openPartyRoom('Românticos','Júlia')">Entrar</button></div></div><div class="room-card"><div class="room-top"><img class="room-cover" src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=300"><div class="room-info"><strong>🔥 Madrugada</strong><small>criada por Rafael · 27 pessoas</small><div class="room-badges"><span class="room-badge live">● AO VIVO</span><span class="room-badge">🎙️ 8 microfones</span></div></div><button class="room-enter" onclick="openPartyRoom('Madrugada','Rafael')">Entrar</button></div></div></div><div class="sectionhead"><h2>Tribo em destaque</h2><span class="see">família</span></div><div class="tribe-card"><div class="tribe-head"><div class="tribe-icon">👑</div><div style="flex:1"><strong>Aliança do RENDER</strong><small>86 membros · 12 salas · nível 5</small></div><button class="room-enter" onclick="toast('Você entrou para visualizar a tribo.')">Ver</button></div><div style="margin-top:13px"><div class="task-row"><span class="task-check">✓</span><div style="flex:1"><b style="font-size:10px">Receba 3 presentes na tribo</b><small style="display:block;color:#999;font-size:8px">progresso 2/3</small></div><strong style="font-size:9px;color:#ffcc6d">+30 🫘</strong></div><div class="task-row"><span class="task-check">✓</span><div style="flex:1"><b style="font-size:10px">Participe de uma sala por 30 min</b><small style="display:block;color:#999;font-size:8px">progresso 18/30 min</small></div><strong style="font-size:9px;color:#ffcc6d">+20 🫘</strong></div><div class="task-row"><span class="task-check">✓</span><div style="flex:1"><b style="font-size:10px">Envie 1 presente na sala</b><small style="display:block;color:#999;font-size:8px">a atividade vale para homens e mulheres</small></div><strong style="font-size:9px;color:#ffcc6d">+15 🫘</strong></div></div></div></section>
+
+<section id="messages" class="screen"><div class="sectionhead"><h2>Mensagens</h2><span class="see">suas conversas</span></div><div class="search">⌕ <input placeholder="Buscar conversa"></div>
+<div class="row" onclick="go('chat')"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120" style="width:48px;height:48px;border-radius:15px;object-fit:cover"><div class="grow"><b>Camila <span style="color:#8effb8;font-size:8px">● online</span></b><small>Fico. Me conta uma coisa sobre você...</small></div><span style="color:#ff61b0;font-size:9px;font-weight:950">agora</span></div>
+<div class="row"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120" style="width:48px;height:48px;border-radius:15px;object-fit:cover"><div class="grow"><b>Larissa</b><small>Você enviou 🌹</small></div><span style="color:#898291;font-size:9px">2 min</span></div>
+<div class="row"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=120" style="width:48px;height:48px;border-radius:15px;object-fit:cover"><div class="grow"><b>Júlia</b><small>Oi, adorei te conhecer! 💕</small></div><span style="color:#898291;font-size:9px">8 min</span></div>
 </section>
 
-<section id="home" class="screen">
-  <div class="topbar">
-    <div class="profile"><div class="avatar" id="homeAvatar">👤</div><div class="profile-info"><strong id="homeName">Usuário</strong><span class="muted" style="font-size:12px"><span class="online"></span> online agora</span></div></div>
-    <button class="secondary small" onclick="logout()">Sair</button>
-  </div>
-  <div class="balance">
-    <div class="wallet">🪙 <small>Moedas</small><strong class="coin" id="coinBalance">0</strong></div>
-    <div class="wallet">🌱 <small>Feijões</small><strong class="bean" id="beanBalance">0</strong></div>
-  </div>
-  <div class="hero"><h2>Quem combina com você? ✨</h2><p>Descubra pessoas online e comece uma conversa sem complicação.</p><button class="primary" onclick="show('explore')">🔎 Explorar agora</button></div>
-  <div class="section-title"><h3>🔥 Online agora</h3><span class="muted">Ver todos</span></div>
-  <div id="profiles"></div>
-</section>
+<section id="wallet" class="screen"><div class="sectionhead"><h2>Minhas moedas</h2><span class="see">para gastar</span></div><div class="walletbox"><small>Saldo disponível</small><div class="big"><span id="walletCoins">1.250</span> <span style="font-size:12px;color:#ffcc6d">MOEDAS</span></div><button class="cta" onclick="toast('No produto real, aqui entra o pagamento seguro.')">Recarregar moedas</button></div><div class="stats"><div class="stat"><b>1.250</b><small>moedas disponíveis</small></div><div class="stat"><b>0</b><small>feijões recebidos</small></div></div><div class="sectionhead"><h2>Escolha seu pacote</h2></div><div class="packages">
+<div class="pack"><b>100 moedas</b><small>R$ 4,90</small><button class="buy" onclick="addCoins(100)">Comprar</button></div><div class="pack"><b>250 moedas</b><small>R$ 9,90</small><button class="buy" onclick="addCoins(250)">Comprar</button></div><div class="pack"><b>500 moedas</b><small>R$ 17,90</small><button class="buy" onclick="addCoins(500)">Comprar</button></div><div class="pack"><b>1.000 moedas</b><small>R$ 29,00</small><button class="buy" onclick="addCoins(1000)">Comprar</button></div><div class="pack"><b>2.500 moedas</b><small>R$ 69,90</small><button class="buy" onclick="addCoins(2500)">Comprar</button></div><div class="pack"><b>5.000 moedas</b><small>R$ 129,90</small><button class="buy" onclick="addCoins(5000)">Comprar</button></div></div></section>
 
-<section id="explore" class="screen">
-  <div class="topbar"><div><span class="brand-mini">RENDER</span><h2 style="margin-top:5px">Descobrir</h2></div><button class="secondary small" onclick="openModal('rechargeModal')">🪙 <span id="exploreCoins">0</span></button></div>
-  <div class="filter-row"><button class="filter active">✨ Para você</button><button class="filter">🟢 Online</button><button class="filter">🔥 Populares</button></div>
-  <div id="profileList"></div>
-</section>
+<section id="profile" class="screen"><div class="profilehero"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500"><h2>Rafael, 29</h2><div class="online" style="justify-content:center"><i class="dot"></i> online agora</div><div class="meta">Meu perfil · Rio de Janeiro</div><div class="actions"><button class="primary" onclick="go('discover')">🔎 Descobrir pessoas</button><button onclick="go('wallet')">🪙 Moedas</button></div></div>
+<div class="sectionhead"><h2>Minha conta</h2><span class="see">uso pessoal</span></div><div class="stats"><div class="stat"><b id="profileCoins">1.250</b><small>🪙 moedas disponíveis</small></div><div class="stat"><b>0</b><small>🫘 feijões</small></div></div>
+<div class="sectionhead"><h2>Atividade</h2></div><div class="list"><div class="row"><div class="ico">💬</div><div class="grow"><b>Mensagens enviadas</b><small>Use moedas para conversar em privado</small></div><span style="color:#ffcc6d;font-size:10px;font-weight:950">1 🪙 / msg</span></div><div class="row"><div class="ico">☎</div><div class="grow"><b>Chamadas</b><small>200 moedas por minuto</small></div><span style="color:#ffcc6d;font-size:10px;font-weight:950">200 🪙</span></div><div class="row"><div class="ico">🎁</div><div class="grow"><b>Presentes enviados</b><small>Os presentes ficam registrados no chat</small></div><span style="color:#ffcc6d;font-size:10px;font-weight:950">moedas</span></div></div></section>
 
-<section id="chatScreen" class="screen">
-  <div class="chat-page">
-    <div class="chat-head">
-      <button class="secondary small" onclick="show('explore')">←</button>
-      <div class="avatar" id="chatAvatar">👩</div>
-      <div class="chat-head-info"><strong id="chatName">Chat</strong><small>● online agora</small></div>
-      <button class="tool" onclick="startCall()">📞</button>
+<section id="chat" class="screen"><div class="chat"><div class="chathead"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200"><div><b>Camila</b><div class="online"><i class="dot"></i> online</div></div><button style="margin-left:auto;background:#211a29;padding:10px;border-radius:12px" onclick="callUser()">☎</button></div><div style="text-align:center;color:#716a78;font-size:9px;margin:9px">Resposta em até 30 min gera feijões para a criadora</div><div class="bubble right">Oi, boa tarde! 👋</div><div class="bubble left">Oi, boa tarde! Que bom te ver por aqui.<div class="reward">+3 🫘</div></div><div class="bubble right">Eu estava te procurando. Gostei da sua energia.</div><div class="bubble left">Então fica comigo um pouquinho. 💕</div><div class="gift-message"><span class="gift-icon">🌹</span><div class="gift-title">Rosa enviada</div><div class="gift-cost">🪙 25 moedas</div><div style="text-align:center"><span class="gift-label">🎁 presente no chat</span></div></div><div class="bubble right">Me conta uma coisa sobre você...</div></div></section>
+</main>
+
+<section id="partyRoom" class="screen">
+<div class="party-room-v6">
+  <div class="v6-bg"></div>
+  <div class="v6-top">
+    <button class="v6-icon" onclick="go('party')">‹</button>
+    <img id="v6Cover" class="v6-room-cover" src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=200">
+    <div class="v6-room-meta"><b id="v6Title">STARS RENDER ⭐❤️🏆</b><small id="v6Host">ID 2288057 · 32 pessoas</small></div>
+    <span class="v6-live">● AO VIVO</span>
+    <div class="v6-top-actions"><button class="v6-icon" onclick="openV6Rank()">🏆</button><button class="v6-icon" onclick="openRoomSettings()">⚙️</button><button class="v6-icon" onclick="go('party')">⏻</button></div>
+  </div>
+  <div class="v6-rankbar"><div class="v6-rank-pill gold">🏆 <span id="v6RoomScore">851.4K</span></div><div class="v6-rank-pill">🎁 <span id="v6GiftScore">99+</span></div><div class="v6-rank-pill" style="flex:1"><span>🔥</span><div class="v6-progress"><i></i></div><span>70.5%</span></div><div class="v6-rank-pill">👥 <span id="v6Count">55</span></div></div>
+  <div class="v6-float"><button onclick="toast('Lista de presentes recebidos')">🎁</button><button onclick="toast('Ranking da sala atualizado')">🏆</button><button class="hot" onclick="openGifts()">💎</button><button onclick="toast('Reações enviadas!')">❤️</button></div>
+  <div class="v6-stage"><div class="v6-grid" id="v6Grid"></div></div>
+  <div class="v6-chat" id="v6Chat"><div class="v6-msg"><b>Lara:</b> O palco principal do RENDER ⭐</div><div class="v6-msg"><b>Bia:</b> Sejam muito bem-vindos! 🎁❤️</div><div class="v6-msg gift">🎁 <b>DONstars</b> enviou um presente ×500</div><div class="v6-msg"><b>Rafael:</b> Vamos conversar juntos no Mic 🎙️</div></div>
+  <div class="v6-announcement">⭐ <b>ANÚNCIO DA SALA</b> · VENHA SE DIVERTIR E JOGAR CONOSCO. JUNTE-SE À GENTE ✅🎁❤️</div>
+  <div class="v6-present-overlay" id="v6PresentOverlay">🎁</div>
+  <div class="v6-bottom">
+    <div class="v6-actions">
+      <button class="v6-action" onclick="toggleV6Mic(this)" id="v6Mic">🎙️<small>Mic</small></button>
+      <button class="v6-action" onclick="toast('Pedido para subir no microfone enviado ✋')">✋<small>Pedir</small></button>
+      <button class="v6-action" onclick="toast('Reação enviada ❤️')">❤️<small>Reagir</small></button>
+      <button class="v6-action gift" onclick="openGifts()">🎁<small>Presentes</small></button>
+      <button class="v6-action" onclick="openV6Chat()">💬<small>Chat</small></button>
+      <button class="v6-action" onclick="toast('Painel de participantes aberto 👥')">👥<small>Pessoas</small></button>
+      <button class="v6-action" onclick="openRoomSettings()">☰<small>Mais</small></button>
     </div>
-    <div class="chat-note">💜 1 moeda por mensagem</div>
-    <div id="messages" class="chat-box"></div>
-    <div id="emojiPanel" class="emoji-panel"><div class="emoji-grid" id="emojiGrid"></div></div>
-    <div id="giftPanel" class="gift-panel"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px"><strong>🎁 Presentes</strong><span class="muted" style="font-size:11px">20% para a host</span></div><div class="gift-grid" id="giftGrid"></div></div>
-    <div class="chat-tools">
-      <button class="tool" onclick="toggleEmoji()">😊</button>
-      <button class="tool" onclick="toggleGifts()">🎁</button>
-      <input id="messageInput" class="chat-input" placeholder="Digite uma mensagem..." onkeydown="if(event.key==='Enter')sendMessage()">
-      <button class="tool send" onclick="sendMessage()">➤</button>
-    </div>
+    <div class="v6-say"><input id="v6Input" placeholder="Diga algo" onkeydown="if(event.key==='Enter')sendV6Msg()"><button onclick="sendV6Msg()">➤</button></div>
   </div>
+</div>
 </section>
+<div id="roomControls" style="display:none"></div>
+<nav class="nav"><button data-go="home" class="active" onclick="go('home')"><b>⌂</b>Início</button><button data-go="discover" onclick="go('discover')"><b>⌕</b>Descobrir</button><button data-go="party" onclick="go('party')"><b>✦</b>Festas</button><button data-go="messages" onclick="go('messages')"><b>💬</b>Mensagens</button><button data-go="wallet" onclick="go('wallet')"><b>◉</b>Moedas</button><button data-go="profile" onclick="go('profile')"><b>♡</b>Perfil</button></nav>
 
-<section id="walletScreen" class="screen">
-  <div class="topbar"><h2>Minha carteira</h2><button class="secondary small" onclick="openModal('rechargeModal')">+ Moedas</button></div>
-  <div class="balance"><div class="wallet">🪙 <small>Moedas</small><strong class="coin" id="walletCoins">0</strong></div><div class="wallet">🌱 <small>Feijões</small><strong class="bean" id="walletBeans">0</strong></div></div>
-  <div id="maleWallet"></div><div id="femaleWallet"></div>
-</section>
+<div id="chattools" class="chattools" style="display:none"><button class="round" onclick="emoji()">☺</button><input id="msg" placeholder="Escreva uma mensagem..." onkeydown="if(event.key==='Enter')sendMsg()"><button class="round" onclick="openGifts()">🎁</button><button class="round send" onclick="sendMsg()">➤</button></div>
 
-<section id="profileScreen" class="screen">
-  <div class="topbar"><h2>Meu perfil</h2></div>
-  <div class="card center"><div class="avatar" id="profileAvatar" style="margin:auto">👤</div><h2 id="profileName">Usuário</h2><p class="muted" id="profileRole"></p></div>
-  <div class="card"><div class="stat"><span>Nível Host</span><strong id="hostLevel">1</strong></div><div class="stat"><span>Nível Chame</span><strong id="chameLevel">1</strong></div><div class="stat"><span>Mensagens enviadas</span><strong id="messageCount">0</strong></div><div class="stat"><span>Minutos em chamadas</span><strong id="callMinutes">0</strong></div></div>
-  <div class="card vip"><h3>👑 RENDER VIP</h3><p class="muted" style="margin-top:7px">Mais destaque, benefícios e experiências especiais.</p></div>
-</section>
+<div id="roomSettingsModal" class="modal"><div class="sheet"><div class="sheethead"><h2 style="margin:0">⚙️ Configuração da sala</h2><button class="close" onclick="closeModal('roomSettingsModal')">×</button></div><p style="color:#aaa;font-size:10px;line-height:1.5">Somente o dono e os administradores podem alterar estas opções.</p><div class="row"><div class="ico">👑</div><div class="grow"><b>Administradores</b><small>Defina quem pode moderar a sala</small></div><button class="room-enter" onclick="toast('Painel de administradores aberto.')">Gerenciar</button></div><div class="row"><div class="ico">🔒</div><div class="grow"><b>Privacidade</b><small>Sala pública, privada ou com senha</small></div><button class="room-enter" onclick="toast('Privacidade da sala configurada.')">Alterar</button></div><div class="row"><div class="ico">🎤</div><div class="grow"><b>Microfones</b><small>Controle de lugares, convites e moderação</small></div><button class="room-enter" onclick="toast('Controles de microfone abertos.')">Gerenciar</button></div><div class="row"><div class="ico">🖼️</div><div class="grow"><b>Papel de parede</b><small>Temas liberados por nível da sala</small></div><button class="room-enter" onclick="closeModal('roomSettingsModal');openWallpapers()">Escolher</button></div></div></div>
+<div id="wallpaperModal" class="modal"><div class="sheet"><div class="sheethead"><h2 style="margin:0">🖼️ Papéis de parede</h2><button class="close" onclick="closeModal('wallpaperModal')">×</button></div><p style="color:#aaa;font-size:10px;line-height:1.5">Alguns temas são desbloqueados por nível. Outros podem ser liberados por eventos ou personalização.</p><div class="wall-grid"><button class="wall-choice wall-1-bg active" onclick="setWall(1)"><span>✨ Neon · nível 1</span></button><button class="wall-choice wall-2-bg" onclick="setWall(2)"><span>🌌 Aurora · nível 2</span></button><button class="wall-choice wall-3-bg" onclick="setWall(3)"><span>👑 Luxo · nível 3</span></button><button class="wall-choice wall-4-bg" onclick="setWall(4)"><span>🌿 Jardim · nível 4</span></button><button class="wall-choice wall-5-bg" onclick="setWall(5)"><span>💜 Galaxy · nível 5</span></button><button class="wall-choice wall-6-bg" onclick="setWall(6)"><span>🔥 Sunset · nível 6</span></button></div></div></div>
 
-<nav id="nav" class="tabs" style="display:none">
-  <button id="navHome" onclick="show('home')">🏠<br>Início</button>
-  <button id="navExplore" onclick="show('explore')">✨<br>Descobrir</button>
-  <button id="navWallet" onclick="show('walletScreen')">💰<br>Carteira</button>
-  <button id="navProfile" onclick="show('profileScreen')">👤<br>Perfil</button>
-</nav>
-
-<div id="rechargeModal" class="modal"><div class="modal-box">
-  <button class="close" onclick="closeModal('rechargeModal')">×</button><h2>🪙 Comprar moedas</h2><p class="muted">Escolha seu pacote.</p><br>
-  <div id="packages"></div><div class="notice">⚠️ Protótipo: as compras são simuladas. Pagamento real será integrado depois.</div>
-</div></div>
-
-<div id="withdrawModal" class="modal"><div class="modal-box">
-  <button class="close" onclick="closeModal('withdrawModal')">×</button><h2>💸 Saque via Pix</h2><p class="muted">1.000 feijões = R$ 5,40.</p>
-  <input id="pixKey" placeholder="Sua chave Pix"><button class="success" onclick="withdraw()">Solicitar saque</button>
-</div></div>
-
-<div id="callModal" class="modal"><div class="modal-box call">
-  <div class="avatar" style="margin:auto">📞</div><h2 id="callPerson">Chamada</h2><p class="muted">Chamada em andamento</p><div class="timer" id="callTimer">00:00</div>
-  <div class="notice">💰 Custo: <strong>200 moedas por minuto</strong></div><button class="danger" onclick="endCall()">Encerrar chamada</button>
-</div></div>
+<div id="v6RankModal" class="modal"><div class="v6-side-sheet"><div class="sheethead"><h2 style="margin:0">🏆 Ranking da sala</h2><button class="close" onclick="closeModal('v6RankModal')">×</button></div><div class="row"><div class="ico">🥇</div><div class="grow"><b>DONstars</b><small>851.4K pontos</small></div><strong style="color:#ffd166">1º</strong></div><div class="row"><div class="ico">🥈</div><div class="grow"><b>MAND</b><small>18.29K pontos</small></div><strong>2º</strong></div><div class="row"><div class="ico">🥉</div><div class="grow"><b>Indomável</b><small>31.61K pontos</small></div><strong>3º</strong></div><div class="row"><div class="ico">💎</div><div class="grow"><b>Paulina</b><small>46.5K presentes</small></div><strong>4º</strong></div></div></div>
+<div id="createRoomModal" class="modal"><div class="sheet"><div class="sheethead"><h2 style="margin:0">Criar sala de festa 🎙️</h2><button class="close" onclick="closeModal('createRoomModal')">×</button></div><p style="color:#aaa;font-size:10px;line-height:1.5">Você cria sua própria sala, escolhe o nome e entra como dono/anfitrião. No produto real, regras de moderação, denúncias e permissões serão controladas pelo backend.</p><div class="modal-form"><input id="newRoomName" placeholder="Nome da sala, ex.: Papo da madrugada"><div class="create-options"><button class="active">🎙️ Voz</button><button>🎵 Música</button><button>💬 Papo</button><button>🔞 18+</button></div><button class="cta" onclick="createRoom()">Criar sala agora</button></div></div></div>
+<div id="giftModal" class="modal"><div class="sheet"><div class="sheethead"><h2 style="margin:0">Presentes 🎁</h2><button class="close" onclick="closeModal('giftModal')">×</button></div><div class="giftgrid" id="giftGrid"></div></div></div>
+<div id="emojiModal" class="modal"><div class="sheet"><div class="sheethead"><h2 style="margin:0">Emojis</h2><button class="close" onclick="closeModal('emojiModal')">×</button></div><div id="emojiList" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"></div></div></div>
+<div id="callModal" class="modal"><div class="sheet" style="text-align:center"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300" style="width:96px;height:96px;border-radius:29px;object-fit:cover"><h2>Chamando Camila…</h2><p style="color:#aaa">200 moedas por minuto · demonstração</p><button class="cta" onclick="closeModal('callModal')">Encerrar</button></div></div>
+<div id="giftFlyLayer" class="gift-fly-layer"></div><div id="toast" class="toast"></div>
+</div>
 
 <script>
-const PROFILES=[
- {id:1,name:"Ana",age:25,emoji:"👩🏻",host:3,chame:2,online:true,description:"Gosto de conversar e conhecer pessoas novas."},
- {id:2,name:"Julia",age:28,emoji:"👩🏼",host:5,chame:4,online:true,description:"Sempre pronta para uma boa conversa."},
- {id:3,name:"Camila",age:23,emoji:"👩🏽",host:2,chame:3,online:true,description:"Adoro uma conversa divertida."},
- {id:4,name:"Marina",age:27,emoji:"👩🏻‍🦰",host:4,chame:5,online:true,description:"Boa conversa, risadas e muita energia."},
- {id:5,name:"Beatriz",age:24,emoji:"👩🏾",host:3,chame:3,online:true,description:"Aqui para conhecer gente interessante."}
+let moedas=1250;
+const presentes=[
+['❤️','Coração',10],['🌹','Rosa',25],['💋','Beijo',50],['🧸','Ursinho',100],['🍫','Chocolate',150],['💐','Buquê',250],
+['🥂','Champanhe',500],['💎','Diamante',1000],['👑','Coroa',2500],['💍','Anel luxo',3000],['👜','Bolsa luxo',4000],['⌚','Relógio luxo',5000],
+['🍾','Espumante',7500],['🎧','Fone premium',9000],['🎀','Presente surpresa',12000],['🏆','Troféu VIP',15000],['🦋','Borboleta',18000],['🦄','Unicórnio',22000],
+['🦁','Leão dourado',25000],['🐯','Tigre de ouro',30000],['🚗','Carro esportivo',35000],['🏎️','Supercarro',45000],['🏰','Castelo',50000],['🛥️','Iate',65000],
+['✈️','Jato particular',80000],['💫','Estrela VIP',100000],['🌌','Universo',150000],['🚀','Foguete',200000],['🌈','Arco-íris mágico',250000],['💎','Diamante real',300000]
 ];
-const PACOTES={100:4.90,250:9.90,500:17.90,1000:29.00,2500:69.90,5000:129.90,10000:249.90};
-const CUSTO_MENSAGEM=1;
-const CUSTO_CHAMADA=200;
-const FEIJOES_POR_MENSAGEM=4;
-const FEIJOES_POR_MOEDA_PRESENTE=0.8;
-const VALOR_1000_FEIJOES=5.40;
-const PRESENTES=[
- ["❤️","Coração",10],["🌹","Rosa",25],["💋","Beijo",50],["🧸","Ursinho",100],["🍫","Chocolate",150],
- ["💐","Buquê",250],["🥂","Champanhe",500],["💎","Diamante",1000],["👑","Coroa",2500],
- ["💍","Anel de luxo",3000],["👜","Bolsa de luxo",4000],["⌚","Relógio de luxo",5000],
- ["💰","Chuva de dinheiro",7500],["🏆","Troféu VIP",10000],["🦋","Borboleta de diamantes",15000],
- ["🦁","Leão dourado",25000],["🏰","Castelo",50000],["🚀","Foguete espacial",100000]
-];
-const EMOJIS=["😀","😂","😍","🥰","😘","😉","😎","🤩","🥳","😊","😏","😮","😢","😭","😡","🤭","🙈","❤️","🧡","💛","💚","💙","💜","🖤","🔥","✨","💋","🌹","🥰","👏","🙏","🎉","💎","👑","💖"];
-let currentUser=JSON.parse(localStorage.getItem("renderUser"))||null;
-let selectedProfile=null,callInterval=null,callSeconds=0;
+const emojis=['😍','🥰','😘','😉','😊','😏','😈','🔥','❤️','💕','💖','💗','💓','💞','💋','🌹','🌸','🌺','✨','⭐','🌟','💫','👑','💎','🎁','🎉','🥂','🍾','🫶','🤍','🖤','💜','💙','💚','💛','🧡','❤️‍🔥','😂','🤣','🥹','😭','😎','🤭','🙈','🙉','🙊','😇','🤩','😴','😮‍💨','😜','😋','🤤','😌','🫦','👀','💅','👏','🤝','🙏','💐','🦋','🦄','🦁','🐯','🚀','🏆','🎵','🍫'];
+function fmt(n){return n.toLocaleString('pt-BR')}
+const USER_ROLE='male'; // Na versão real, o backend define este papel no cadastro. Não existe troca de papel pela interface.
+function update(){document.getElementById('topMoney').textContent=fmt(moedas);document.getElementById('walletCoins').textContent=fmt(moedas)}
+function go(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.go===id));document.getElementById('chattools').style.display=id==='chat'?'flex':'none';document.getElementById('roomControls').style.display=id==='partyRoom'?'flex':'none';window.scrollTo({top:0,behavior:'smooth'});if(id==='chat')setTimeout(scrollChat,120)}
+function scrollChat(){window.scrollTo({top:document.documentElement.scrollHeight,behavior:'smooth'})}
+function openProfile(n){go('profile');toast(n+' está online agora.')}
+function addCoins(n){moedas+=n;update();toast('+'+fmt(n)+' moedas adicionadas (demonstração).')}
+function toast(t){let e=document.getElementById('toast');e.textContent=t;e.classList.add('show');clearTimeout(window.timer);window.timer=setTimeout(()=>e.classList.remove('show'),2200)}
+function openGifts(){document.getElementById('giftModal').classList.add('show')}
+function emoji(){document.getElementById('emojiModal').classList.add('show')}
+function closeModal(id){document.getElementById(id).classList.remove('show')}
+function callUser(){document.getElementById('callModal').classList.add('show')}
+function sendMsg(){let i=document.getElementById('msg');if(!i.value.trim())return;if(moedas<1){toast('Moedas insuficientes.');return}moedas--;update();let b=document.createElement('div');b.className='bubble right';b.textContent=i.value.trim();document.querySelector('#chat .chat').appendChild(b);i.value='';scrollChat();setTimeout(()=>{let r=document.createElement('div');r.className='bubble left';r.innerHTML='Recebi sua mensagem. 😘<div class=\"reward\">+3 🫘</div>';document.querySelector('#chat .chat').appendChild(r);scrollChat()},650)}
+function openPartyRoom(name,host){document.getElementById('roomTitle').textContent=name;document.getElementById('roomHost').textContent='Criada por '+host+' · ao vivo';document.getElementById('roomCount').textContent=Math.floor(12+Math.random()*30);go('partyRoom')}
+function toggleMic(btn){btn.classList.toggle('primary');btn.textContent=btn.classList.contains('primary')?'🎙️':'🔇';toast(btn.classList.contains('primary')?'Microfone ligado.':'Microfone desligado.')}
+function openCreateRoom(){document.getElementById('createRoomModal').classList.add('show')}
+function createRoom(){const n=document.getElementById('newRoomName').value.trim()||'Minha sala';closeModal('createRoomModal');toast('Sala “'+n+'” criada. Você é o anfitrião.');openPartyRoom(n,'Você')}
+function gift(g){if(moedas<g[2]){toast('Moedas insuficientes para este presente.');return}moedas-=g[2];update();closeModal('giftModal');playGiftAnimation(g);appendGiftMessage(g);toast(g[0]+' '+g[1]+' enviado!')}
+function playGiftAnimation(g){const layer=document.getElementById('giftFlyLayer');layer.innerHTML='';const fly=document.createElement('div');fly.className='gift-fly';fly.textContent=g[0];layer.appendChild(fly);['✨','💖','⭐','✨','💫','💕'].forEach((s,i)=>{const sp=document.createElement('span');sp.className='gift-spark';sp.textContent=s;sp.style.setProperty('--sx',((i%2?1:-1)*(35+i*18))+'vw');sp.style.setProperty('--sy',(-20+(i%3)*45)+'px');sp.style.left=(45+i*3)+'%';sp.style.bottom=(20+i*5)+'%';layer.appendChild(sp)});setTimeout(()=>layer.innerHTML='',1250)}
+function appendGiftMessage(g){const chat=document.querySelector('#chat .chat');const box=document.createElement('div');box.className='gift-message';box.innerHTML='<span class="gift-icon">'+g[0]+'</span><div class="gift-title">'+g[1]+' enviada</div><div class="gift-cost">🪙 '+fmt(g[2])+' moedas</div><div style="text-align:center"><span class="gift-label">🎁 presente no chat</span></div>';chat.appendChild(box);setTimeout(scrollChat,60)}
+document.getElementById('giftGrid').innerHTML=presentes.map((g,i)=>`<button class="gift" onclick="gift(presentes[${i}])"><div class="emoji">${g[0]}</div><b>${g[1]}</b><small>🪙 ${fmt(g[2])}</small></button>`).join('');
+document.getElementById('emojiList').innerHTML=emojis.map(e=>`<button style="background:none;font-size:25px;padding:3px" onclick="document.getElementById('msg').value+=this.textContent;closeModal('emojiModal')">${e}</button>`).join('');
+update();
+setTimeout(()=>{if(document.getElementById('chat').classList.contains('active'))scrollChat()},200);
 
-function saveUser(){localStorage.setItem("renderUser",JSON.stringify(currentUser))}
-function syncUser(){
- if(!currentUser)return;
- const users=JSON.parse(localStorage.getItem("renderUsers")||"[]");
- const i=users.findIndex(u=>u.id===currentUser.id);
- if(i>=0){users[i]=currentUser;localStorage.setItem("renderUsers",JSON.stringify(users))}
- saveUser();
+function openRoomSettings(){document.getElementById('roomSettingsModal').classList.add('show')}
+function openWallpapers(){document.getElementById('wallpaperModal').classList.add('show')}
+function setWall(n){const stage=document.getElementById('roomStage');if(!stage)return;stage.className='room-stage wall-'+n;document.querySelectorAll('.wall-choice').forEach(x=>x.classList.remove('active'));event.currentTarget.classList.add('active');toast('🖼️ Papel de parede aplicado');closeModal('wallpaperModal')}
+
+function renderV6Seats(){
+ const people=[
+ ['DONstars','https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=160','host','851.4K','👑'],['MAND','https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=160','vip','18.29K',''],['Indomável','https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=160','vip','31.61K',''],['Paulina','https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=160','vip','46.5K','👑'],['Grace','https://images.unsplash.com/photo-1517841905240-472988babdf9?w=160','','16.9K',''],
+ ['Nina','https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=160','','5.4K',''],['Amazônia','https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=160','','2.81K',''],['Rosm...','https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=160','','19.87K',''],['Yzlu...','https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=160','','860',''],['Lua stars','https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=160','vip','1.02K',''],
+ ['Davids','https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=160','vip','63.73K','👑'],['Maista','https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?w=160','vip','37.73K',''],['Che...','https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=160','','200',''],['Morena','https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?w=160','','80',''],['BILLY²','https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=160','','80',''],
+ ['Yuk...','https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?w=160','','640',''],['A.L.L.V...','https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=160','vip','3.329K',''],['Nacho...','https://images.unsplash.com/photo-1517841905240-472988babdf9?w=160','','2.2K',''],['Cassia...','https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=160','','450',''],['Sol Re...','https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=160','','640',''],
+ ['CATAL...','https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=160','','3.94K','😎'],['AGab...','https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=160','vip','7.95K',''],['Freya','https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=160','','130',''],['CAR...','https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=160','','1.86K',''],
+ ['Angel...','https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=160','','0',''],['+','https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=160','','Entrar',''],['Gat...','https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=160','','1.98K',''],['EU','https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=160','vip','110',''],['M...','https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=160','','32.48K',''],['Van...','https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=160','','280','']
+ ];
+ document.getElementById('v6Grid').innerHTML=people.map((p,i)=>`<div class="v6-seat ${p[2]} ${i<3?'vip':''}" onclick="toast('${p[0]} está na sala')"><div class="v6-avatar-wrap">${p[4]?`<span class="v6-crown">${p[4]}</span>`:''}<img class="v6-avatar" src="${p[1]}" loading="lazy"><span class="v6-mic ${i<4?'on speaking':''}">${i<4?'🎙️':'🔇'}</span></div><div class="v6-name">${p[0]}</div><div class="v6-score">${p[3]}</div>${i%5===0?'<div class="v6-gift-mini">💗 '+(Math.max(80,i*320))+'</div>':''}</div>`).join('');
 }
-function setText(id,v){const e=document.getElementById(id);if(e)e.textContent=v}
-function show(id){
- document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
- const target=document.getElementById(id);if(!target)return;target.classList.add("active");
- const noNav=["login","register","chatScreen"].includes(id);
- const nav=document.getElementById("nav");if(nav)nav.style.display=currentUser&&!noNav?"flex":"none";
- updateUI();renderWallet();updateNav(id);
-}
-function register(){
- const name=document.getElementById("regName").value.trim(),email=document.getElementById("regEmail").value.trim(),password=document.getElementById("regPassword").value,gender=document.getElementById("regGender").value,age=Number(document.getElementById("regAge").value);
- if(!name||!email||!password)return alert("Preencha todos os campos.");
- if(password.length<4)return alert("A senha deve ter pelo menos 4 caracteres.");
- if(!age||age<18)return alert("O RENDER é somente para maiores de 18 anos.");
- const users=JSON.parse(localStorage.getItem("renderUsers")||"[]");
- if(users.some(u=>u.email.toLowerCase()===email.toLowerCase()))return alert("Este e-mail já está cadastrado.");
- currentUser={id:Date.now(),name,email,password,gender,age,coins:0,beans:0,hostLevel:1,chameLevel:1,messages:0,callMinutes:0,giftsSent:0,createdAt:new Date().toISOString()};
- users.push(currentUser);localStorage.setItem("renderUsers",JSON.stringify(users));saveUser();alert("Conta criada com sucesso! 🎉");show("home");
-}
-function login(){
- const email=document.getElementById("loginEmail").value.trim(),password=document.getElementById("loginPassword").value;
- if(!email||!password)return alert("Digite seu e-mail e sua senha.");
- const users=JSON.parse(localStorage.getItem("renderUsers")||"[]"),u=users.find(x=>x.email.toLowerCase()===email.toLowerCase()&&x.password===password);
- if(!u)return alert("E-mail ou senha incorretos.");currentUser=u;saveUser();show("home");
-}
-function logout(){currentUser=null;localStorage.removeItem("renderUser");show("login")}
-function updateUI(){
- if(!currentUser)return;
- const female=currentUser.gender==="female",avatar=female?"👩":"👨";
- setText("homeName",currentUser.name);setText("profileName",currentUser.name);setText("profileRole",female?"Mulher / Host":"Homem");
- ["homeAvatar","profileAvatar"].forEach(id=>setText(id,avatar));
- setText("coinBalance",currentUser.coins||0);setText("beanBalance",currentUser.beans||0);setText("walletCoins",currentUser.coins||0);setText("walletBeans",currentUser.beans||0);
- setText("exploreCoins",currentUser.coins||0);setText("hostLevel",currentUser.hostLevel||1);setText("chameLevel",currentUser.chameLevel||1);setText("messageCount",currentUser.messages||0);setText("callMinutes",currentUser.callMinutes||0);
-}
-function renderProfiles(){
- ["profiles","profileList"].forEach(id=>{
-  const c=document.getElementById(id);if(!c)return;c.innerHTML="";
-  PROFILES.forEach(p=>{
-   const d=document.createElement("div");d.className="person";
-   d.innerHTML=`<div class="avatar">${p.emoji}</div><div class="person-info"><h3>${p.name}, ${p.age}</h3><p><span class="online"></span> online agora</p><p>${p.description}</p><span class="badge">⭐ Host ${p.host} · 💬 Chame ${p.chame}</span></div><button class="primary" onclick="openChat(${p.id})">Conversar</button>`;
-   c.appendChild(d);
-  });
- });
-}
-function openChat(id){
- selectedProfile=PROFILES.find(p=>p.id===id);if(!selectedProfile)return;
- setText("chatName",selectedProfile.name);setText("chatAvatar",selectedProfile.emoji);
- const m=document.getElementById("messages");m.innerHTML=`<div class="msg other">Olá! Eu sou ${selectedProfile.name}. 😊<small>agora</small></div>`;
- closePanels();show("chatScreen");m.scrollTop=m.scrollHeight;
-}
-function addMessage(text,me=true){
- const m=document.getElementById("messages"),d=document.createElement("div");d.className="msg "+(me?"me":"other");d.innerHTML=`${escapeHtml(text)}<small>agora</small>`;m.appendChild(d);m.scrollTop=m.scrollHeight;
-}
-function escapeHtml(s){const d=document.createElement("div");d.textContent=s;return d.innerHTML}
-function sendMessage(){
- if(!currentUser)return alert("Entre na sua conta primeiro.");
- const input=document.getElementById("messageInput"),text=input.value.trim();if(!text)return;
- if(currentUser.coins<CUSTO_MENSAGEM){alert("Você não possui moedas suficientes. Faça uma recarga.");openModal("rechargeModal");return}
- currentUser.coins-=CUSTO_MENSAGEM;currentUser.messages=(currentUser.messages||0)+1;
- addMessage(text,true);input.value="";syncUser();updateUI();
-}
-function toggleEmoji(){document.getElementById("emojiPanel").classList.toggle("show");document.getElementById("giftPanel").classList.remove("show")}
-function toggleGifts(){document.getElementById("giftPanel").classList.toggle("show");document.getElementById("emojiPanel").classList.remove("show")}
-function closePanels(){document.getElementById("emojiPanel").classList.remove("show");document.getElementById("giftPanel").classList.remove("show")}
-function addEmoji(e){const input=document.getElementById("messageInput");input.value+=e;input.focus()}
-function sendGift(index){
- if(!currentUser)return;
- const g=PRESENTES[index],cost=g[2];
- if(currentUser.coins<cost){alert("Você não possui moedas suficientes para este presente.");openModal("rechargeModal");return}
- currentUser.coins-=cost;currentUser.giftsSent=(currentUser.giftsSent||0)+1;
- const beans=cost*FEIJOES_POR_MOEDA_PRESENTE;
- currentUser.beans=(currentUser.beans||0)+beans;
- addMessage(`${g[0]} Presente enviado: ${g[1]} · ${cost.toLocaleString("pt-BR")} moedas`,true);
- syncUser();updateUI();closePanels();
- alert(`🎁 ${g[1]} enviado! A host recebe 20% do valor econômico do presente.`);
-}
-function startCall(){
- if(!currentUser)return;
- if(currentUser.coins<CUSTO_CHAMADA){alert("Você precisa de pelo menos 200 moedas para iniciar a chamada.");openModal("rechargeModal");return}
- if(!selectedProfile)return alert("Escolha uma pessoa primeiro.");
- setText("callPerson",selectedProfile.name);callSeconds=0;updateCallTimer();openModal("callModal");clearInterval(callInterval);
- callInterval=setInterval(()=>{callSeconds++;updateCallTimer();if(callSeconds%60===0){if(currentUser.coins>=CUSTO_CHAMADA){currentUser.coins-=CUSTO_CHAMADA;currentUser.callMinutes=(currentUser.callMinutes||0)+1;currentUser.beans=(currentUser.beans||0)+200;syncUser();updateUI()}else{alert("Suas moedas acabaram. A chamada será encerrada.");endCall()}}},1000);
-}
-function updateCallTimer(){setText("callTimer",String(Math.floor(callSeconds/60)).padStart(2,"0")+":"+String(callSeconds%60).padStart(2,"0"))}
-function endCall(){clearInterval(callInterval);callInterval=null;closeModal("callModal");syncUser();updateUI()}
-function buyCoins(amount){
- if(!currentUser)return;const price=PACOTES[amount];if(!price)return;
- currentUser.coins=(currentUser.coins||0)+amount;syncUser();updateUI();closeModal("rechargeModal");alert(`${amount.toLocaleString("pt-BR")} moedas adicionadas ao protótipo.`);
-}
-function withdraw(){
- if(!currentUser)return;if(currentUser.beans<1000)return alert("Você precisa de pelo menos 1.000 feijões para solicitar saque.");
- const pix=document.getElementById("pixKey").value.trim();if(!pix)return alert("Digite sua chave Pix.");
- alert("Solicitação registrada no protótipo. O pagamento Pix real ainda será integrado.");closeModal("withdrawModal");
-}
-function openModal(id){document.getElementById(id)?.classList.add("show")}
-function closeModal(id){document.getElementById(id)?.classList.remove("show")}
-function renderWallet(){
- const male=document.getElementById("maleWallet"),female=document.getElementById("femaleWallet");if(!male||!female||!currentUser)return;
- if(currentUser.gender==="male"){
-  male.innerHTML=`<div class="card"><h2>🪙 Suas moedas</h2><p class="muted">1 moeda por mensagem. Use também para chamadas e presentes.</p><button class="primary" onclick="openModal('rechargeModal')">Comprar moedas</button></div>`;
-  female.innerHTML="";
- }else{
-  female.innerHTML=`<div class="card"><h2>🌱 Seus ganhos</h2><p class="muted">1.000 feijões = R$ 5,40. Você recebe feijões pelas interações.</p><button class="success" onclick="openModal('withdrawModal')">💸 Solicitar saque Pix</button></div>`;
-  male.innerHTML="";
- }
-}
-function updateNav(active){
- const map={home:"navHome",explore:"navExplore",walletScreen:"navWallet",profileScreen:"navProfile"};
- document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));if(map[active])document.getElementById(map[active])?.classList.add("active");
-}
-function buildPackages(){
- const c=document.getElementById("packages");c.innerHTML="";
- Object.entries(PACOTES).forEach(([amount,price],i=>{
-  const d=document.createElement("div");d.className="package";d.innerHTML=`<div><strong>${Number(amount).toLocaleString("pt-BR")} moedas</strong><div class="muted" style="font-size:12px">para mensagens, presentes e chamadas</div></div><div><div class="price">R$ ${price.toFixed(2).replace(".",",")}</div><button class="primary" onclick="buyCoins(${amount})">Comprar</button></div>`;c.appendChild(d);
- }));
-}
-function buildEmojis(){const c=document.getElementById("emojiGrid");EMOJIS.forEach(e=>{const b=document.createElement("button");b.textContent=e;b.onclick=()=>addEmoji(e);c.appendChild(b)})}
-function buildGifts(){const c=document.getElementById("giftGrid");PRESENTES.forEach((g,i)=>{const d=document.createElement("div");d.className="gift";d.innerHTML=`<button onclick="sendGift(${i})"><div class="gift-icon">${g[0]}</div><div class="gift-name">${g[1]}</div><div class="gift-price">🪙 ${g[2].toLocaleString("pt-BR")}</div></button>`;c.appendChild(d)})}
-document.addEventListener("DOMContentLoaded",()=>{
- renderProfiles();buildPackages();buildEmojis();buildGifts();
- if(currentUser)show("home");else show("login");
-});
+function openV6Rank(){document.getElementById('v6RankModal').classList.add('show')}
+function openV6Chat(){const i=document.getElementById('v6Input');i.focus();toast('Chat pronto para você escrever 💬')}
+function sendV6Msg(){const i=document.getElementById('v6Input');const v=i.value.trim();if(!v)return;if(moedas<1){toast('Você precisa de 1 moeda para enviar uma mensagem.');return}moedas--;update();const d=document.createElement('div');d.className='v6-msg';d.innerHTML='<b>Você:</b> '+v.replace(/[<>]/g,'');document.getElementById('v6Chat').appendChild(d);i.value='';setTimeout(()=>{const r=document.createElement('div');r.className='v6-msg';r.innerHTML='<b>Lara:</b> Recebi! 💕';document.getElementById('v6Chat').appendChild(r)},500)}
+function toggleV6Mic(btn){btn.classList.toggle('mic-on');btn.firstChild.textContent=btn.classList.contains('mic-on')?'🔊':'🎙️';toast(btn.classList.contains('mic-on')?'Você entrou no microfone 🎙️':'Seu microfone foi desligado 🔇')}
+function gift(g){if(moedas<g[2]){toast('Moedas insuficientes para este presente.');return}moedas-=g[2];update();closeModal('giftModal');const o=document.getElementById('v6PresentOverlay');o.textContent=g[0];o.classList.remove('show');void o.offsetWidth;o.classList.add('show');const d=document.createElement('div');d.className='v6-msg gift';d.innerHTML='🎁 <b>Você</b> enviou '+g[0]+' '+g[1]+' · 🪙 '+fmt(g[2]);document.getElementById('v6Chat').appendChild(d);toast(g[0]+' '+g[1]+' enviado!')}
+renderV6Seats();
+
+function openPartyRoom(name,host){document.getElementById('v6Title').textContent=name||'STARS RENDER ⭐❤️🏆';document.getElementById('v6Host').textContent='ID 2288057 · ao vivo · 55 pessoas';go('partyRoom')}
 </script>
-</div>
-</body>
-</html>
+</body></html>
