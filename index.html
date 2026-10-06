@@ -61,6 +61,16 @@
 @media(max-width:380px){.v6-grid{gap:9px 3px}.v6-avatar-wrap,.v6-avatar{width:50px;height:50px}.v6-grid{grid-template-columns:repeat(5,1fr)}.v6-action{height:40px}.v6-chat{width:82%}}
 
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = 'https://ocshqtimxfpercreqgqf.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_HiDqoa2yFdol0wJCor2uww_DxIPhInc';
+
+const supabase = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+</script>
 </head>
 <body>
 <div class="app">
