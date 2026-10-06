@@ -74,7 +74,7 @@ const supabase = window.supabase.createClient(
 </head>
 <body>
 <div class="app">
-<header class="top"><div class="toprow"><div class="brand">RENDER</div><button class="balance" onclick="go('wallet')"><span class="coin">M</span><span id="topMoney">1.250</span> moedas</button></div></header>
+<header class="top"><div class="toprow"><div class="brand">RENDER</div><button class="balance" onclick="openRenderAuth()"><span class="coin">M</span><span id="topMoney">1.250</span> moedas</button></div></header>
 
 
 
@@ -227,6 +227,122 @@ function toggleV6Mic(btn){btn.classList.toggle('mic-on');btn.firstChild.textCont
 function gift(g){if(moedas<g[2]){toast('Moedas insuficientes para este presente.');return}moedas-=g[2];update();closeModal('giftModal');const o=document.getElementById('v6PresentOverlay');o.textContent=g[0];o.classList.remove('show');void o.offsetWidth;o.classList.add('show');const d=document.createElement('div');d.className='v6-msg gift';d.innerHTML='🎁 <b>Você</b> enviou '+g[0]+' '+g[1]+' · 🪙 '+fmt(g[2]);document.getElementById('v6Chat').appendChild(d);toast(g[0]+' '+g[1]+' enviado!')}
 renderV6Seats();
 
-function openPartyRoom(name,host){document.getElementById('v6Title').textContent=name||'STARS RENDER ⭐❤️🏆';document.getElementById('v6Host').textContent='ID 2288057 · ao vivo · 55 pessoas';go('partyRoom')}
-</script>
+function openPartyRoom(name,host){document.getElementById('v6Title').textContent=name||'STARS RENDER ⭐❤️🏆';document.getElementById('v6Host').textContent='ID 2288057 · ao vivo · 55 pessoas';go('partyRoom')}                                     
+  // ===== RENDER: LOGIN + CARTEIRA REAL =====
+(function(){
+  const box=document.createElement('div');
+  box.id='renderAuthBox';
+  box.innerHTML=`
+    <div id="renderAuthModal" class="modal">
+      <div class="sheet">
+        <div class="sheethead">
+          <h2 style="margin:0">🔐 Conta RENDER</h2>
+          <button class="close" onclick="closeRenderAuth()">×</button>
+        </div>
+        <p id="renderAuthStatus" style="color:#aaa;font-size:10px">
+          Entre ou crie sua conta para salvar suas moedas.
+        </p>
+        <div class="modal-form">
+          <input id="renderEmail" type="email" placeholder="Seu e-mail">
+          <input id="renderPassword" type="password" placeholder="Sua senha">
+          <button class="cta" onclick="renderLogin()">Entrar</button>
+          <button class="buy" onclick="renderSignup()">Criar conta</button>
+          <button class="buy" onclick="renderLogout()">Sair da conta</button>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(box);
+
+  window.openRenderAuth=function(){
+    document.getElementById('renderAuthModal').classList.add('show');
+    renderSession();
+  };
+
+  window.closeRenderAuth=function(){
+    document.getElementById('renderAuthModal').classList.remove('show');
+  };
+
+  window.renderSession=async function(){
+    const {data:{session}}=await supabase.auth.getSession();
+    const status=document.getElementById('renderAuthStatus');
+
+    if(session){
+      status.textContent='Conta conectada: '+session.user.email;
+
+      const {data:wallet}=await supabase
+        .from('wallets')
+        .select('coins,beans')
+        .eq('user_id',session.user.id)
+        .single();
+
+      if(wallet){
+        moedas=Number(wallet.coins||0);
+        update();
+      }
+    }else{
+      status.textContent='Nenhuma conta conectada.';
+    }
+  };
+
+  window.renderLogin=async function(){
+    const email=document.getElementById('renderEmail').value.trim();
+    const password=document.getElementById('renderPassword').value;
+
+    if(!email||!password){
+      toast('Digite seu e-mail e sua senha.');
+      return;
+    }
+
+    const {error}=await supabase.auth.signInWithPassword({
+      email,password
+    });
+
+    if(error){
+      toast(error.message.includes('Email not confirmed')
+        ? 'Confirme seu e-mail antes de entrar.'
+        : error.message);
+      return;
+    }
+
+    await renderSession();
+    closeRenderAuth();
+    toast('Login realizado com sucesso.');
+  };
+
+  window.renderSignup=async function(){
+    const email=document.getElementById('renderEmail').value.trim();
+    const password=document.getElementById('renderPassword').value;
+
+    if(!email||password.length<6){
+      toast('Use um e-mail e uma senha com pelo menos 6 caracteres.');
+      return;
+    }
+
+    const {error}=await supabase.auth.signUp({
+      email,password
+    });
+
+    if(error){
+      toast(error.message);
+      return;
+    }
+
+    toast('Conta criada! Confira seu e-mail para confirmar.');
+  };
+
+  window.renderLogout=async function(){
+    await supabase.auth.signOut();
+    moedas=0;
+    update();
+    closeRenderAuth();
+    toast('Você saiu da conta.');
+  };
+
+  supabase.auth.onAuthStateChange(function(){
+    setTimeout(renderSession,100);
+  });
+
+  renderSession();
+})();                                                                                                                                                                                                                                                                                                                                                                                     
+  l</script>
 </body></html>
