@@ -321,7 +321,7 @@ function openPartyRoom(name,host){document.getElementById('v6Title').textContent
     return;
   }
 
-  const {data,error}=await window.supabase.auth.signUp({
+  const {data,error}=await supabase.auth.signUp({
     email:email,
     password:password
   });
